@@ -1,0 +1,29 @@
+.home-img {
+  width: 100%;
+  height: auto;
+  background: center center no-repeat;
+  background-size: cover;
+}
+
+/* Features */
+.features {
+  margin: 0 auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feature-box {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: center;
+  width: 33%;
+  height: 300px;
+  padding: 30px 20px 20px 20px;
+}
+
+.feature-box:nth-child(odd) {
+  margin: 0 20px 0 20px;
+}

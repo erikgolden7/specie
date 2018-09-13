@@ -12,16 +12,18 @@ app.use(json());
 app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
-  console.log('PRODUCTION MODE');
+  console.log('----PRODUCTION MODE----');
   app.use(express.static(path.join(__dirname, '../build')));
+} else {
+  console.log('----DEVELOPMENT MODE----');
+  app.use(express.static(path.join(__dirname, '../public')));
+}
 
+if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../build/index.js'));
   });
 } else {
-  console.log('DEVELOPMENT MODE');
-  app.use(express.static(path.join(__dirname, '../public')));
-
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
   });
