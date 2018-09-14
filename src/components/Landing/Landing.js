@@ -4,6 +4,7 @@ import img from '../../assets/money-management.jpg';
 import icon1 from '../../assets/budgets.png';
 import icon2 from '../../assets/bills_calendar.png';
 import icon3 from '../../assets/credit_checked.png';
+import placeholder from '../../assets/placeholder.png';
 
 export default class Landing extends Component {
   render() {
@@ -55,7 +56,31 @@ export default class Landing extends Component {
           </div>
         </section>
         <section className="about">
-          <div className="about-section">top</div>
+          <div className="about-section">
+            <div className="about-outer">
+              <div className="about-left">
+                <h3>Effortlessly stay on top of bills</h3>
+                <p>
+                  At last, your bills and money are together in one place and
+                  easier than ever to track. Just add your bills to see how
+                  helpful we can be.
+                </p>
+                <ul>
+                  <li style={{ marginRight: 10 }}>
+                    See bills and money in one place.
+                  </li>
+                  <li>Get alerts about upcoming bills.</li>
+                  <li>Say goodbye to late fees.</li>
+                </ul>
+              </div>
+              <div className="about-right">
+                <img
+                  src="https://www.mint.com/sites/default/files/billsmodule%402x_1.png?timestamp=1535430201"
+                  style={{ height: 370 }}
+                />
+              </div>
+            </div>
+          </div>
           <div className="about-section">middle</div>
           <div className="about-section">bottom</div>
         </section>
