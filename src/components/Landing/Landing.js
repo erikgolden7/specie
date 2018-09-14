@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Carousel, { carouselSlidesData } from '../Carousel/Carousel';
+import Carousel from '../Carousel/Carousel';
 import './landing.css';
 import img from '../../assets/money-management.jpg';
 import icon1 from '../../assets/budgets.png';
@@ -143,7 +143,7 @@ export default class Landing extends Component {
           </div>
         </section>
         <section style={{ height: 1000 }}>
-          <Carousel slides={carouselSlidesData} />
+          <Carousel />
         </section>
       </div>
     );
