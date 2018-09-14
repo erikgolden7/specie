@@ -59,16 +59,14 @@ export default class Landing extends Component {
           <div className="about-section">
             <div className="about-outer">
               <div className="about-left">
-                <h3>Effortlessly stay on top of bills</h3>
+                <h2>Effortlessly stay on top of bills</h2>
                 <p>
                   At last, your bills and money are together in one place and
                   easier than ever to track. Just add your bills to see how
                   helpful we can be.
                 </p>
                 <ul>
-                  <li style={{ marginRight: 10 }}>
-                    See bills and money in one place.
-                  </li>
+                  <li>See bills and money in one place.</li>
                   <li>Get alerts about upcoming bills.</li>
                   <li>Say goodbye to late fees.</li>
                 </ul>
@@ -81,9 +79,67 @@ export default class Landing extends Component {
               </div>
             </div>
           </div>
-          <div className="about-section">middle</div>
-          <div className="about-section">bottom</div>
+          <div className="about-section">
+            <div
+              className="about-outer"
+              style={{ width: '70%', marginRight: '20%' }}
+            >
+              <div className="about-left">
+                <img
+                  src="https://www.mint.com/sites/default/files/ipad-with-mint-budgets.png?timestamp=1484865796"
+                  style={{
+                    height: 370,
+                    marginTop: -50,
+                    maxWidth: 700,
+                    width: '100%'
+                  }}
+                />
+              </div>
+              <div className="about-right">
+                <h2>Get started simply & securely</h2>
+                <ul>
+                  <li>
+                    It’s easy to set up your free account in seconds, and help’s
+                    available if you should ever need it.
+                  </li>
+                  <li>
+                    We work to keep your information secure. All your data is
+                    encrypted with a 256-bit encryption level and the data
+                    exchanged with Mint is encrypted with 128-bit SSL.
+                  </li>
+                  <li>
+                    Mint comes from the makers of TurboTax®, trusted by millions
+                    every year with their most sensitive data.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="about-section">
+            <div className="about-outer">
+              <div className="about-left">
+                <h2>Effortlessly stay on top of bills</h2>
+                <p>
+                  At last, your bills and money are together in one place and
+                  easier than ever to track. Just add your bills to see how
+                  helpful we can be.
+                </p>
+                <ul>
+                  <li>See bills and money in one place.</li>
+                  <li>Get alerts about upcoming bills.</li>
+                  <li>Say goodbye to late fees.</li>
+                </ul>
+              </div>
+              <div className="about-right">
+                <img
+                  src="https://www.mint.com/sites/default/files/mint-mobile-login-screen_3_1.jpg?timestamp=1535367398"
+                  style={{ height: 370 }}
+                />
+              </div>
+            </div>
+          </div>
         </section>
+        <section style={{ height: 1000 }} />
       </div>
     );
   }

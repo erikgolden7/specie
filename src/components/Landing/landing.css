@@ -44,27 +44,41 @@
 }
 
 .about-outer {
-  width: 80%;
+  width: 60%;
   display: flex;
   justify-content: space-evenly;
   padding-top: 80px;
   margin: 0 auto;
 }
 
+.about-outer li {
+  font-weight: bold;
+  line-height: 2;
+  font-size: 15px;
+}
+
 .about-left {
-  width: 45%;
+  width: 50%;
   height: 310px;
-  padding: 30px 40px 30px 160px;
+  padding-top: 50px;
   line-height: 1.42857143;
+  padding: 50px 10px 0 10px;
 }
 
 .about-left > p {
   max-width: 400px;
+  font-size: 15px;
+}
+
+.about-left > img {
+  padding-top: -50px;
 }
 
 .about-right {
-  width: 45%;
+  width: 50%;
   height: 370px;
+  padding: 0 10px;
+  line-height: 1.42857143;
 }
 
 ul {
