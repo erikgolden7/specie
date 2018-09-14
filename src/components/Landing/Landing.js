@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import Carousel, { carouselSlidesData } from '../Carousel/Carousel';
 import './landing.css';
 import img from '../../assets/money-management.jpg';
 import icon1 from '../../assets/budgets.png';
 import icon2 from '../../assets/bills_calendar.png';
 import icon3 from '../../assets/credit_checked.png';
-import placeholder from '../../assets/placeholder.png';
 
 export default class Landing extends Component {
   render() {
@@ -75,6 +75,7 @@ export default class Landing extends Component {
                 <img
                   src="https://www.mint.com/sites/default/files/billsmodule%402x_1.png?timestamp=1535430201"
                   style={{ height: 370 }}
+                  alt=""
                 />
               </div>
             </div>
@@ -93,6 +94,7 @@ export default class Landing extends Component {
                     maxWidth: 700,
                     width: '100%'
                   }}
+                  alt=""
                 />
               </div>
               <div className="about-right">
@@ -134,12 +136,15 @@ export default class Landing extends Component {
                 <img
                   src="https://www.mint.com/sites/default/files/mint-mobile-login-screen_3_1.jpg?timestamp=1535367398"
                   style={{ height: 370 }}
+                  alt=""
                 />
               </div>
             </div>
           </div>
         </section>
-        <section style={{ height: 1000 }} />
+        <section style={{ height: 1000 }}>
+          <Carousel slides={carouselSlidesData} />
+        </section>
       </div>
     );
   }

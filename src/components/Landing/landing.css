@@ -40,7 +40,8 @@
 }
 
 .about-section:nth-child(odd) {
-  background-color: #f5f5f5;
+  background-color: #0ebf6a;
+  color: white;
 }
 
 .about-outer {
