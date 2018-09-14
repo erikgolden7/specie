@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function CarouselSlide(props) {
+  console.log(props.slide);
   return (
     <li
       className={
@@ -9,11 +10,7 @@ export default function CarouselSlide(props) {
           : 'carousel__slide'
       }
     >
-      <p className="carousel-slide__content">{props.slide.content}</p>
-      <p>
-        <strong className="carousel-slide__author">{props.slide.author}</strong>
-        ,<small className="carousel-slide__source">{props.slide.source}</small>
-      </p>
+      {props.slide}
     </li>
   );
 }

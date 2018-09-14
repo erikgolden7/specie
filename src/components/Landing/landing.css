@@ -39,9 +39,13 @@
   height: 450px;
 }
 
-.about-section:nth-child(odd) {
+.about-section:nth-child(1) {
   background-color: #0ebf6a;
   color: white;
+}
+
+.about-section:nth-child(3) {
+  background-color: #f5f4f5;
 }
 
 .about-outer {

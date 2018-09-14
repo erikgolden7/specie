@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import CarouselArrow from './CarouselArrow';
 import CarouselSlide from './CarouselSlide';
 import CarouselIndicator from './CarouselIndicator';
+import Test, { Test1, Test2 } from '../Test';
 import './carousel.css';
-import { testData } from './carouselTestData';
+// import { testData } from './carouselTestData';
 
 export default class Carousel extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      activeIndex: 0
+      activeIndex: 0,
+      testData: [<Test />, <Test1 />, <Test2 />]
     };
   }
 
@@ -20,6 +22,7 @@ export default class Carousel extends Component {
 
   goToPrevSlide = e => {
     e.preventDefault();
+    const { testData } = this.state;
 
     let index = this.state.activeIndex;
 
@@ -35,6 +38,7 @@ export default class Carousel extends Component {
   };
 
   goToNextSlide = e => {
+    const { testData } = this.state;
     e.preventDefault();
 
     let index = this.state.activeIndex;
@@ -49,6 +53,7 @@ export default class Carousel extends Component {
   };
 
   render() {
+    const { testData } = this.state;
     const slides = testData.map((e, i) => (
       <CarouselSlide
         key={i}
