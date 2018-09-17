@@ -1,7 +1,36 @@
 ul {
   padding: 0;
   margin: 0;
-  list-style-type: none;
+}
+
+li {
+  font-weight: bold;
+  line-height: 2;
+  font-size: 15px;
+  margin-left: 20px;
+  list-style-type: disc;
+}
+
+.slide-left {
+  height: 370px;
+  line-height: 1.42857143;
+  color: #ffffff;
+}
+
+.slide-left > p {
+  max-width: 400px;
+  font-size: 15px;
+}
+
+.slide-left > img {
+  padding-top: -50px;
+}
+
+.slide-right {
+  height: 370px;
+  padding: 0 10px;
+  line-height: 1.42857143;
+  color: #ffffff;
 }
 
 .carousel-container {
@@ -15,58 +44,35 @@ ul {
   position: relative;
 }
 
-.carousel__slide {
+.carousel-slide {
   margin-right: auto;
   margin-left: auto;
   display: none;
-  /* max-width: 900px;
-  list-style-type: none;
-  text-align: center; */
   min-height: 450px;
 }
 
-/* @media (max-width: 991px) {
-  .carousel__slide {
-    padding-right: 60px;
-    padding-left: 60px;
-  }
-} */
-
-.carousel__slide--active {
+.carousel-slide-active {
   display: block;
 }
 
-.carousel-slide__content {
+.carousel-slide-content {
   margin-bottom: 19px;
   font-family: 'Open Sans', 'Trebuchet MS', sans-serif;
   font-size: 16px;
 }
 
-/* @media (max-width: 992px - 1px) {
-  .carousel-slide__content {
-    font-size: 18px;
-  }
-} */
-
-.carousel-slide__author,
-.carousel-slide__source {
+.carousel-slide-author,
+.carousel-slide-source {
   font-family: 'Roboto', arial, sans-serif;
   font-size: 14px;
 }
 
-/* @media (min-width: 992px) {
-  .carousel-slide__author,
-  .carousel-slide__source {
-    font-size: 16px;
-  }
-} */
-
-.carousel-slide__source {
+.carousel-slide-source {
   font-style: italic;
   color: #888;
 }
 
-.carousel__arrow {
+.carousel-arrow {
   position: absolute;
   top: 50%;
   display: block;
@@ -77,34 +83,34 @@ ul {
   transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
 }
 
-.carousel__arrow:focus {
+.carousel-arrow:focus {
   outline: 0;
 }
 
-.carousel__arrow:hover {
+.carousel-arrow:hover {
   opacity: 0.5;
 }
 
-.carousel__arrow--left {
+.carousel-arrow-left {
   left: 32px;
 }
 
-.carousel__arrow--right {
+.carousel-arrow-right {
   right: 32px;
 }
 
-.carousel__indicators {
+.carousel-indicators {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-top: 20px;
 }
 
-.carousel__indicators:nth-of-type(n + 2) > div {
+.carousel-indicators:nth-of-type(n + 2) > div {
   margin-left: 9px;
 }
 
-.carousel__indicator {
+.carousel-indicator {
   display: block;
   width: 24px;
   height: 3px;
@@ -114,15 +120,15 @@ ul {
   transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
 }
 
-.carousel__indicator:hover {
+.carousel-indicator:hover {
   opacity: 0.5;
 }
 
-.carousel__indicator--active {
+.carousel-indicator-active {
   opacity: 0.75;
 }
 
-.carousel__indicator--active:hover {
+.carousel-indicator-active:hover {
   opacity: 0.75;
 }
 

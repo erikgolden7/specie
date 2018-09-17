@@ -75,9 +75,9 @@ export default class Carousel extends Component {
     return (
       <div className="carousel">
         <CarouselArrow arrow="left" onClick={e => this.goToPrevSlide(e)} />
-        <ul className="carousel__slides">{slides}</ul>
+        <ul className="carousel-slides">{slides}</ul>
         <CarouselArrow arrow="right" onClick={e => this.goToNextSlide(e)} />
-        <ul className="carousel__indicators">{indicators}</ul>
+        <ul className="carousel-indicators">{indicators}</ul>
       </div>
     );
   }

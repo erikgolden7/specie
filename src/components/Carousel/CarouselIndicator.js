@@ -5,8 +5,8 @@ export default function CarouselIndicator(props) {
     <div
       className={
         props.index === props.activeIndex
-          ? 'carousel__indicator carousel__indicator--active'
-          : 'carousel__indicator'
+          ? 'carousel-indicator carousel-indicator-active'
+          : 'carousel-indicator'
       }
       onClick={props.onClick}
     />

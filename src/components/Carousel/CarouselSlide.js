@@ -6,8 +6,8 @@ export default function CarouselSlide(props) {
     <li
       className={
         props.index === props.activeIndex
-          ? 'carousel__slide carousel__slide--active'
-          : 'carousel__slide'
+          ? 'carousel-slide carousel-slide-active'
+          : 'carousel-slide'
       }
     >
       {props.slide}
