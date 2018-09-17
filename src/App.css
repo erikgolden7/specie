@@ -6,12 +6,11 @@ body {
 
 button {
   width: 90px;
-  height: 25px;
-  font-size: 12px;
-  font-weight: bold;
+  height: 30px;
+  font-size: 14px;
   text-transform: uppercase;
   color: white;
-  border-radius: 2px;
+  border-radius: 1px;
   background-color: #fd8a10;
   cursor: pointer;
   transition: all 0.2s ease-in-out;

@@ -55,95 +55,68 @@ export default class Landing extends Component {
             />
           </div>
         </section>
+
         <section className="about">
           <div className="about-section">
-            <div className="about-outer">
-              <div className="about-left">
-                <h2>Effortlessly stay on top of bills</h2>
-                <p>
-                  At last, your bills and money are together in one place and
-                  easier than ever to track. Just add your bills to see how
-                  helpful we can be.
-                </p>
-                <ul>
-                  <li>See bills and money in one place.</li>
-                  <li>Get alerts about upcoming bills.</li>
-                  <li>Say goodbye to late fees.</li>
-                </ul>
-              </div>
-              <div className="about-right">
-                <img
-                  src="https://www.mint.com/sites/default/files/billsmodule%402x_1.png?timestamp=1535430201"
-                  style={{ height: 370 }}
-                  alt=""
-                />
-              </div>
+            <div className="savings-container">
+              <h2>
+                If your savings account balance is at or below $1,000, you're
+                not alone.
+              </h2>
+              <p>20% of Americans don't save any of their annual income</p>
+              <p>
+                57% of Americans have less than $1,000 in their savings account.
+              </p>
+              <p>
+                The most common financial mistake people over the age of 30
+                admit to making is not saving enough.
+              </p>
             </div>
           </div>
+
           <div className="about-section">
-            <div
-              className="about-outer"
-              style={{ width: '70%', marginRight: '20%' }}
-            >
-              <div className="about-left">
-                <img
-                  src="https://www.mint.com/sites/default/files/ipad-with-mint-budgets.png?timestamp=1484865796"
-                  style={{
-                    height: 370,
-                    marginTop: -50,
-                    maxWidth: 700,
-                    width: '100%'
-                  }}
-                  alt=""
-                />
-              </div>
-              <div className="about-right">
-                <h2>Get started simply & securely</h2>
-                <ul>
-                  <li>
-                    It’s easy to set up your free account in seconds, and help’s
-                    available if you should ever need it.
-                  </li>
-                  <li>
-                    We work to keep your information secure. All your data is
-                    encrypted with a 256-bit encryption level and the data
-                    exchanged with Mint is encrypted with 128-bit SSL.
-                  </li>
-                  <li>
-                    Mint comes from the makers of TurboTax®, trusted by millions
-                    every year with their most sensitive data.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="about-section">
-            <div className="about-outer">
-              <div className="about-left">
-                <h2>Effortlessly stay on top of bills</h2>
+            <div className="debt-container">
+              <div className="debt-image" />
+              <div className="debt-text">
+                <h2>
+                  About half of Americans are “concerned, anxious or fearful
+                  about their current financial well-being”
+                </h2>
                 <p>
-                  At last, your bills and money are together in one place and
-                  easier than ever to track. Just add your bills to see how
-                  helpful we can be.
+                  55% of Americans feel lost when it comes to a long-term and
+                  stable financial plan.
                 </p>
-                <ul>
-                  <li>See bills and money in one place.</li>
-                  <li>Get alerts about upcoming bills.</li>
-                  <li>Say goodbye to late fees.</li>
-                </ul>
-              </div>
-              <div className="about-right">
-                <img
-                  src="https://www.mint.com/sites/default/files/mint-mobile-login-screen_3_1.jpg?timestamp=1535367398"
-                  style={{ height: 370 }}
-                  alt=""
-                />
+                <p>
+                  Nearly a third could never envisage a life for themselves
+                  where they would never be in some sort of debt.
+                </p>
+                <p>
+                  The economy might be prospering now, but that won't last
+                  forever
+                </p>
               </div>
             </div>
           </div>
-        </section>
-        <section style={{ height: 1000 }}>
+
           <Carousel />
+
+          <div className="summary-section">
+            <div style={{ fontSize: 42 }}>Get to Know Your Money</div>
+            <p>
+              From budgets and bills to free credit score and more, you’ll
+              discover the effortless way to stay on top of it all.
+            </p>
+            <div className="summary-btns">
+              <button style={{ height: 43, width: 190 }}>SIGN UP FREE</button>
+              <button className="summary-login-btn">LOG IN</button>
+            </div>
+          </div>
+
+          <div className="about-summary" style={{ background: '#2B2B2B' }}>
+            <div className="summary-container">
+              <h5 style={{ color: 'white' }}>copyright @ etc...</h5>
+            </div>
+          </div>
         </section>
       </div>
     );
