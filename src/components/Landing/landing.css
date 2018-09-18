@@ -1,8 +1,24 @@
+.image-section {
+  position: relative;
+}
+
 .home-img {
+  position: relative;
   width: 100%;
   height: auto;
-  background: center center no-repeat;
-  background-size: cover;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
+}
+
+.home-img-text {
+  position: absolute;
+  top: 3%;
+  margin-left: 10vw;
+  color: #fff;
+  font-size: 4.5vw;
+  font-weight: bold;
 }
 
 /* Features */

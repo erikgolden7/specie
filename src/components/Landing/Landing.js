@@ -10,7 +10,13 @@ export default class Landing extends Component {
   render() {
     return (
       <div>
-        <img className="home-img" src={img} alt="broken" />
+        <section>
+          <div className="image-section">
+            <img className="home-img" src={img} alt="coin stacks" />
+            <h3 className="home-img-text"> Spend Smarter, Live Better </h3>
+          </div>
+        </section>
+
         <section className="features">
           <div className="feature-box">
             <h3>Budgets? You betcha</h3>

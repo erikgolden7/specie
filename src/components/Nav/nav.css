@@ -25,4 +25,12 @@ button.login {
 }
 
 .nav-links {
+  display: flex;
+  width: 30%;
+  justify-content: space-evenly;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
 }
