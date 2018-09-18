@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../Landing/landing.css';
 import carousel2 from '../../assets/carousel2.png';
-import carousel3 from '../../assets/carousel4.png';
+import carousel3 from '../../assets/carousel3.png';
 
 export default class SlideOne extends Component {
   render() {

@@ -22,15 +22,45 @@ button.login {
   background-color: #313131;
   z-index: 99;
   transition: background-color 0.4s;
+  border-bottom: solid black 1px;
 }
 
 .nav-links {
+  position: relative;
   display: flex;
   width: 30%;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
   color: white;
   text-decoration: none;
+  margin-right: 30px;
+  height: 50px;
+  text-align: center;
+  padding: 0 10px;
+  transition: color 0.2s ease;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 8px;
+  left: 0;
+  background-color: #6aea70;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.nav-link:hover::before {
+  background-color: #fff;
+  visibility: visible;
+  transform: scaleX(1);
+  transition: all 0.3s ease-in-out 0s;
 }
