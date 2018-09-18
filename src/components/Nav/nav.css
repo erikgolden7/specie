@@ -3,6 +3,14 @@ button.login {
   border: none;
 }
 
+.logo {
+  width: 100px;
+  height: 50px;
+  background: url('../../assets/white.png') center no-repeat;
+  background-size: contain;
+  margin: 0 15px;
+}
+
 .nav {
   position: sticky;
   top: 0;
@@ -16,10 +24,5 @@ button.login {
   transition: background-color 0.4s;
 }
 
-.logo {
-  width: 100px;
-  height: 50px;
-  background: url('../../assets/white.png') center no-repeat;
-  background-size: contain;
-  margin: 0 15px;
+.nav-links {
 }
