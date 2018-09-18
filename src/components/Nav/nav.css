@@ -64,3 +64,46 @@ button.login {
   transform: scaleX(1);
   transition: all 0.3s ease-in-out 0s;
 }
+
+.hamburger-menu {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  background-size: cover;
+}
+
+.hamburger-menu-item {
+}
+
+@media (max-width: 1800px) {
+  .hamburger-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hamburger-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: url('../../assets/menu-icon.png') center no-repeat;
+    background-size: cover;
+  }
+  .nav-link {
+    display: none;
+  }
+
+  button.login {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+}

@@ -148,3 +148,21 @@ li {
   background: url('../../assets/rightArrow.png') center no-repeat;
   background-size: contain;
 }
+
+@media (max-width: 1800px) {
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 900px) {
+  .carousel {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel {
+    display: none;
+  }
+}

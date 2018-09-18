@@ -8,22 +8,19 @@ export default () => {
       <Link to="/" className="logo" />
       <div className="nav-links">
         <Link className="nav-link" to="/dashboard">
-          {' '}
-          Dashboard{' '}
+          Dashboard
         </Link>
         <Link className="nav-link" to="/goals">
-          {' '}
-          Goals{' '}
+          Goals
         </Link>
         <Link className="nav-link" to="/budgets">
-          {' '}
-          Budgets{' '}
+          Budgets
         </Link>
         <Link className="nav-link" to="/achievements">
-          {' '}
-          Achievments{' '}
+          Achievments
         </Link>
       </div>
+
       <button className="login">Login</button>
     </div>
   );
