@@ -63,3 +63,19 @@
   width: 200px;
   border-radius: 3px;
 }
+
+.budgets-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.current-budgets {
+  width: calc(100% - 475px);
+  height: 600px;
+  background: lightgray;
+  border-bottom: solid gray 1px;
+  border-right: solid gray 1px;
+  padding: 5px;
+}
