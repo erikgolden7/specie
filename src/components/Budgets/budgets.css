@@ -4,17 +4,6 @@
   height: auto;
 }
 
-.add-type-btn {
-  height: 40px;
-  width: 200px;
-  padding: 10px;
-  background: #66b268;
-  font-size: 16px;
-  color: #ffffff;
-  border: solid gray 1px;
-  border-radius: 3px;
-}
-
 .add-budget-container {
   position: relative;
   height: auto;
@@ -44,7 +33,17 @@
   border: solid gray 1px;
 }
 
-.search-bar {
+.add-type-btn,
+.view-type-btn {
+  height: 40px;
+  padding: 10px;
+  background: #66b268;
+  font-size: 16px;
+  color: #ffffff;
+  border: solid gray 1px;
+}
+
+.type-input {
   width: 188px;
   height: 30px;
   margin-left: 10px;
@@ -55,13 +54,12 @@
   padding: 4px 10px;
 }
 
-.add-menu-item {
-  height: 40px;
-  padding: 10px;
-  background: #66b268;
-  font-size: 16px;
-  color: #ffffff;
-  border: solid gray 1px;
+.add-type-btn {
   border-radius: 0 3px 3px 0;
   font-weight: bold;
+}
+
+.view-type-btn {
+  width: 200px;
+  border-radius: 3px;
 }

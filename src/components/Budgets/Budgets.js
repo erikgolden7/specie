@@ -9,7 +9,8 @@ class Budgets extends Component {
       showMenu: false,
       billTypes: [],
       color: {},
-      input: ''
+      input: '',
+      inputError: false
     };
   }
 
@@ -26,9 +27,9 @@ class Budgets extends Component {
     return { light: `hsl(${h},${s},${light})`, dark: `hsl(${h},${s},${dark})` };
   };
 
-  addBillType = () => {
+  addBillType = e => {
     if (!this.state.input) {
-      alert('Unsuccessful, required field');
+      this.setState({ inputError: true });
       return;
     }
 
@@ -40,7 +41,13 @@ class Budgets extends Component {
       color: { light: hue.light, dark: hue.dark }
     });
 
-    this.setState({ billTypes: types });
+    this.setState({ billTypes: types, inputError: false, input: '' });
+  };
+
+  inputEnterPress = e => {
+    if (e.keyCode === 13) {
+      this.addBillType(e);
+    }
   };
 
   showMenu = e => {
@@ -49,6 +56,8 @@ class Budgets extends Component {
   };
 
   render() {
+    const { inputError, input, showMenu } = this.state;
+
     console.log(this.state.color, this.state.input);
 
     const types = this.state.billTypes.map((e, i) => (
@@ -64,17 +73,25 @@ class Budgets extends Component {
     return (
       <div className="budgets-view">
         <div className="add-budget-container">
-          <button className="add-type-btn" onClick={this.showMenu}>
+          <button className="view-type-btn" onClick={this.showMenu}>
             View Budget Types
           </button>
           <input
             type="text"
-            placeholder="Add Budget Type..."
+            placeholder={
+              inputError ? 'Must Enter Budget Type' : 'Add Budget Type...'
+            }
             onChange={this.handleTypeInput}
             value={this.state.input}
-            className="search-bar"
+            className="type-input"
+            style={
+              inputError
+                ? { border: 'solid 1px red' }
+                : { border: 'solid 1px gray' }
+            }
+            onKeyDown={this.inputEnterPress}
           />
-          <button className="add-menu-item" onClick={this.addBillType}>
+          <button className="add-type-btn" onClick={this.addBillType}>
             +
           </button>
 
