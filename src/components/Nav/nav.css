@@ -12,7 +12,7 @@ button.login {
 }
 
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
   display: flex;
   align-items: center;
@@ -23,6 +23,31 @@ button.login {
   z-index: 99;
   transition: background-color 0.4s;
   border-bottom: solid black 1px;
+}
+
+.nav > button {
+  width: 90px;
+  height: 30px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 1px;
+  background-color: #fd8a10;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav > button:focus {
+  outline: 0;
+}
+
+.nav > button:hover {
+  background-color: hsl(31, 89%, 38%);
+}
+
+.nav > button:active {
+  outline: none;
+  border: none;
 }
 
 .nav-links {
@@ -95,6 +120,7 @@ button.login {
     height: 40px;
     background: url('../../assets/menu-icon.png') center no-repeat;
     background-size: cover;
+    margin-right: 10px;
   }
   .nav-link {
     display: none;

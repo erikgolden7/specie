@@ -1,0 +1,32 @@
+.budgets-view {
+  margin-top: 60px;
+  width: 100%;
+  height: auto;
+}
+
+.add-type-btn {
+  padding: 10px;
+  background: seagreen;
+  font-size: 16px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 300px;
+  padding: 5px 5px 0 5px;
+  border: solid gray 1px;
+}
+
+.menu-item {
+  min-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #ffffff;
+  border: solid gray 1px;
+}

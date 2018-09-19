@@ -113,7 +113,7 @@ export default class Landing extends Component {
               discover the effortless way to stay on top of it all.
             </p>
             <div className="summary-btns">
-              <button style={{ height: 43, width: 190 }}>SIGN UP FREE</button>
+              <button className="summary-signup-btn">SIGN UP FREE</button>
               <button className="summary-login-btn">LOG IN</button>
             </div>
           </div>

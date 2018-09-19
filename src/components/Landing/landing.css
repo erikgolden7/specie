@@ -80,9 +80,10 @@
 }
 
 .savings-container {
-  height: 90%;
-  background: url('https://cdn4.iconfinder.com/data/icons/banking/512/15-512.png')
-    center center no-repeat;
+  height: 100%;
+  background: url('https://cms.geteminleads.com/files/8/save-money.png') center
+    center no-repeat;
+  background-size: contain;
 }
 
 .debt-container {
@@ -133,13 +134,32 @@
   margin-top: 30px;
 }
 
+.summary-signup-btn,
 .summary-login-btn {
   height: 43px;
   width: 190px;
-  background: #fff;
-  border: solid #ccc 2px;
-  color: #999;
+  cursor: pointer;
   transition: all 0.2s ease-in-out;
+  outline: 0;
+  border-radius: 1px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.summary-signup-btn {
+  background-color: #fd8a10;
+  color: #fff;
+}
+
+.summary-signup-btn:hover {
+  background-color: hsl(31, 89%, 38%);
+}
+
+.summary-login-btn {
+  border: solid #ccc 2px;
+  background-color: #fff;
+  color: #999;
   margin-left: 20px;
 }
 
@@ -156,7 +176,7 @@
 
 @media (max-width: 900px) {
   .features {
-    width: 90%;
+    width: 80%;
     flex-direction: column;
   }
 
@@ -201,10 +221,11 @@
 
   .savings-container {
     height: 90%;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
-    background: url('https://cdn4.iconfinder.com/data/icons/financial/100/1-512.png')
+    background: url('https://cms.geteminleads.com/files/8/save-money.png')
       center no-repeat;
+    background-size: contain;
     padding: 30px 0;
   }
 
@@ -221,13 +242,13 @@
   }
 
   .debt-text {
-    width: 90%;
+    width: 80%;
   }
 }
 
 @media (max-width: 600px) {
   .features {
-    width: 90%;
+    width: 80%;
     flex-direction: column;
   }
 
@@ -272,10 +293,11 @@
 
   .savings-container {
     height: 90%;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
-    background: url('https://cdn4.iconfinder.com/data/icons/financial/100/1-512.png')
+    background: url('https://cms.geteminleads.com/files/8/save-money.png')
       center no-repeat;
+    background-size: contain;
     padding: 30px 0;
   }
 
@@ -292,6 +314,6 @@
   }
 
   .debt-text {
-    width: 90%;
+    width: 80%;
   }
 }
