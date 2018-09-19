@@ -11,9 +11,6 @@ class Budgets extends Component {
       color: {},
       input: ''
     };
-
-    this.showMenu = this.showMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
   }
 
   handleTypeInput = e => {
@@ -30,11 +27,13 @@ class Budgets extends Component {
   };
 
   addBillType = () => {
-    var hue = this.getRandomColor();
-    // var pastel = 'hsl(' + hue + ', 100%, 87.5%)';
-    // const hue = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    if (!this.state.input) {
+      alert('Unsuccessful, required field');
+      return;
+    }
 
-    let types = this.state.billTypes.slice();
+    const hue = this.getRandomColor();
+    const types = this.state.billTypes.slice();
 
     types.push({
       topic: this.state.input,
@@ -44,21 +43,10 @@ class Budgets extends Component {
     this.setState({ billTypes: types });
   };
 
-  showMenu(event) {
-    event.preventDefault();
-
-    this.setState({ showMenu: true }, () => {
-      document.addEventListener('click', this.closeMenu);
-    });
-  }
-
-  closeMenu(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({ showMenu: false }, () => {
-        document.removeEventListener('click', this.closeMenu);
-      });
-    }
-  }
+  showMenu = e => {
+    e.preventDefault();
+    this.setState({ showMenu: !this.state.showMenu });
+  };
 
   render() {
     console.log(this.state.color, this.state.input);
@@ -75,39 +63,34 @@ class Budgets extends Component {
 
     return (
       <div className="budgets-view">
-        <button className="add-type-btn" onClick={this.showMenu}>
-          View Budget Types
-        </button>
-        <input
-          type="text"
-          placeholder="Add Type"
-          onChange={this.handleTypeInput}
-          value={this.state.input}
-        />
-        <button className="add-type-btn" onClick={this.addBillType}>
-          Add New Budget
-        </button>
+        <div className="add-budget-container">
+          <button className="add-type-btn" onClick={this.showMenu}>
+            View Budget Types
+          </button>
+          <input
+            type="text"
+            placeholder="Add Budget Type..."
+            onChange={this.handleTypeInput}
+            value={this.state.input}
+            className="search-bar"
+          />
+          <button className="add-menu-item" onClick={this.addBillType}>
+            +
+          </button>
 
-        {this.state.showMenu ? (
-          <div
-            className="menu"
-            ref={element => {
-              this.dropdownMenu = element;
-            }}
-          >
-            {types}
-          </div>
-        ) : null}
-        <div
-          style={{
-            width: 400,
-            height: 400,
-            background: this.state.color.light
-          }}
-        />
-        <div
-          style={{ width: 400, height: 400, background: this.state.color.dark }}
-        />
+          {this.state.showMenu && this.state.billTypes.length ? (
+            <div className="menu">{types}</div>
+          ) : this.state.showMenu ? (
+            <div className="menu">
+              <button
+                style={{ background: 'white', color: 'gray' }}
+                className="menu-item"
+              >
+                Please Add Budgets Types...
+              </button>
+            </div>
+          ) : null}
+        </div>
       </div>
     );
   }
