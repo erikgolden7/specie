@@ -9,12 +9,15 @@ class Budgets extends Component {
 
     this.state = {
       showMenu: false,
-      billTypes: [],
+      budgetTypes: [],
+      currentBudgets: [],
       color: {},
       input: '',
       inputError: false
     };
   }
+
+  componentDidMount = () => {};
 
   handleTypeInput = e => {
     this.setState({ input: e.target.value });
@@ -36,7 +39,7 @@ class Budgets extends Component {
     }
 
     const hue = this.getRandomColor();
-    const types = this.state.billTypes.slice();
+    const types = this.state.budgetTypes.slice();
 
     types.push({
       topic: this.state.input,
@@ -44,7 +47,7 @@ class Budgets extends Component {
     });
 
     this.setState({
-      billTypes: types,
+      budgetTypes: types,
       inputError: false,
       input: '',
       showMenu: true
@@ -62,10 +65,50 @@ class Budgets extends Component {
     this.setState({ showMenu: !this.state.showMenu });
   };
 
-  render() {
-    const { inputError, input, showMenu, billTypes } = this.state;
+  addBudgetType = type => {
+    const tempTypes = [...this.state.budgetTypes];
+    const tempBudgets = [...this.state.currentBudgets];
+    tempBudgets.push(type);
 
-    const types = billTypes.map((e, i) => <BudgetBar type={e} index={i} />);
+    // const filteredBudgets = tempBudgets.filter((obj, pos, arr) => {
+    //   return arr.map(mapObj => mapObj.topic).indexOf(obj.topic) === pos;
+    // });
+
+    tempTypes.forEach((e, i, arr) => {
+      if (e.topic === type.topic && e.color.light === type.color.light) {
+        tempTypes.splice(i, 1);
+      }
+    });
+
+    console.log('TYPES', tempTypes);
+    console.log('BUDGETS', tempBudgets);
+
+    this.setState({ currentBudgets: tempBudgets, budgetTypes: tempTypes });
+  };
+
+  render() {
+    const {
+      inputError,
+      input,
+      showMenu,
+      budgetTypes,
+      currentBudgets
+    } = this.state;
+    const types = budgetTypes.map((e, i) => (
+      <BudgetBar addType={this.addBudgetType} type={e} index={i} />
+    ));
+
+    const budgets = currentBudgets.map((e, i) => {
+      // <BudgetBar type={e} index={i} />;
+      return (
+        <button
+          className="current-budget-item"
+          style={{ background: e.color.light }}
+        >
+          {e.topic}
+        </button>
+      );
+    });
 
     return (
       <div className="budgets-view">
@@ -109,7 +152,7 @@ class Budgets extends Component {
                     opacity: style.opacity
                   }}
                 >
-                  {showMenu && billTypes.length ? (
+                  {showMenu && budgetTypes.length ? (
                     <div className="menu">{types}</div>
                   ) : showMenu ? (
                     <div className="menu">
@@ -125,7 +168,11 @@ class Budgets extends Component {
               )}
             </Motion>
           </div>
-          <div className="current-budgets">Display Current Budgets</div>
+          <div className="current-budgets">
+            <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
+            <hr />
+            <div className="current-budget-list">{budgets}</div>
+          </div>
         </div>
       </div>
     );
@@ -148,7 +195,7 @@ export default Budgets;
 //       opacity: style.opacity
 //     }}
 //   >
-//     {showMenu && billTypes.length ? (
+//     {showMenu && budgetTypes.length ? (
 //       <div className="menu">{types}</div>
 //     ) : showMenu ? (
 //       <div className="menu">

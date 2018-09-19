@@ -7,6 +7,7 @@ class BudgetBar extends Component {
         key={this.props.index}
         style={{ background: this.props.type.color.light }}
         className="menu-item"
+        onClick={() => this.props.addType(this.props.type)}
       >
         {this.props.type.topic}
       </button>
