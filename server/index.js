@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const { json } = require('body-parser');
 const massive = require('massive');
@@ -10,6 +11,11 @@ const app = express();
 
 app.use(json());
 app.use(cors());
+
+// massive(process.env.CONNECTION_STRING).then(massiveInstance => {
+//   app.set('db', massiveInstance)
+//   massiveInstance.init()
+// })
 
 if (process.env.NODE_ENV === 'production') {
   console.log('----PRODUCTION MODE----');

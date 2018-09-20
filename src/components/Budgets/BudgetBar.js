@@ -9,7 +9,7 @@ class BudgetBar extends Component {
         className="menu-item"
         onClick={() => this.props.addType(this.props.type)}
       >
-        {this.props.type.topic}
+        {this.props.type.type}
       </button>
     );
   }

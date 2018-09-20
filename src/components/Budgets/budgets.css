@@ -3,6 +3,7 @@ hr {
 }
 
 .budgets-view {
+  display: flex;
   margin-top: 60px;
   width: 100%;
   height: auto;
@@ -69,7 +70,7 @@ hr {
 }
 
 .budgets-container {
-  width: 100%;
+  /* width: 100%; */
   height: auto;
   display: flex;
   flex-direction: row;
@@ -100,7 +101,7 @@ hr {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   font-size: 16px;
   color: #ffffff;
   border: solid gray 1px;
@@ -109,4 +110,11 @@ hr {
 
 .current-budget-item:hover {
   background: rgb(240, 240, 240);
+}
+
+.modal-input {
+  height: 20px;
+  width: 250px;
+  font-size: 14px;
+  padding: 5px;
 }
