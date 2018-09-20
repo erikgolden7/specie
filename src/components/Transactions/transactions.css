@@ -1,0 +1,82 @@
+.add-transaction-container {
+  width: 500px;
+  height: 600px;
+  border: solid black 1px;
+}
+
+/* Modal */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 200px;
+}
+
+.modal {
+  background-color: #fff;
+  border: solid black 1px;
+  border-radius: 3px;
+  width: 500px;
+  height: auto;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.transaction-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.transaction-input {
+  display: block;
+  margin-top: 10px;
+}
+
+.transaction-select {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  height: 28px;
+  width: 266px;
+  margin: 10px 0 20px 0;
+  font-size: 14px;
+  background: #fff;
+  outline: none;
+}
+
+.transaction-datepicker {
+  height: 20px;
+  width: 250px;
+  font-size: 14px;
+  padding: 3px 6px;
+  cursor: pointer;
+  color: #757583;
+}
+
+.submit-btn {
+  display: block;
+  margin-top: 30px;
+  width: 150px;
+  height: 30px;
+  padding: 5px;
+  background: #77b070;
+  font-size: 14px;
+  color: #fff;
+}
+
+.close-btn {
+  margin-top: -30px;
+  float: right;
+  width: 150px;
+  height: 30px;
+  background: rgb(225, 103, 83);
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+}

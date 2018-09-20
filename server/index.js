@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const { json } = require('body-parser');
 const massive = require('massive');
@@ -24,6 +24,10 @@ if (process.env.NODE_ENV === 'production') {
   console.log('----DEVELOPMENT MODE----');
   app.use(express.static(path.join(__dirname, '../public')));
 }
+
+// --------------------
+// ENDPOINTS
+// --------------------
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
