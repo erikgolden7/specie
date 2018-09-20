@@ -77,8 +77,8 @@ hr {
 
 .current-budgets {
   width: calc(100% - 475px);
-  height: 600px;
-  /* background: lightgray; */
+  height: auto;
+  min-height: 600px;
   border-bottom: solid gray 1px;
   border-right: solid gray 1px;
   padding: 5px;
@@ -93,6 +93,8 @@ hr {
 }
 
 .current-budget-item {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -100,7 +102,7 @@ hr {
   padding: 10px;
   margin-bottom: 5px;
   font-size: 16px;
-  color: black;
+  color: #ffffff;
   border: solid gray 1px;
   outline: none;
 }

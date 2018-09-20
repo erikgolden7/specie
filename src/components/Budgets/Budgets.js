@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
+import axios from 'axios';
 import BudgetBar from './BudgetBar';
+import Modal from './Modal';
 import './budgets.css';
 
 class Budgets extends Component {
@@ -13,7 +15,10 @@ class Budgets extends Component {
       currentBudgets: [],
       color: {},
       input: '',
-      inputError: false
+      nameInput: '',
+      amountInput: '',
+      inputError: false,
+      selectedBudget: {}
     };
   }
 
@@ -50,7 +55,8 @@ class Budgets extends Component {
       budgetTypes: types,
       inputError: false,
       input: '',
-      showMenu: true
+      showMenu: true,
+      isOpen: false
     });
   };
 
@@ -80,10 +86,61 @@ class Budgets extends Component {
       }
     });
 
-    console.log('TYPES', tempTypes);
-    console.log('BUDGETS', tempBudgets);
-
     this.setState({ currentBudgets: tempBudgets, budgetTypes: tempTypes });
+  };
+
+  editBudgetAmount = budget => {
+    const temp = Object.assign({}, budget);
+    const tempBudgets = [...this.state.currentBudgets];
+    temp.amount = `$ ${0}`;
+
+    tempBudgets.forEach((e, i) => {
+      if (e.topic === budget.topic && e.color.light === budget.color.light) {
+        tempBudgets.splice(i, 1, temp);
+      }
+    });
+
+    this.setState({
+      currentBudgets: tempBudgets,
+      isOpen: !this.state.isOpen,
+      selectedBudget: temp
+    });
+  };
+
+  toggleModal = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
+
+  submitForm = e => {
+    e.preventDefault();
+    const temp = Object.assign({}, this.state.selectedBudget);
+    const tempBudgets = [...this.state.currentBudgets];
+
+    tempBudgets.forEach((e, i, arr) => {
+      if (e.topic === temp.topic && e.color.light === temp.color.light) {
+        if (this.state.nameInput) {
+          temp.topic = this.state.nameInput;
+        }
+        if (this.state.amountInput) {
+          temp.amount = `$ ${Number(this.state.amountInput)}`;
+        }
+        tempBudgets.splice(i, 1, temp);
+      }
+    });
+
+    this.setState({
+      currentBudgets: tempBudgets,
+      selectedBudget: {},
+      amountInput: '',
+      nameInput: '',
+      isOpen: !this.state.isOpen
+    });
+  };
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
@@ -92,20 +149,25 @@ class Budgets extends Component {
       input,
       showMenu,
       budgetTypes,
-      currentBudgets
+      currentBudgets,
+      nameInput,
+      amountInput
     } = this.state;
     const types = budgetTypes.map((e, i) => (
-      <BudgetBar addType={this.addBudgetType} type={e} index={i} />
+      <BudgetBar key={i} addType={this.addBudgetType} type={e} index={i} />
     ));
 
     const budgets = currentBudgets.map((e, i) => {
       // <BudgetBar type={e} index={i} />;
       return (
         <button
+          key={i}
           className="current-budget-item"
           style={{ background: e.color.light }}
+          onClick={() => this.editBudgetAmount(e)}
         >
           {e.topic}
+          {e.amount ? <span>{e.amount}</span> : false}
         </button>
       );
     });
@@ -172,6 +234,27 @@ class Budgets extends Component {
             <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
             <hr />
             <div className="current-budget-list">{budgets}</div>
+            <Modal show={this.state.isOpen} onClose={this.toggleModal}>
+              <form onSubmit={this.submitForm}>
+                <h5>Change Name:</h5>
+                <input
+                  type="text"
+                  placeholder="Enter Name..."
+                  value={nameInput}
+                  name="nameInput"
+                  onChange={this.handleChange}
+                />
+                <h5>Change Amount:</h5>
+                <input
+                  type="text"
+                  placeholder="Enter Amount..."
+                  value={amountInput}
+                  name="amountInput"
+                  onChange={this.handleChange}
+                />
+                <input type="submit" value="Submit" />
+              </form>
+            </Modal>
           </div>
         </div>
       </div>
@@ -180,33 +263,3 @@ class Budgets extends Component {
 }
 
 export default Budgets;
-
-// <Motion
-// defaultStyle={{ y: -200, opacity: 0 }}
-// style={{
-//   y: spring(showMenu ? 0 : -200),
-//   opacity: spring(showMenu ? 1 : 0)
-// }}
-// >
-// {style => (
-//   <div
-//     style={{
-//       transform: `translateY(${style.y}px)`,
-//       opacity: style.opacity
-//     }}
-//   >
-//     {showMenu && budgetTypes.length ? (
-//       <div className="menu">{types}</div>
-//     ) : showMenu ? (
-//       <div className="menu">
-//         <button
-//           style={{ background: 'white', color: 'gray' }}
-//           className="menu-item"
-//         >
-//           Please Add Budgets...
-//         </button>
-//       </div>
-//     ) : null}
-//   </div>
-// )}
-// </Motion>
