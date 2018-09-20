@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-import BudgetType from "./BudgetType"
+import BudgetType from './BudgetType';
 import Modal from './Modal';
 import './budgets.css';
 
@@ -29,8 +28,6 @@ class Budgets extends Component {
 
     return { light: `hsl(${h},${s},${light})`, dark: `hsl(${h},${s},${dark})` };
   };
-
-
 
   inputEnterPress = e => {
     if (e.keyCode === 13) {
@@ -163,13 +160,30 @@ class Budgets extends Component {
 
     return (
       <div className="budgets-view">
-        <BudgetType showMenuToggle={this.showMenuToggle} showMenu={showMenu} handleChange={this.handleChange} input={input} inputEnterPress={this.inputEnterPress}  budgetTypes={budgetTypes} addBudgetType={this.addBudgetType} addCurrentBudget={this.addCurrentBudget} inputError={inputError}/>
-          <div className="current-budgets">
-            <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
-            <hr />
-            <div className="current-budget-list">{budgets}</div>
-            <Modal show={this.state.isOpen} onClose={this.toggleModal} handleChange={this.handleChange} submit={this.submitForm} name={nameInput} amount={amountInput} />
-          </div>
+        <BudgetType
+          showMenuToggle={this.showMenuToggle}
+          showMenu={showMenu}
+          handleChange={this.handleChange}
+          input={input}
+          inputEnterPress={this.inputEnterPress}
+          budgetTypes={budgetTypes}
+          addBudgetType={this.addBudgetType}
+          addCurrentBudget={this.addCurrentBudget}
+          inputError={inputError}
+        />
+        <div className="current-budgets">
+          <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
+          <hr />
+          <div className="current-budget-list">{budgets}</div>
+          <Modal
+            show={this.state.isOpen}
+            onClose={this.toggleModal}
+            handleChange={this.handleChange}
+            submit={this.submitForm}
+            name={nameInput}
+            amount={amountInput}
+          />
+        </div>
       </div>
     );
   }

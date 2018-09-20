@@ -6,12 +6,13 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Nav from './Nav/Nav.js';
-import Landing from './Landing/Landing.js';
-import Dashboard from './Dashboard/Dashboard.js';
-import Goals from './Goals/Goals.js';
+import Nav from './Nav/Nav';
+import Landing from './Landing/Landing';
+import Dashboard from './Dashboard/Dashboard';
+import Transactions from './Transactions/Transactions';
+import Goals from './Goals/Goals';
 import Budgets from './Budgets/Budgets.js';
-import Achievements from './Achievements/Achievements.js';
+import Achievements from './Achievements/Achievements';
 import RouteError from './RouteError/RouteError';
 
 import './App.css';
@@ -25,6 +26,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/dashboard" component={Dashboard} />
+            <Route path="/transactions" component={Transactions} />
             <Route path="/goals" component={Goals} />
             <Route path="/budgets" component={Budgets} />
             <Route path="/achievements" component={Achievements} />

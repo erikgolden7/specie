@@ -10,6 +10,9 @@ export default () => {
         <Link className="nav-link" to="/dashboard">
           Dashboard
         </Link>
+        <Link className="nav-link" to="/transactions">
+          Transactions
+        </Link>
         <Link className="nav-link" to="/goals">
           Goals
         </Link>

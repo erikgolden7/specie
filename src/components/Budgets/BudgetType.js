@@ -1,18 +1,20 @@
-import React, {Component} from "react"
+import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
+
+import { connect } from 'react-redux';
+import * as budgetsReducerActions from '../../redux/reducers/budgetsReducer';
+
 import BudgetBar from './BudgetBar';
 import './budgets.css';
 
 class BudgetType extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      
-    }
+    this.state = {};
   }
 
-  render(){
+  render() {
     const {
       inputError,
       input,
@@ -28,7 +30,7 @@ class BudgetType extends Component {
     const types = budgetTypes.map((e, i) => (
       <BudgetBar key={i} addType={addCurrentBudget} type={e} index={i} />
     ));
-    
+
     return (
       <div className="budgets-container">
         <div className="add-budget-container">
@@ -86,10 +88,19 @@ class BudgetType extends Component {
               </div>
             )}
           </Motion>
-        </div>  
-      </div>     
-    )
+        </div>
+      </div>
+    );
   }
 }
 
-export default BudgetType
+const mapStateToProps = state => {
+  return {
+    state
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  budgetsReducerActions
+)(BudgetType);
