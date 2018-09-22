@@ -1,28 +1,38 @@
-// // Constants
-// const SET_BUDGET_TYPE = 'SET_BUDGET_TYPE';
+const axios = require('axios');
 
-// // Initial State
-// const initialState = {
-//   budgetTypes: [],
-//   currentBudgets: [],
-//   selectedBudget: {}
-// };
+// Constants
+const SET_TRANSACTION_DATA = 'SET_TRANSACTION_DATA';
 
-// // Reducer
-// export default function budgetReducer(state = initialState, action) {
-//   switch (action.type) {
-//     case SET_BUDGET_TYPE:
-//       return Object.assign({}, state, action.payload);
+// Initial State
+const initialState = {};
 
-//     default:
-//       return state;
-//   }
-// }
+// Reducer
+export default function budgetReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_TRANSACTION_DATA:
+      return Object.assign({}, state, action.payload);
 
-// // Actions
-// export function saveBudgetType(type) {
-//   return {
-//     type: SET_BUDGET_TYPE,
-//     payload: type
-//   };
-// }
+    default:
+      return state;
+  }
+}
+
+// Actions
+export function setTransactionFormData(
+  budgetType,
+  formatDate,
+  location,
+  amount
+) {
+  return {
+    type: SET_TRANSACTION_DATA,
+    payload: axios
+      .post('/api/setTransactions', {
+        type: budgetType,
+        date: formatDate,
+        location: location,
+        amount: amount
+      })
+      .then(res => res)
+  };
+}

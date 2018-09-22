@@ -1,6 +1,8 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { setTransactionFormData } from '../../redux/reducers/transactionsReducer';
 import 'react-datepicker/dist/react-datepicker.css';
 import './transactions.css';
 
@@ -9,11 +11,29 @@ class Modal extends React.Component {
     super(props);
 
     this.state = {
-      date: moment()
+      date: moment(),
+      budgetType: '',
+      location: '',
+      amount: 0
     };
   }
 
+  handleInput = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleSubmit = e => {
+    const { budgetType, date, location, amount } = this.state;
+    e.preventDefault();
+    const formatDate = moment(date).format('M, D, YY');
+    this.props.setTransactionFormData(budgetType, formatDate, location, amount);
+  };
+
   render() {
+    const { budgetType, date, location, amount } = this.state;
+
+    // console.log(budgetType, date, location, amount);
+
     if (!this.props.show) {
       return null;
     }
@@ -21,16 +41,19 @@ class Modal extends React.Component {
     return (
       <div className="backdrop">
         <div className="modal">
-          <form className="transaction-form" onSubmit={this.props.submit}>
+          <form className="transaction-form" onSubmit={this.handleSubmit}>
             <div>
               <label>Select Budget Type:</label>
-              <select className="transaction-select">
-                <option defaultValue value="grapefruit">
-                  Groceries
-                </option>
-                <option value="lime">Entertainment</option>
-                <option value="coconut">Automobile</option>
-                <option value="mango">Education</option>
+              <select
+                className="transaction-select"
+                name="budgetType"
+                value={this.state.budgetType}
+                onChange={this.handleInput}
+              >
+                <option value="groceries">Groceries</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="automotive">Automobile</option>
+                <option value="education">Education</option>
               </select>
             </div>
 
@@ -50,8 +73,8 @@ class Modal extends React.Component {
                 type="text"
                 placeholder="Where your money went..."
                 value={this.props.amount}
-                name="amountInput"
-                onChange={this.props.handleChange}
+                name="location"
+                onChange={this.handleInput}
               />
             </div>
 
@@ -62,8 +85,8 @@ class Modal extends React.Component {
                 type="text"
                 placeholder="How much you spent..."
                 value={this.props.name}
-                name="nameInput"
-                onChange={this.props.handleChange}
+                name="amount"
+                onChange={this.handleInput}
               />
             </div>
 
@@ -81,4 +104,13 @@ class Modal extends React.Component {
   }
 }
 
-export default Modal;
+const mapStateToProps = state => {
+  return {
+    state
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { setTransactionFormData }
+)(Modal);
