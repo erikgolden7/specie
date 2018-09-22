@@ -14,7 +14,10 @@ class Transactions extends Component {
     };
   }
 
+  toggleModal = () => this.setState({ showModal: !this.state.showModal });
+
   render() {
+    const { showModal } = this.state;
     return (
       <div style={{ marginTop: 60 }}>
         <div className="add-transaction-container">
@@ -23,12 +26,7 @@ class Transactions extends Component {
           >
             Add New Transaction
           </button>
-          <TransactionModal
-            show={this.state.showModal}
-            toggleModal={() =>
-              this.setState({ showModal: !this.state.showModal })
-            }
-          />
+          {showModal ? <TransactionModal toggleModal={this.toggleModal} /> : ''}
         </div>
       </div>
     );

@@ -33,6 +33,6 @@ export function setTransactionFormData(
         location: location,
         amount: amount
       })
-      .then(res => res)
+      .then(res => console.log(res))
   };
 }

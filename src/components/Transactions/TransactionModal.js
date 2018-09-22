@@ -23,20 +23,16 @@ class Modal extends React.Component {
   };
 
   handleSubmit = e => {
-    const { budgetType, date, location, amount } = this.state;
     e.preventDefault();
-    const formatDate = moment(date).format('M, D, YY');
+    const { budgetType, date, location, amount } = this.state;
+    const formatDate = moment(date).format('M/D/YY');
+
     this.props.setTransactionFormData(budgetType, formatDate, location, amount);
+    this.props.toggleModal();
   };
 
   render() {
     const { budgetType, date, location, amount } = this.state;
-
-    // console.log(budgetType, date, location, amount);
-
-    if (!this.props.show) {
-      return null;
-    }
 
     return (
       <div className="backdrop">

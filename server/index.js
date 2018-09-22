@@ -4,6 +4,8 @@ const { json } = require('body-parser');
 const massive = require('massive');
 const cors = require('cors');
 const path = require('path');
+const transactionCtrl = require('./controllers/transactionsCtrl');
+const budgetCtrl = require('./controllers/budgetsCtrl');
 
 const PORT = process.env.PORT || 3001;
 
@@ -12,10 +14,11 @@ const app = express();
 app.use(json());
 app.use(cors());
 
-// massive(process.env.CONNECTION_STRING).then(massiveInstance => {
-//   app.set('db', massiveInstance)
-//   massiveInstance.init()
-// })
+massive(process.env.CONNECTION_STRING)
+  .then(dbInstance => {
+    app.set('db', dbInstance);
+  })
+  .catch(err => console.log(err));
 
 if (process.env.NODE_ENV === 'production') {
   console.log('----PRODUCTION MODE----');
@@ -28,6 +31,8 @@ if (process.env.NODE_ENV === 'production') {
 // --------------------
 // ENDPOINTS
 // --------------------
+
+app.post('/api/setTransactions', transactionCtrl.setTransactionData);
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
