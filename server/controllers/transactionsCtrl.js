@@ -1,7 +1,6 @@
 module.exports = {
   setTransactionData: (req, res) => {
     const db = req.app.get('db');
-    console.log(req.body);
     const { type, date, location, amount } = req.body;
 
     db.post_product([type, date, location, amount])

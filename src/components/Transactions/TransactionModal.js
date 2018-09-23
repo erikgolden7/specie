@@ -32,7 +32,7 @@ class Modal extends React.Component {
   };
 
   render() {
-    const { budgetType, date, location, amount } = this.state;
+    // const { budgetType, date, location, amount } = this.state;
 
     return (
       <div className="backdrop">

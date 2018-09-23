@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import BudgetType from './BudgetType';
 import Modal from './Modal';
+import {
+  saveBudgetType,
+  getBudgetTypes
+} from '../../redux/reducers/budgetsReducer';
 import './budgets.css';
 
 class Budgets extends Component {
@@ -9,13 +14,13 @@ class Budgets extends Component {
 
     this.state = {
       showMenu: false,
-      budgetTypes: [],
+      isOpen: false,
       currentBudgets: [],
       color: {},
       input: '',
       inputError: false,
       nameInput: '',
-      amountInput: '',
+      amountInput: 0,
       selectedBudget: {}
     };
   }
@@ -36,27 +41,28 @@ class Budgets extends Component {
   };
 
   showMenuToggle = e => {
-    e.preventDefault();
     this.setState({ showMenu: !this.state.showMenu });
   };
 
-  addBudgetType = e => {
-    if (!this.state.input) {
+  addBudgetType = async () => {
+    const { input } = this.state;
+
+    if (!input) {
       this.setState({ inputError: true });
       return;
     }
 
     const hue = this.getRandomColor();
-    const types = this.state.budgetTypes.slice();
-
-    types.push({
-      type: this.state.input,
+    const typeData = {
+      type: input,
       color: { light: hue.light, dark: hue.dark },
-      amount: `$ ${0}`
-    });
+      amount: 0
+    };
+
+    const types = await this.props.saveBudgetType(typeData);
+    console.log(types);
 
     this.setState({
-      budgetTypes: types,
       inputError: false,
       showMenu: true,
       isOpen: false,
@@ -91,7 +97,7 @@ class Budgets extends Component {
 
     this.setState({
       currentBudgets: tempBudgets,
-      isOpen: !this.state.isOpen,
+      isOpen: false,
       selectedBudget: temp
     });
   };
@@ -113,7 +119,7 @@ class Budgets extends Component {
           temp.type = this.state.nameInput;
         }
         if (this.state.amountInput) {
-          temp.amount = `$ ${Number(this.state.amountInput)}`;
+          temp.amount = Number(this.state.amountInput);
         }
         tempBudgets.splice(i, 1, temp);
       }
@@ -122,9 +128,9 @@ class Budgets extends Component {
     this.setState({
       currentBudgets: tempBudgets,
       selectedBudget: {},
-      amountInput: '',
+      amountInput: 0,
       nameInput: '',
-      isOpen: !this.state.isOpen
+      isOpen: false
     });
   };
 
@@ -137,7 +143,6 @@ class Budgets extends Component {
       inputError,
       input,
       showMenu,
-      budgetTypes,
       currentBudgets,
       nameInput,
       amountInput
@@ -166,7 +171,7 @@ class Budgets extends Component {
           handleChange={this.handleChange}
           input={input}
           inputEnterPress={this.inputEnterPress}
-          budgetTypes={budgetTypes}
+          budgetTypes={this.props.budgetTypes}
           addBudgetType={this.addBudgetType}
           addCurrentBudget={this.addCurrentBudget}
           inputError={inputError}
@@ -189,4 +194,13 @@ class Budgets extends Component {
   }
 }
 
-export default Budgets;
+function mapStateToProps(state) {
+  console.log(state.budgetsReducer);
+
+  return state.budgetsReducer;
+}
+
+export default connect(
+  mapStateToProps,
+  { saveBudgetType, getBudgetTypes }
+)(Budgets);

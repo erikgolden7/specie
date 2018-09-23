@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import { connect } from 'react-redux';
-import * as budgetsReducerActions from '../../redux/reducers/budgetsReducer';
+import { getBudgetTypes } from '../../redux/reducers/budgetsReducer';
 
 import BudgetBar from './BudgetBar';
 import './budgets.css';
@@ -13,6 +13,10 @@ class BudgetType extends Component {
 
     this.state = {};
   }
+
+  componentDidMount = () => {
+    this.props.getBudgetTypes();
+  };
 
   render() {
     const {
@@ -26,6 +30,8 @@ class BudgetType extends Component {
       handleChange,
       inputEnterPress
     } = this.props;
+
+    console.log(this.props.budgetTypes);
 
     const types = budgetTypes.map((e, i) => (
       <BudgetBar key={i} addType={addCurrentBudget} type={e} index={i} />
@@ -94,13 +100,13 @@ class BudgetType extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    state
-  };
-};
+function mapStateToProps(state) {
+  console.log(state.budgetsReducer);
+
+  return state.budgetsReducer;
+}
 
 export default connect(
   mapStateToProps,
-  budgetsReducerActions
+  { getBudgetTypes }
 )(BudgetType);

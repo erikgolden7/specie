@@ -34,6 +34,9 @@ if (process.env.NODE_ENV === 'production') {
 
 app.post('/api/setTransactions', transactionCtrl.setTransactionData);
 
+app.post('/api/setBudgetType', budgetCtrl.addBudgetType);
+app.get('/api/getBudgetTypes', budgetCtrl.getBudgetTypes);
+
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../build/index.js'));
