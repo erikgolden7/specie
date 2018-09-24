@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import BudgetType from './BudgetType';
 import BudgetModal from './BudgetModal';
 import * as budgetReducer from '../../redux/reducers/budgetsReducer';
@@ -46,16 +47,11 @@ class Budgets extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = ({ budgetsReducer }) => {
   return {
-    budgetTypes: state.budgetsReducer.budgetTypes,
-    showTypes: state.budgetsReducer.showTypes,
-    typeInput: state.budgetsReducer.typeInput,
-    inputError: state.budgetsReducer.inputError,
-    currentBudgets: state.budgetsReducer.currentBudgets,
-    amountInput: state.budgetsReducer.amountInput
+    currentBudgets: budgetsReducer.currentBudgets
   };
-}
+};
 
 export default connect(
   mapStateToProps,

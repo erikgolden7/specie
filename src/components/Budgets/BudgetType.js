@@ -34,16 +34,17 @@ class BudgetType extends Component {
     }
   };
 
-  addSelectedBudget = async type => {
-    await this.props.addCurrentBudget({
+  addSelectedBudget = async ({ type, light_color, amount }) => {
+    const { addCurrentBudget, getBudgetTypes } = this.props;
+    await addCurrentBudget({
       selected: {
-        type: type.type,
-        light: type.light_color,
-        amount: type.amount
+        type: type,
+        light: light_color,
+        amount: amount
       }
     });
 
-    this.props.getBudgetTypes();
+    getBudgetTypes();
   };
 
   render() {
@@ -131,15 +132,15 @@ class BudgetType extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = ({ budgetsReducer }) => {
   return {
-    budgetTypes: state.budgetsReducer.budgetTypes,
-    showTypes: state.budgetsReducer.showTypes,
-    typeInput: state.budgetsReducer.typeInput,
-    inputError: state.budgetsReducer.inputError,
-    currentBudgets: state.budgetsReducer.currentBudgets
+    budgetTypes: budgetsReducer.budgetTypes,
+    showTypes: budgetsReducer.showTypes,
+    typeInput: budgetsReducer.typeInput,
+    inputError: budgetsReducer.inputError,
+    currentBudgets: budgetsReducer.currentBudgets
   };
-}
+};
 
 export default connect(
   mapStateToProps,

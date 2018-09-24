@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class BudgetBar extends Component {
-  render() {
-    console.log(this.props.budget);
-
-    return (
-      <button
-        key={this.props.index}
-        style={{ background: this.props.budget.light_color }}
-        className="menu-item"
-        onClick={() => this.props.addSelectedBudget(this.props.budget)}
-      >
-        {this.props.budget.type}
-      </button>
-    );
-  }
-}
+const BudgetBar = props => {
+  return (
+    <button
+      key={props.index}
+      style={{ background: props.budget.light_color }}
+      className="menu-item"
+      onClick={() => props.addSelectedBudget(props.budget)}
+    >
+      {props.budget.type}
+    </button>
+  );
+};
 
 export default BudgetBar;

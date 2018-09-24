@@ -112,7 +112,7 @@ export default function budgetsReducer(state = initialState, action) {
 }
 
 // Actions
-export function addBudgetType(type) {
+export const addBudgetType = type => {
   return {
     type: SET_BUDGET_TYPE,
     payload: axios
@@ -120,9 +120,9 @@ export function addBudgetType(type) {
       .then(res => res.data)
       .catch(err => console.log(err))
   };
-}
+};
 
-export function getBudgetTypes() {
+export const getBudgetTypes = () => {
   return {
     type: GET_BUDGET_TYPES,
     payload: axios
@@ -130,9 +130,9 @@ export function getBudgetTypes() {
       .then(res => res.data)
       .catch(err => console.log(err))
   };
-}
+};
 
-export function getCurrentBudgets() {
+export const getCurrentBudgets = () => {
   return {
     type: GET_CURRENT_BUDGETS,
     payload: axios
@@ -140,7 +140,7 @@ export function getCurrentBudgets() {
       .then(res => res.data)
       .catch(err => console.log(err))
   };
-}
+};
 
 export const addCurrentBudget = budget => {
   const { type, light, amount } = budget.selected;
@@ -156,9 +156,6 @@ export const addCurrentBudget = budget => {
 
 export const editCurrentBudget = (budget, newName, newAmount) => {
   const { type, light_color, amount } = budget;
-  console.log(budget);
-
-  console.log(type, light_color, amount, newName, newAmount);
 
   return {
     type: EDIT_CURRENT_BUDGET,
@@ -171,22 +168,20 @@ export const editCurrentBudget = (budget, newName, newAmount) => {
   };
 };
 
-export function selectBudget(budget) {
-  console.log(budget);
-
+export const selectBudget = budget => {
   return {
     type: SELECT_BUDGET,
     payload: budget
   };
-}
+};
 
-export function flagToggle(menu) {
+export const flagToggle = menu => {
   return { type: HANDLE_FLAG_TOGGLE, payload: menu };
-}
+};
 
-export function handleChange(e) {
+export const handleChange = e => {
   return {
     type: HANDLE_INPUT_CHANGE,
     payload: { name: e.target.name, value: e.target.value }
   };
-}
+};

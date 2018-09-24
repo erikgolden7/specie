@@ -11,9 +11,11 @@ module.exports = {
 
     await db
       .add_budget_type([type, light, dark, amount, false])
-      .catch(err => console.log(err));
+      .catch(err => res.status(500).json(err));
 
-    const allTypes = await db.get_all_budget_types();
+    const allTypes = await db
+      .get_all_budget_types()
+      .catch(err => res.status(500).json(err));
 
     res.status(200).json(allTypes);
   },

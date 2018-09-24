@@ -112,9 +112,50 @@ hr {
   background: rgb(240, 240, 240);
 }
 
+.backdrop {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 200px;
+}
+
+.modal {
+  background-color: #fff;
+  border-radius: 3px;
+  max-width: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
 .modal-input {
   height: 20px;
   width: 250px;
   font-size: 14px;
   padding: 3px 6px;
+}
+
+.modal-submit-btn {
+  display: block;
+  margin-top: 73px;
+  width: 150px;
+  height: 30px;
+  padding: 5px;
+  background: #77b070;
+  font-size: 14px;
+  color: #fff;
+}
+
+.close-modal-btn {
+  display: block;
+  margin-top: 10;
+  width: 150;
+  height: 30;
+  padding: 5;
+  background: #e16753;
+  font-size: 14;
+  color: #fff;
 }

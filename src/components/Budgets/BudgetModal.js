@@ -36,29 +36,8 @@ class BudgetModal extends Component {
     }
 
     return (
-      <div
-        className="backdrop"
-        style={{
-          position: 'fixed',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          padding: 200
-        }}
-      >
-        <div
-          className="modal"
-          style={{
-            backgroundColor: '#fff',
-            borderRadius: 3,
-            maxWidth: 500,
-            minHeight: 300,
-            margin: '0 auto',
-            padding: 30
-          }}
-        >
+      <div className="backdrop">
+        <div className="modal">
           <form onSubmit={this.submitForm}>
             <h3 style={{ margin: '5px 0 5px 0' }}>Change Name:</h3>
             <input
@@ -78,34 +57,19 @@ class BudgetModal extends Component {
               name="amountInput"
               onChange={handleChange}
             />
-            <input
-              style={{
-                display: 'block',
-                marginTop: 73,
-                width: 150,
-                height: 30,
-                padding: 5,
-                background: '#77B070',
-                fontSize: 14,
-                color: '#fff'
-              }}
-              type="submit"
-              value="Submit"
-            />
+            <input className="modal-submit-btn" type="submit" value="Submit" />
           </form>
 
           <div className="footer">
             <button
               style={{
-                display: 'block',
                 marginTop: 10,
                 width: 150,
                 height: 30,
                 padding: 5,
-                background: '#E16753',
-                fontSize: 14,
-                color: '#fff'
+                fontSize: 14
               }}
+              className="close-modal-btn"
               onClick={() => flagToggle('showEdit')}
             >
               Close
@@ -117,14 +81,14 @@ class BudgetModal extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = ({ budgetsReducer }) => {
   return {
-    showEdit: state.budgetsReducer.showEdit,
-    nameInput: state.budgetsReducer.nameInput,
-    amountInput: state.budgetsReducer.amountInput,
-    selectedBudget: state.budgetsReducer.selectedBudget
+    showEdit: budgetsReducer.showEdit,
+    nameInput: budgetsReducer.nameInput,
+    amountInput: budgetsReducer.amountInput,
+    selectedBudget: budgetsReducer.selectedBudget
   };
-}
+};
 
 export default connect(
   mapStateToProps,
