@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import BudgetType from './BudgetType';
 import Modal from './Modal';
 import {
-  saveBudgetType,
+  addBudgetType,
   getBudgetTypes
 } from '../../redux/reducers/budgetsReducer';
+import { getRandomColor } from '../../services/funcService';
 import './budgets.css';
 
 class Budgets extends Component {
@@ -13,11 +14,8 @@ class Budgets extends Component {
     super(props);
 
     this.state = {
-      showMenu: false,
-      isOpen: false,
       currentBudgets: [],
       color: {},
-      input: '',
       inputError: false,
       nameInput: '',
       amountInput: 0,
@@ -25,48 +23,39 @@ class Budgets extends Component {
     };
   }
 
-  getRandomColor = () => {
-    const h = Math.floor(Math.random() * 360),
-      s = Math.floor(Math.random() * 60) + '%',
-      light = '50%',
-      dark = '30%';
-
-    return { light: `hsl(${h},${s},${light})`, dark: `hsl(${h},${s},${dark})` };
-  };
-
   inputEnterPress = e => {
     if (e.keyCode === 13) {
       this.addBudgetType(e);
     }
   };
 
-  showMenuToggle = e => {
-    this.setState({ showMenu: !this.state.showMenu });
-  };
-
   addBudgetType = async () => {
-    const { input } = this.state;
+    const { typeInput, flagToggle } = this.props;
 
-    if (!input) {
-      this.setState({ inputError: true });
+    if (!typeInput) {
+      flagToggle('inputError');
       return;
     }
 
-    const hue = this.getRandomColor();
+    const hue = getRandomColor();
     const typeData = {
-      type: input,
+      type: typeInput,
       color: { light: hue.light, dark: hue.dark },
       amount: 0
     };
 
-    const types = await this.props.saveBudgetType(typeData);
+    const types = await this.props
+      .addBudgetType(typeData)
+      .catch(err => console.log(err));
+
     console.log(types);
 
+    flagToggle('editModal');
+    flagToggle('showTypes');
+    flagToggle('inputError');
+
     this.setState({
-      inputError: false,
-      showMenu: true,
-      isOpen: false,
-      input: ''
+      typeInput: ''
     });
   };
 
@@ -95,17 +84,16 @@ class Budgets extends Component {
       }
     });
 
+    this.props.flagToggle('editModal');
+
     this.setState({
       currentBudgets: tempBudgets,
-      isOpen: false,
       selectedBudget: temp
     });
   };
 
   toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+    this.props.flagToggle('editModal');
   };
 
   submitForm = e => {
@@ -125,24 +113,26 @@ class Budgets extends Component {
       }
     });
 
+    this.props.flagToggle('editModal');
+
     this.setState({
       currentBudgets: tempBudgets,
       selectedBudget: {},
       amountInput: 0,
-      nameInput: '',
-      isOpen: false
+      nameInput: ''
+      // showEdit: false
     });
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  // handleChange = e => {
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
 
   render() {
     const {
-      inputError,
-      input,
-      showMenu,
+      // inputError,
+      // typeInput,
+      // showTypes,
       currentBudgets,
       nameInput,
       amountInput
@@ -166,22 +156,22 @@ class Budgets extends Component {
     return (
       <div className="budgets-view">
         <BudgetType
-          showMenuToggle={this.showMenuToggle}
-          showMenu={showMenu}
-          handleChange={this.handleChange}
-          input={input}
+          // flagToggle={this.flagToggle}
+          // showTypes={showTypes}
+          // handleChange={this.handleChange}
+          // typeInput={input}
           inputEnterPress={this.inputEnterPress}
           budgetTypes={this.props.budgetTypes}
           addBudgetType={this.addBudgetType}
           addCurrentBudget={this.addCurrentBudget}
-          inputError={inputError}
+          // inputError={inputError}
         />
         <div className="current-budgets">
           <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
           <hr />
           <div className="current-budget-list">{budgets}</div>
           <Modal
-            show={this.state.isOpen}
+            show={this.state.showEdit}
             onClose={this.toggleModal}
             handleChange={this.handleChange}
             submit={this.submitForm}
@@ -195,12 +185,16 @@ class Budgets extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.budgetsReducer);
-
-  return state.budgetsReducer;
+  // console.log(state.budgetsReducer);
+  return {
+    budgetTypes: state.budgetsReducer.budgetTypes,
+    showTypes: state.budgetsReducer.showTypes,
+    typeInput: state.budgetsReducer.typeInput,
+    inputError: state.budgetsReducer.inputError
+  };
 }
 
 export default connect(
   mapStateToProps,
-  { saveBudgetType, getBudgetTypes }
+  { addBudgetType, getBudgetTypes }
 )(Budgets);

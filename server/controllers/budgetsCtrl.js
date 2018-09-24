@@ -1,5 +1,5 @@
 module.exports = {
-  addBudgetType: (req, res) => {
+  addBudgetType: async (req, res) => {
     const db = req.app.get('db');
 
     const {
@@ -9,11 +9,14 @@ module.exports = {
       amount
     } = req.body.type;
 
-    console.log(type, light, dark, amount);
-
-    db.add_budget_type([type, light, dark, amount, false])
-      .then(res => {})
+    await db
+      .add_budget_type([type, light, dark, amount, false])
       .catch(err => console.log(err));
+
+    const allTypes = await db.get_all_budget_types();
+
+    // console.log(allTypes);
+    res.status(200).json(allTypes);
   },
   getBudgetTypes: async (req, res) => {
     const db = req.app.get('db');
