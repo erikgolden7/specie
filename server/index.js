@@ -39,6 +39,7 @@ app.get('/api/getBudgetTypes', budgetCtrl.getBudgetTypes);
 app.get('/api/getCurrentBudgets', budgetCtrl.getCurrentBudgets);
 app.put('/api/setCurrentBudget', budgetCtrl.setCurrentBudget);
 app.put('/api/editCurrentBudget', budgetCtrl.editCurrentBudget);
+app.delete('/api/removeCurrentBudget', budgetCtrl.deleteCurrentBudget);
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {

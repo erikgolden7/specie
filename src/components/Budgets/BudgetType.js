@@ -76,25 +76,33 @@ class BudgetType extends Component {
             >
               {!showTypes ? 'View Budget Types' : 'Hide Budget Types'}
             </button>
-            <input
-              type="text"
-              placeholder={
-                inputError ? 'Must Enter Budget Name' : 'Enter Budget Name...'
-              }
-              onChange={handleChange}
-              value={typeInput}
-              name="typeInput"
-              className="type-input"
-              style={
-                inputError
-                  ? { border: 'solid 1px red' }
-                  : { border: 'solid 1px gray' }
-              }
-              onKeyDown={this.inputEnterPress}
-            />
-            <button className="add-type-btn" onClick={this.saveBudgetType}>
-              +
-            </button>
+            {showTypes ? (
+              <input
+                type="text"
+                placeholder={
+                  inputError ? 'Must Enter Budget Name' : 'Create New Budget...'
+                }
+                onChange={handleChange}
+                value={typeInput}
+                name="typeInput"
+                className="type-input"
+                style={
+                  inputError
+                    ? { border: 'solid 1px red' }
+                    : { border: 'solid 1px gray' }
+                }
+                onKeyDown={this.inputEnterPress}
+              />
+            ) : (
+              false
+            )}
+            {showTypes ? (
+              <button className="add-type-btn" onClick={this.saveBudgetType}>
+                +
+              </button>
+            ) : (
+              false
+            )}
           </div>
 
           <Motion

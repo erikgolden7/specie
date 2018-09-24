@@ -21,6 +21,8 @@ const EDIT_CURRENT_BUDGET = 'EDIT_CURRENT_BUDGET';
 const EDIT_CURRENT_BUDGET_PENDING = 'EDIT_CURRENT_BUDGET_PENDING';
 const EDIT_CURRENT_BUDGET_FULFILLED = 'EDIT_CURRENT_BUDGET_FULFILLED';
 
+const REMOVE_CURRENT_BUDGET = 'REMOVE_CURRENT_BUDGET';
+
 const SELECT_BUDGET = 'SELECT_BUDGET';
 
 const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
@@ -164,6 +166,19 @@ export const editCurrentBudget = (budget, newName, newAmount) => {
         `/api/editCurrentBudget?type=${type}&light=${light_color}&amount=${amount}&newAmount=${newAmount}&newName=${newName}`
       )
       .then(res => res.data)
+      .catch(err => console.log(err))
+  };
+};
+
+export const removeBudgetType = curr => {
+  const { type, light_color, amount } = curr;
+
+  return {
+    payload: axios
+      .delete(
+        `/api/removeCurrentBudget?type=${type}&light=${light_color}&amount=${amount}`,
+        type
+      )
       .catch(err => console.log(err))
   };
 };

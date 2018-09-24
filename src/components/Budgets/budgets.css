@@ -10,11 +10,8 @@ hr {
 }
 
 .add-budget-container {
-  position: relative;
-  height: auto;
-  width: 453px;
-  padding: 5px;
-  border: solid black 1px;
+  width: 395px;
+  padding: 10px;
 }
 
 .menu {
@@ -49,7 +46,7 @@ hr {
 }
 
 .type-input {
-  width: 188px;
+  width: 165px;
   height: 30px;
   margin-left: 10px;
   font-size: 15px;
@@ -65,28 +62,23 @@ hr {
 }
 
 .view-type-btn {
-  width: 200px;
+  width: 165px;
   border-radius: 3px;
 }
 
 .budgets-container {
-  /* width: 100%; */
   height: auto;
   display: flex;
   flex-direction: row;
 }
 
 .current-budgets {
-  width: calc(100% - 475px);
-  height: auto;
-  min-height: 600px;
-  border-bottom: solid gray 1px;
-  border-right: solid gray 1px;
-  padding: 5px;
+  position: absolute;
+  left: 460px;
 }
 
 .current-budget-list {
-  width: 500px;
+  width: 525px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,23 +131,24 @@ hr {
 }
 
 .modal-submit-btn {
+  position: absolute;
   display: block;
-  margin-top: 73px;
+  margin-top: 121px;
   width: 150px;
   height: 30px;
-  padding: 5px;
   background: #77b070;
   font-size: 14px;
   color: #fff;
+  cursor: pointer;
 }
 
 .close-modal-btn {
-  display: block;
-  margin-top: 10;
-  width: 150;
-  height: 30;
-  padding: 5;
+  float: right;
+  width: 150px;
+  height: 30px;
+  margin-top: 121px;
   background: #e16753;
-  font-size: 14;
+  font-size: 14px;
   color: #fff;
+  cursor: pointer;
 }

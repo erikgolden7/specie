@@ -74,5 +74,22 @@ module.exports = {
       .catch(err => res.status(500).json(err));
 
     res.status(200).json(budgets);
+  },
+
+  deleteCurrentBudget: async (req, res) => {
+    const db = req.app.get('db');
+
+    const { type, light, amount } = req.query;
+    console.log(type, light, amount);
+
+    await db.budgets
+      .delete_current_budget([type, light, amount])
+      .catch(err => res.status(500).json(err));
+
+    const budgets = await db.budgets
+      .get_all_current_budgets()
+      .catch(err => res.status(500).json(err));
+
+    res.status(200).json(budgets);
   }
 };

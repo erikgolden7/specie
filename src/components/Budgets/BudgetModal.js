@@ -3,6 +3,19 @@ import { connect } from 'react-redux';
 import * as budgetReducer from '../../redux/reducers/budgetsReducer';
 
 class BudgetModal extends Component {
+  deleteBudget = async () => {
+    const {
+      removeBudgetType,
+      flagToggle,
+      selectedBudget,
+      getCurrentBudgets
+    } = this.props;
+
+    await removeBudgetType(selectedBudget);
+    flagToggle('showEdit');
+    getCurrentBudgets();
+  };
+
   submitForm = async e => {
     const {
       flagToggle,
@@ -38,6 +51,17 @@ class BudgetModal extends Component {
     return (
       <div className="backdrop">
         <div className="modal">
+          <button
+            style={{
+              width: 'auto',
+              marginTop: 0,
+              backgroundColor: 'rgb(167, 36, 14)'
+            }}
+            className="close-modal-btn"
+            onClick={this.deleteBudget}
+          >
+            DELETE
+          </button>
           <form onSubmit={this.submitForm}>
             <h3 style={{ margin: '5px 0 5px 0' }}>Change Name:</h3>
             <input
@@ -62,13 +86,6 @@ class BudgetModal extends Component {
 
           <div className="footer">
             <button
-              style={{
-                marginTop: 10,
-                width: 150,
-                height: 30,
-                padding: 5,
-                fontSize: 14
-              }}
               className="close-modal-btn"
               onClick={() => flagToggle('showEdit')}
             >
