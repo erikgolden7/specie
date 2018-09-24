@@ -9,10 +9,6 @@ import BudgetBar from './BudgetBar';
 import './budgets.css';
 
 class BudgetType extends Component {
-  componentDidMount = () => {
-    this.props.getBudgetTypes();
-  };
-
   saveBudgetType = async () => {
     const { typeInput, flagToggle, addBudgetType } = this.props;
 
@@ -39,19 +35,7 @@ class BudgetType extends Component {
   };
 
   addSelectedBudget = async type => {
-    const tempTypes = [...this.props.budgetTypes];
-    const tempBudgets = [...this.props.currentBudgets];
-    tempBudgets.push(type);
-
-    tempTypes.forEach((e, i, arr) => {
-      if (e.type === type.type && e.light_color === type.light_color) {
-        tempTypes.splice(i, 1);
-      }
-    });
-
     await this.props.addCurrentBudget({
-      budgets: tempBudgets,
-      types: tempTypes,
       selected: {
         type: type.type,
         light: type.light_color,
@@ -69,8 +53,7 @@ class BudgetType extends Component {
       showTypes,
       budgetTypes,
       flagToggle,
-      handleChange,
-      addSelectedBudget
+      handleChange
     } = this.props;
 
     const types = budgetTypes.map((e, i) => (

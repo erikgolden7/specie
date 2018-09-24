@@ -17,6 +17,12 @@ const SET_CURRENT_BUDGET = 'SET_CURRENT_BUDGET';
 const SET_CURRENT_BUDGET_PENDING = 'SET_CURRENT_BUDGET_PENDING';
 const SET_CURRENT_BUDGET_FULFILLED = 'SET_CURRENT_BUDGET_FULFILLED';
 
+const EDIT_CURRENT_BUDGET = 'EDIT_CURRENT_BUDGET';
+const EDIT_CURRENT_BUDGET_PENDING = 'EDIT_CURRENT_BUDGET_PENDING';
+const EDIT_CURRENT_BUDGET_FULFILLED = 'EDIT_CURRENT_BUDGET_FULFILLED';
+
+const SELECT_BUDGET = 'SELECT_BUDGET';
+
 const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
 
 const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
@@ -28,6 +34,8 @@ const initialState = {
   showEdit: false,
   inputError: false,
   typeInput: '',
+  nameInput: '',
+  amountInput: '',
   budgetTypes: [],
   currentBudgets: [],
   selectedBudget: {}
@@ -70,6 +78,22 @@ export default function budgetsReducer(state = initialState, action) {
       return Object.assign({}, state, {
         loading: false,
         currentBudgets: [...action.payload]
+      });
+
+    case EDIT_CURRENT_BUDGET_PENDING:
+      return Object.assign({}, state, { loading: true });
+    case EDIT_CURRENT_BUDGET_FULFILLED:
+      return Object.assign({}, state, {
+        loading: false,
+        nameInput: '',
+        amountInput: '',
+        selectedBudget: {}
+      });
+
+    case SELECT_BUDGET:
+      console.log(action.payload);
+      return Object.assign({}, state, {
+        selectedBudget: action.payload
       });
 
     case HANDLE_FLAG_TOGGLE:
@@ -119,13 +143,6 @@ export function getCurrentBudgets() {
 }
 
 export const addCurrentBudget = budget => {
-  // budgets: tempBudgets,
-  // types: tempTypes,
-  // selected: {
-  //   type: type,
-  //   light: color.light,
-  //   dark: color.dark
-  // }
   const { type, light, amount } = budget.selected;
 
   return {
@@ -136,6 +153,32 @@ export const addCurrentBudget = budget => {
       .catch(err => console.log(err))
   };
 };
+
+export const editCurrentBudget = (budget, newName, newAmount) => {
+  const { type, light_color, amount } = budget;
+  console.log(budget);
+
+  console.log(type, light_color, amount, newName, newAmount);
+
+  return {
+    type: EDIT_CURRENT_BUDGET,
+    payload: axios
+      .put(
+        `/api/editCurrentBudget?type=${type}&light=${light_color}&amount=${amount}&newAmount=${newAmount}&newName=${newName}`
+      )
+      .then(res => res.data)
+      .catch(err => console.log(err))
+  };
+};
+
+export function selectBudget(budget) {
+  console.log(budget);
+
+  return {
+    type: SELECT_BUDGET,
+    payload: budget
+  };
+}
 
 export function flagToggle(menu) {
   return { type: HANDLE_FLAG_TOGGLE, payload: menu };
