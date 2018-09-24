@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 
 class BudgetBar extends Component {
   render() {
-    // console.log(this.props.type.light_color, this.props.type.type);
+    console.log(this.props.budget);
 
     return (
       <button
         key={this.props.index}
-        style={{ background: this.props.type.light_color }}
+        style={{ background: this.props.budget.light_color }}
         className="menu-item"
-        onClick={() => this.props.addType(this.props.type)}
+        onClick={() => this.props.addSelectedBudget(this.props.budget)}
       >
-        {this.props.type.type}
+        {this.props.budget.type}
       </button>
     );
   }

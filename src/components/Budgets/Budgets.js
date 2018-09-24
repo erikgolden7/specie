@@ -76,7 +76,6 @@ class Budgets extends Component {
   render() {
     const { nameInput, amountInput } = this.state;
     const { currentBudgets } = this.props;
-    console.log(currentBudgets);
 
     const budgets = currentBudgets.map((e, i) => {
       // <BudgetBar type={e} index={i} />;

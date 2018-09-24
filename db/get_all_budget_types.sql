@@ -1,2 +1,3 @@
 SELECT *
-from budgets
+FROM budgets
+WHERE active = false;

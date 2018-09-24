@@ -13,6 +13,10 @@ const GET_CURRENT_BUDGETS = 'GET_CURRENT_BUDGETS';
 const GET_CURRENT_BUDGETS_PENDING = 'GET_CURRENT_BUDGETS_PENDING';
 const GET_CURRENT_BUDGETS_FULFILLED = 'GET_CURRENT_BUDGETS_FULFILLED';
 
+const SET_CURRENT_BUDGET = 'SET_CURRENT_BUDGET';
+const SET_CURRENT_BUDGET_PENDING = 'SET_CURRENT_BUDGET_PENDING';
+const SET_CURRENT_BUDGET_FULFILLED = 'SET_CURRENT_BUDGET_FULFILLED';
+
 const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
 
 const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
@@ -34,7 +38,6 @@ export default function budgetsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_BUDGET_TYPE_PENDING:
       return Object.assign({}, state, { loading: true });
-
     case SET_BUDGET_TYPE_FULFILLED:
       return Object.assign({}, state, {
         loading: false,
@@ -56,6 +59,14 @@ export default function budgetsReducer(state = initialState, action) {
     case GET_CURRENT_BUDGETS_PENDING:
       return Object.assign({}, state, { loading: true });
     case GET_CURRENT_BUDGETS_FULFILLED:
+      return Object.assign({}, state, {
+        loading: false,
+        currentBudgets: [...action.payload]
+      });
+
+    case SET_CURRENT_BUDGET_PENDING:
+      return Object.assign({}, state, { loading: true });
+    case SET_CURRENT_BUDGET_FULFILLED:
       return Object.assign({}, state, {
         loading: false,
         currentBudgets: [...action.payload]
@@ -106,6 +117,25 @@ export function getCurrentBudgets() {
       .catch(err => console.log(err))
   };
 }
+
+export const addCurrentBudget = budget => {
+  // budgets: tempBudgets,
+  // types: tempTypes,
+  // selected: {
+  //   type: type,
+  //   light: color.light,
+  //   dark: color.dark
+  // }
+  const { type, light, amount } = budget.selected;
+
+  return {
+    type: SET_CURRENT_BUDGET,
+    payload: axios
+      .put(`/api/setCurrentBudget?type=${type}&light=${light}&amount=${amount}`)
+      .then(res => res.data)
+      .catch(err => console.log(err))
+  };
+};
 
 export function flagToggle(menu) {
   return { type: HANDLE_FLAG_TOGGLE, payload: menu };

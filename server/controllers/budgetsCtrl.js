@@ -36,5 +36,20 @@ module.exports = {
       .catch(err => res.status(500).json(err));
 
     res.status(200).json(budgets);
+  },
+
+  setCurrentBudget: async (req, res) => {
+    const db = req.app.get('db');
+    const { type, light, amount } = req.query;
+
+    await db
+      .add_current_budget([type, light, amount])
+      .catch(err => res.status(500).json(err));
+
+    const budgets = await db
+      .get_all_current_budgets()
+      .catch(err => res.status(500).json(err));
+
+    res.status(200).json(budgets);
   }
 };

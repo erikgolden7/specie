@@ -9,12 +9,6 @@ import BudgetBar from './BudgetBar';
 import './budgets.css';
 
 class BudgetType extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount = () => {
     this.props.getBudgetTypes();
   };
@@ -44,18 +38,28 @@ class BudgetType extends Component {
     }
   };
 
-  addCurrentBudget = type => {
-    const tempTypes = [...this.state.budgetTypes];
-    const tempBudgets = [...this.state.currentBudgets];
+  addSelectedBudget = async type => {
+    const tempTypes = [...this.props.budgetTypes];
+    const tempBudgets = [...this.props.currentBudgets];
     tempBudgets.push(type);
 
     tempTypes.forEach((e, i, arr) => {
-      if (e.type === type.type && e.color.light === type.color.light) {
+      if (e.type === type.type && e.light_color === type.light_color) {
         tempTypes.splice(i, 1);
       }
     });
 
-    this.setState({ currentBudgets: tempBudgets, budgetTypes: tempTypes });
+    await this.props.addCurrentBudget({
+      budgets: tempBudgets,
+      types: tempTypes,
+      selected: {
+        type: type.type,
+        light: type.light_color,
+        amount: type.amount
+      }
+    });
+
+    this.props.getBudgetTypes();
   };
 
   render() {
@@ -65,11 +69,17 @@ class BudgetType extends Component {
       showTypes,
       budgetTypes,
       flagToggle,
-      handleChange
+      handleChange,
+      addSelectedBudget
     } = this.props;
 
     const types = budgetTypes.map((e, i) => (
-      <BudgetBar key={i} addType={this.addCurrentBudget} type={e} index={i} />
+      <BudgetBar
+        key={i}
+        addSelectedBudget={this.addSelectedBudget}
+        budget={e}
+        index={i}
+      />
     ));
 
     return (
@@ -139,13 +149,12 @@ class BudgetType extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.budgetsReducer);
-
   return {
     budgetTypes: state.budgetsReducer.budgetTypes,
     showTypes: state.budgetsReducer.showTypes,
     typeInput: state.budgetsReducer.typeInput,
-    inputError: state.budgetsReducer.inputError
+    inputError: state.budgetsReducer.inputError,
+    currentBudgets: state.budgetsReducer.currentBudgets
   };
 }
 
