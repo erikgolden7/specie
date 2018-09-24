@@ -3,6 +3,7 @@ import { Motion, spring } from 'react-motion';
 
 import { connect } from 'react-redux';
 import * as budgetReducer from '../../redux/reducers/budgetsReducer';
+import funcService from '../../services/funcService';
 
 import BudgetBar from './BudgetBar';
 import './budgets.css';
@@ -18,24 +19,57 @@ class BudgetType extends Component {
     this.props.getBudgetTypes();
   };
 
+  saveBudgetType = async () => {
+    const { typeInput, flagToggle, addBudgetType } = this.props;
+
+    if (!typeInput) {
+      flagToggle('inputError');
+      return;
+    }
+
+    const hue = funcService.getRandomColor();
+
+    const typeData = {
+      type: typeInput,
+      color: { light: hue.light, dark: hue.dark },
+      amount: 0
+    };
+
+    addBudgetType(typeData);
+  };
+
+  inputEnterPress = e => {
+    if (e.keyCode === 13) {
+      this.saveBudgetType();
+    }
+  };
+
+  addCurrentBudget = type => {
+    const tempTypes = [...this.state.budgetTypes];
+    const tempBudgets = [...this.state.currentBudgets];
+    tempBudgets.push(type);
+
+    tempTypes.forEach((e, i, arr) => {
+      if (e.type === type.type && e.color.light === type.color.light) {
+        tempTypes.splice(i, 1);
+      }
+    });
+
+    this.setState({ currentBudgets: tempBudgets, budgetTypes: tempTypes });
+  };
+
   render() {
     const {
       inputError,
       typeInput,
       showTypes,
       budgetTypes,
-      addCurrentBudget,
-      addBudgetType,
       flagToggle,
-      handleChange,
-      inputEnterPress
+      handleChange
     } = this.props;
 
-    console.log(this.props.budgetTypes);
-    console.log(this.props.showTypes);
-
     const types = budgetTypes.map((e, i) => (
-      <BudgetBar key={i} addType={addCurrentBudget} type={e} index={i} />
+      <BudgetBar key={i} addType={this.addCurrentBudget} type={e} index={i} />
     ));
 
     return (
@@ -62,9 +96,9 @@ class BudgetType extends Component {
                   ? { border: 'solid 1px red' }
                   : { border: 'solid 1px gray' }
               }
-              onKeyDown={inputEnterPress}
+              onKeyDown={this.inputEnterPress}
             />
-            <button className="add-type-btn" onClick={addBudgetType}>
+            <button className="add-type-btn" onClick={this.saveBudgetType}>
               +
             </button>
           </div>

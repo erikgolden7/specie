@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BudgetType from './BudgetType';
 import Modal from './Modal';
-import {
-  addBudgetType,
-  getBudgetTypes
-} from '../../redux/reducers/budgetsReducer';
-import { getRandomColor } from '../../services/funcService';
+import * as budgetReducer from '../../redux/reducers/budgetsReducer';
+
 import './budgets.css';
 
 class Budgets extends Component {
@@ -14,7 +11,6 @@ class Budgets extends Component {
     super(props);
 
     this.state = {
-      currentBudgets: [],
       color: {},
       inputError: false,
       nameInput: '',
@@ -23,54 +19,8 @@ class Budgets extends Component {
     };
   }
 
-  inputEnterPress = e => {
-    if (e.keyCode === 13) {
-      this.addBudgetType(e);
-    }
-  };
-
-  addBudgetType = async () => {
-    const { typeInput, flagToggle } = this.props;
-
-    if (!typeInput) {
-      flagToggle('inputError');
-      return;
-    }
-
-    const hue = getRandomColor();
-    const typeData = {
-      type: typeInput,
-      color: { light: hue.light, dark: hue.dark },
-      amount: 0
-    };
-
-    const types = await this.props
-      .addBudgetType(typeData)
-      .catch(err => console.log(err));
-
-    console.log(types);
-
-    flagToggle('editModal');
-    flagToggle('showTypes');
-    flagToggle('inputError');
-
-    this.setState({
-      typeInput: ''
-    });
-  };
-
-  addCurrentBudget = type => {
-    const tempTypes = [...this.state.budgetTypes];
-    const tempBudgets = [...this.state.currentBudgets];
-    tempBudgets.push(type);
-
-    tempTypes.forEach((e, i, arr) => {
-      if (e.type === type.type && e.color.light === type.color.light) {
-        tempTypes.splice(i, 1);
-      }
-    });
-
-    this.setState({ currentBudgets: tempBudgets, budgetTypes: tempTypes });
+  componentDidMount = () => {
+    this.props.getCurrentBudgets();
   };
 
   editBudgetAmount = budget => {
@@ -120,23 +70,13 @@ class Budgets extends Component {
       selectedBudget: {},
       amountInput: 0,
       nameInput: ''
-      // showEdit: false
     });
   };
 
-  // handleChange = e => {
-  //   this.setState({ [e.target.name]: e.target.value });
-  // };
-
   render() {
-    const {
-      // inputError,
-      // typeInput,
-      // showTypes,
-      currentBudgets,
-      nameInput,
-      amountInput
-    } = this.state;
+    const { nameInput, amountInput } = this.state;
+    const { currentBudgets } = this.props;
+    console.log(currentBudgets);
 
     const budgets = currentBudgets.map((e, i) => {
       // <BudgetBar type={e} index={i} />;
@@ -144,7 +84,7 @@ class Budgets extends Component {
         <button
           key={i}
           className="current-budget-item"
-          style={{ background: e.color.light }}
+          style={{ background: e.light_color }}
           onClick={() => this.editBudgetAmount(e)}
         >
           {e.type}
@@ -155,17 +95,7 @@ class Budgets extends Component {
 
     return (
       <div className="budgets-view">
-        <BudgetType
-          // flagToggle={this.flagToggle}
-          // showTypes={showTypes}
-          // handleChange={this.handleChange}
-          // typeInput={input}
-          inputEnterPress={this.inputEnterPress}
-          budgetTypes={this.props.budgetTypes}
-          addBudgetType={this.addBudgetType}
-          addCurrentBudget={this.addCurrentBudget}
-          // inputError={inputError}
-        />
+        <BudgetType />
         <div className="current-budgets">
           <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
           <hr />
@@ -185,16 +115,16 @@ class Budgets extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log(state.budgetsReducer);
   return {
     budgetTypes: state.budgetsReducer.budgetTypes,
     showTypes: state.budgetsReducer.showTypes,
     typeInput: state.budgetsReducer.typeInput,
-    inputError: state.budgetsReducer.inputError
+    inputError: state.budgetsReducer.inputError,
+    currentBudgets: state.budgetsReducer.currentBudgets
   };
 }
 
 export default connect(
   mapStateToProps,
-  { addBudgetType, getBudgetTypes }
+  budgetReducer
 )(Budgets);
