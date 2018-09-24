@@ -9,11 +9,11 @@ module.exports = {
       amount
     } = req.body;
 
-    await db
+    await db.budgets
       .add_budget_type([type, light, dark, amount, false])
       .catch(err => res.status(500).json(err));
 
-    const allTypes = await db
+    const allTypes = await db.budgets
       .get_all_budget_types()
       .catch(err => res.status(500).json(err));
 
@@ -23,7 +23,7 @@ module.exports = {
   getBudgetTypes: async (req, res) => {
     const db = req.app.get('db');
 
-    const types = await db
+    const types = await db.budgets
       .get_all_budget_types()
       .catch(err => res.status(500).json(err));
 
@@ -33,7 +33,7 @@ module.exports = {
   getCurrentBudgets: async (req, res) => {
     const db = req.app.get('db');
 
-    const budgets = await db
+    const budgets = await db.budgets
       .get_all_current_budgets()
       .catch(err => res.status(500).json(err));
 
@@ -44,11 +44,11 @@ module.exports = {
     const db = req.app.get('db');
     const { type, light, amount } = req.query;
 
-    await db
+    await db.budgets
       .add_current_budget([type, light, amount])
       .catch(err => res.status(500).json(err));
 
-    const budgets = await db
+    const budgets = await db.budgets
       .get_all_current_budgets()
       .catch(err => res.status(500).json(err));
 
@@ -59,7 +59,7 @@ module.exports = {
     const db = req.app.get('db');
     const { type, light, amount, newName, newAmount } = req.query;
 
-    await db
+    await db.budgets
       .edit_current_budget([
         type,
         light,
@@ -69,7 +69,7 @@ module.exports = {
       ])
       .catch(err => res.status(500).json(err));
 
-    const budgets = await db
+    const budgets = await db.budgets
       .get_all_current_budgets()
       .catch(err => res.status(500).json(err));
 
