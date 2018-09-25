@@ -33,6 +33,7 @@ hr {
   font-size: 16px;
   color: #ffffff;
   border: solid gray 1px;
+  cursor: pointer;
 }
 
 .add-type-btn,
@@ -43,6 +44,7 @@ hr {
   font-size: 16px;
   color: #ffffff;
   border: solid gray 1px;
+  cursor: pointer;
 }
 
 .type-input {
@@ -98,6 +100,7 @@ hr {
   color: #ffffff;
   border: solid gray 1px;
   outline: none;
+  cursor: pointer;
 }
 
 .current-budget-item:hover {

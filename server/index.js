@@ -14,6 +14,15 @@ const app = express();
 app.use(json());
 app.use(cors());
 
+// app.use((req,res,next) => {
+//   if(req.method === 'GET'){
+//     next()
+//   }
+//   else {
+//     res.sendStatus(401)
+//   }
+// })
+
 massive(process.env.CONNECTION_STRING)
   .then(dbInstance => {
     app.set('db', dbInstance);
@@ -34,12 +43,16 @@ if (process.env.NODE_ENV === 'production') {
 
 app.post('/api/setTransactions', transactionCtrl.setTransactionData);
 
+// Budget Endpoints
+// ----------------
 app.post('/api/setBudgetType', budgetCtrl.addBudgetType);
 app.get('/api/getBudgetTypes', budgetCtrl.getBudgetTypes);
 app.get('/api/getCurrentBudgets', budgetCtrl.getCurrentBudgets);
 app.put('/api/setCurrentBudget', budgetCtrl.setCurrentBudget);
 app.put('/api/editCurrentBudget', budgetCtrl.editCurrentBudget);
 app.delete('/api/removeCurrentBudget', budgetCtrl.deleteCurrentBudget);
+
+// app.get('/test', (req, res) => res.status(418).send({ message: 'this is an error' }));
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {

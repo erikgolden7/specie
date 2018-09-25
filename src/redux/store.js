@@ -7,9 +7,6 @@ import transactionsReducer from './reducers/transactionsReducer';
 
 const rootReducer = combineReducers({ budgetsReducer, transactionsReducer });
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(promiseMiddleware()))
-);
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(promiseMiddleware())));
 
 export default store;

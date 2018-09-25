@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import { Provider } from 'react-redux';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import store from './redux/store';
 
 ReactDOM.render(
@@ -11,7 +11,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-registerServiceWorker();
+// registerServiceWorker();
 
 // componentWillMount() {} // is run before mounting. setState won't trigger re-render. avoid side-effects or subscriptions
 // componentDidMount() {} // is run after mounting. target DOM nodes here. load async data here.

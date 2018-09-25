@@ -98,14 +98,9 @@ class BudgetModal extends Component {
   }
 }
 
-const mapStateToProps = ({ budgetsReducer }) => {
-  return {
-    showEdit: budgetsReducer.showEdit,
-    nameInput: budgetsReducer.nameInput,
-    amountInput: budgetsReducer.amountInput,
-    selectedBudget: budgetsReducer.selectedBudget
-  };
-};
+const mapStateToProps = ({ budgetsReducer }) => ({
+  ...budgetsReducer
+});
 
 export default connect(
   mapStateToProps,
