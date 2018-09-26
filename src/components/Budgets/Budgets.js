@@ -7,7 +7,7 @@ import * as budgetReducer from '../../redux/reducers/budgetsReducer';
 
 import './budgets.css';
 
-class Budgets extends Component {
+export class Budgets extends Component {
   componentDidMount = () => {
     this.props.getBudgetTypes();
     this.props.getCurrentBudgets();

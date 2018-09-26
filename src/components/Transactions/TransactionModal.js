@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { setTransactionFormData } from '../../redux/reducers/transactionsReducer';
+import * as transactionsReducer from '../../redux/reducers/transactionsReducer';
 import 'react-datepicker/dist/react-datepicker.css';
 import './transactions.css';
+// import { flagToggle } from '../../redux/reducers/budgetsReducer';
 
-class Modal extends React.Component {
+class Modal extends Component {
   constructor(props) {
     super(props);
 
@@ -18,21 +19,17 @@ class Modal extends React.Component {
     };
   }
 
-  handleInput = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
   handleSubmit = e => {
     e.preventDefault();
-    const { budgetType, date, location, amount } = this.state;
+    const { budgetType, date, location, amount, setTransactionFormData, flagToggle } = this.props;
     const formatDate = moment(date).format('M/D/YY');
 
-    this.props.setTransactionFormData(budgetType, formatDate, location, amount);
-    this.props.toggleModal();
+    setTransactionFormData(budgetType, formatDate, location, amount);
+    flagToggle();
   };
 
   render() {
-    // const { budgetType, date, location, amount } = this.state;
+    const { budgetType, date, location, amount, flagToggle, handleChange } = this.props;
 
     return (
       <div className="backdrop">
@@ -40,12 +37,7 @@ class Modal extends React.Component {
           <form className="transaction-form" onSubmit={this.handleSubmit}>
             <div>
               <label>Select Budget Type:</label>
-              <select
-                className="transaction-select"
-                name="budgetType"
-                value={this.state.budgetType}
-                onChange={this.handleInput}
-              >
+              <select className="transaction-select" name="budgetType" value={budgetType} onChange={handleChange}>
                 <option value="groceries">Groceries</option>
                 <option value="entertainment">Entertainment</option>
                 <option value="automotive">Automobile</option>
@@ -57,7 +49,7 @@ class Modal extends React.Component {
               <label>Select Date:</label>
               <DatePicker
                 className="transaction-datepicker"
-                selected={this.state.date}
+                selected={date}
                 onChange={date => this.setState({ date })}
               />
             </div>
@@ -68,9 +60,9 @@ class Modal extends React.Component {
                 className="modal-input transaction-input"
                 type="text"
                 placeholder="Where your money went..."
-                value={this.props.amount}
+                value={location}
                 name="location"
-                onChange={this.handleInput}
+                onChange={handleChange}
               />
             </div>
 
@@ -80,9 +72,9 @@ class Modal extends React.Component {
                 className="modal-input transaction-input"
                 type="text"
                 placeholder="How much you spent..."
-                value={this.props.name}
+                value={amount}
                 name="amount"
-                onChange={this.handleInput}
+                onChange={handleChange}
               />
             </div>
 
@@ -90,7 +82,7 @@ class Modal extends React.Component {
           </form>
 
           <div className="footer">
-            <button className="close-btn" onClick={this.props.toggleModal}>
+            <button className="close-btn" onClick={flagToggle}>
               Close
             </button>
           </div>
@@ -100,13 +92,11 @@ class Modal extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    state
-  };
-};
+const mapStateToProps = ({ transactionsReducer }) => ({
+  ...transactionsReducer
+});
 
 export default connect(
   mapStateToProps,
-  { setTransactionFormData }
+  transactionsReducer
 )(Modal);
