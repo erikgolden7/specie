@@ -4,7 +4,7 @@ const { json } = require('body-parser');
 const massive = require('massive');
 const cors = require('cors');
 const path = require('path');
-const transactionCtrl = require('./controllers/transactionsCtrl');
+const transactionsCtrl = require('./controllers/transactionsCtrl');
 const budgetCtrl = require('./controllers/budgetsCtrl');
 
 const PORT = process.env.PORT || 3001;
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 // ENDPOINTS
 // --------------------
 
-app.post('/api/setTransactions', transactionCtrl.setTransactionData);
+app.post('/api/setTransactions', transactionsCtrl.setTransactionData);
 
 // Budget Endpoints
 // ----------------
@@ -51,6 +51,8 @@ app.get('/api/getCurrentBudgets', budgetCtrl.getCurrentBudgets);
 app.put('/api/setCurrentBudget', budgetCtrl.setCurrentBudget);
 app.put('/api/editCurrentBudget', budgetCtrl.editCurrentBudget);
 app.delete('/api/removeCurrentBudget', budgetCtrl.deleteCurrentBudget);
+
+app.get('/api/getTransactionData', transactionsCtrl.getAllTransactions);
 
 // app.get('/test', (req, res) => res.status(418).send({ message: 'this is an error' }));
 

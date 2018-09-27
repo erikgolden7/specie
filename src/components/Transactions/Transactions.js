@@ -5,23 +5,19 @@ import TransactionModal from './TransactionModal';
 
 import './transactions.css';
 
-const testData = [
-  { type: 'Shopping', location: 'Walmart', date: '4/30/2018', amount: 200 },
-  { type: 'Home Improvement', location: 'Home Depot', date: '6/13/2018', amount: 300 },
-  { type: 'Food', location: 'Chilis', date: '4/23/2018', amount: 600 },
-  { type: 'Clothes', location: 'Mr Mac', date: '12/22/2018', amount: 800 },
-  { type: 'Shopping', location: 'RC Willey', date: '7/04/2018', amount: 100 }
-];
-
 class Transactions extends Component {
+  componentDidMount() {
+    this.props.getTransactionData();
+  }
+
   render() {
-    const dataMap = testData.map((e, i) => {
+    const dataMap = this.props.transactions.map((e, i) => {
       return (
         <tr key={i}>
           <td>{e.type}</td>
           <td>{e.location}</td>
           <td>{e.date}</td>
-          <td>{e.amount}</td>
+          <td>{`$ ${e.amount}`}</td>
         </tr>
       );
     });
