@@ -15,9 +15,9 @@ const testData = [
 
 class Transactions extends Component {
   render() {
-    const dataMap = testData.map(e => {
+    const dataMap = testData.map((e, i) => {
       return (
-        <tr>
+        <tr key={i}>
           <td>{e.type}</td>
           <td>{e.location}</td>
           <td>{e.date}</td>
@@ -34,12 +34,12 @@ class Transactions extends Component {
           {showModal && <TransactionModal />}
         </div>
         <div className="display-transactions">
-          <th>
-            <td>Type</td>
-            <td>Location</td>
-            <td>Date</td>
-            <td>Amount</td>
-          </th>
+          <tr>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Amount</th>
+          </tr>
           {dataMap}
         </div>
       </div>

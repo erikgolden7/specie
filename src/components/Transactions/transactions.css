@@ -89,17 +89,40 @@
 
 /* Table */
 
-th {
-  width: 100%;
+table {
+  width: 90%;
 }
 
 tr {
   display: flex;
-  flex-direction: row;
+  width: 92%;
+  margin: 0 auto;
 }
 
-td {
+tr:nth-child(odd) {
+  background: rgb(235, 235, 235);
+}
+
+th {
+  background: lightgray;
+}
+
+td,
+th {
   width: 25%;
   padding: 5px;
   border: solid gray 1px;
+  border-collapse: collapse;
 }
+
+/* table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 5px;
+  text-align: left;
+} */

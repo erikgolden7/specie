@@ -8,16 +8,16 @@ import './transactions.css';
 // import { flagToggle } from '../../redux/reducers/budgetsReducer';
 
 class Modal extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      date: moment(),
-      budgetType: '',
-      location: '',
-      amount: 0
-    };
-  }
+  //   this.state = {
+  //     date: moment(),
+  //     budgetType: '',
+  //     location: '',
+  //     amount: 0
+  //   };
+  // }
 
   handleSubmit = e => {
     e.preventDefault();
@@ -26,6 +26,10 @@ class Modal extends Component {
 
     setTransactionFormData(budgetType, formatDate, location, amount);
     flagToggle();
+  };
+
+  handleDate = d => {
+    console.log(d);
   };
 
   render() {
@@ -49,8 +53,9 @@ class Modal extends Component {
               <label>Select Date:</label>
               <DatePicker
                 className="transaction-datepicker"
+                name="date"
                 selected={date}
-                onChange={date => this.setState({ date })}
+                onChange={date => this.handleDate(date)}
               />
             </div>
 
