@@ -2,22 +2,34 @@ module.exports = {
   getAllTransactions: async (req, res) => {
     const db = req.app.get('db');
 
-    const transactions = await db.transactions.get_all_transactions();
+    const transactions = await db.transactions.get_all_transactions().catch(err => console.log(err));
 
     if (transactions) {
       return res.status(200).json(transactions);
+    } else {
+      return res.status(500).json('error getting transactions');
     }
-    res.status(500).json('error getting transactions');
   },
 
-  setTransactionData: (req, res) => {
+  setTransactionData: async (req, res) => {
     const db = req.app.get('db');
     const { type, date, location, amount } = req.body;
 
-    db.post_product([type, date, location, amount])
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    await db.transactions.post_product([type, date, location, amount]).catch(console.log);
 
-    res.status(200).json(req.body);
+    res.status(200).json('Successfully added new transaction');
+  },
+
+  // sortTransactionTable: async (req, res) => {
+  //   const db = req.app.get('db')
+
+  //   const results =
+  // }
+
+  getColorTotal: async (req, res) => {
+    const db = req.app.get('db');
+
+    const response = await db.transactions.get_type_total(req.body.type);
+    console.log(response);
   }
 };

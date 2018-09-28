@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import BudgetType from './BudgetType';
 import BudgetModal from './BudgetModal';
-import * as budgetReducer from '../../redux/reducers/budgetsReducer';
+import { flagToggle, selectBudget, getBudgetTypes, getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
+import { getTransactionData } from '../../redux/reducers/transactionsReducer';
 
 import './budgets.css';
 
@@ -11,12 +13,23 @@ export class Budgets extends Component {
   componentDidMount = () => {
     this.props.getBudgetTypes();
     this.props.getCurrentBudgets();
+    this.props.getTransactionData();
   };
 
   render() {
-    const { currentBudgets, flagToggle, selectBudget } = this.props;
+    const { currentBudgets, flagToggle, selectBudget, transactions } = this.props;
 
     const budgets = currentBudgets.map((e, i) => {
+      let total = 0;
+
+      transactions.forEach(ele => {
+        if (ele.type === e.type) {
+          total += ele.amount;
+        }
+      });
+      const percent = (total / e.amount) * 100;
+      console.log(percent);
+
       return (
         <button
           key={i}
@@ -47,13 +60,14 @@ export class Budgets extends Component {
   }
 }
 
-const mapStateToProps = ({ budgetsReducer }) => {
+const mapStateToProps = ({ budgetsReducer, transactionsReducer }) => {
   return {
-    currentBudgets: budgetsReducer.currentBudgets
+    ...budgetsReducer,
+    ...transactionsReducer
   };
 };
 
 export default connect(
   mapStateToProps,
-  budgetReducer
+  { flagToggle, selectBudget, getTransactionData, getBudgetTypes, getCurrentBudgets }
 )(Budgets);

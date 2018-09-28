@@ -1,39 +1,40 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import { connect } from 'react-redux';
-import * as transactionsReducer from '../../redux/reducers/transactionsReducer';
+import {
+  setTransactionFormData,
+  getTransactionData,
+  flagToggle,
+  handleChange,
+  handleDate
+} from '../../redux/reducers/transactionsReducer';
+import { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
 import 'react-datepicker/dist/react-datepicker.css';
 import './transactions.css';
-// import { flagToggle } from '../../redux/reducers/budgetsReducer';
 
 class Modal extends Component {
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     date: moment(),
-  //     budgetType: '',
-  //     location: '',
-  //     amount: 0
-  //   };
-  // }
+  componentDidMount = () => {
+    this.props.getCurrentBudgets();
+  };
 
   handleSubmit = e => {
     e.preventDefault();
     const { budgetType, date, location, amount, setTransactionFormData, flagToggle } = this.props;
-    const formatDate = moment(date).format('M/D/YY');
 
-    setTransactionFormData(budgetType, formatDate, location, amount);
+    setTransactionFormData(budgetType, date, location, amount);
     flagToggle();
   };
 
-  handleDate = d => {
-    console.log(d);
-  };
-
   render() {
-    const { budgetType, date, location, amount, flagToggle, handleChange } = this.props;
+    const { budgetType, date, location, amount, flagToggle, handleChange, currentBudgets, handleDate } = this.props;
+
+    const budgets = currentBudgets.map((e, i) => {
+      return (
+        <option key={i} value={e.type}>
+          {e.type}
+        </option>
+      );
+    });
 
     return (
       <div className="backdrop">
@@ -42,10 +43,7 @@ class Modal extends Component {
             <div>
               <label>Select Budget Type:</label>
               <select className="transaction-select" name="budgetType" value={budgetType} onChange={handleChange}>
-                <option value="groceries">Groceries</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="automotive">Automobile</option>
-                <option value="education">Education</option>
+                {budgets}
               </select>
             </div>
 
@@ -53,9 +51,10 @@ class Modal extends Component {
               <label>Select Date:</label>
               <DatePicker
                 className="transaction-datepicker"
-                name="date"
+                // name="date"
+                // value={date}
                 selected={date}
-                onChange={date => this.handleDate(date)}
+                onChange={date => handleDate(date)}
               />
             </div>
 
@@ -97,11 +96,12 @@ class Modal extends Component {
   }
 }
 
-const mapStateToProps = ({ transactionsReducer }) => ({
-  ...transactionsReducer
+const mapStateToProps = ({ transactionsReducer, budgetsReducer }) => ({
+  ...transactionsReducer,
+  ...budgetsReducer
 });
 
 export default connect(
   mapStateToProps,
-  transactionsReducer
+  { setTransactionFormData, getTransactionData, flagToggle, getCurrentBudgets, handleChange, handleDate }
 )(Modal);

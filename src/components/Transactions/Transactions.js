@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as transactionsReducer from '../../redux/reducers/transactionsReducer';
+import { getTransactionData, flagToggle } from '../../redux/reducers/transactionsReducer';
+import budgetsReducer, { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
+
+import TransactionTable from './TransactionTable';
 import TransactionModal from './TransactionModal';
 
 import './transactions.css';
@@ -8,35 +11,19 @@ import './transactions.css';
 class Transactions extends Component {
   componentDidMount() {
     this.props.getTransactionData();
+    this.props.getCurrentBudgets();
   }
 
   render() {
-    const dataMap = this.props.transactions.map((e, i) => {
-      return (
-        <tr key={i}>
-          <td>{e.type}</td>
-          <td>{e.location}</td>
-          <td>{e.date}</td>
-          <td>{`$ ${e.amount}`}</td>
-        </tr>
-      );
-    });
-
-    const { showModal, flagToggle } = this.props;
+    const { showModal, flagToggle, transactions } = this.props;
     return (
-      <div style={{ marginTop: 60 }}>
+      <div style={{ marginTop: 80 }}>
         <div className="add-transaction-container">
           <button onClick={flagToggle}>Add New Transaction</button>
           {showModal && <TransactionModal />}
         </div>
         <div className="display-transactions">
-          <tr>
-            <th>Type</th>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Amount</th>
-          </tr>
-          {dataMap}
+          <TransactionTable data={transactions} />
         </div>
       </div>
     );
@@ -44,10 +31,11 @@ class Transactions extends Component {
 }
 
 const mapStateToProps = ({ transactionsReducer }) => ({
-  ...transactionsReducer
+  ...transactionsReducer,
+  ...budgetsReducer
 });
 
 export default connect(
   mapStateToProps,
-  transactionsReducer
+  { getTransactionData, getCurrentBudgets, flagToggle }
 )(Transactions);
