@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import BudgetType from './BudgetType';
 import BudgetModal from './BudgetModal';
@@ -31,18 +30,25 @@ export class Budgets extends Component {
       console.log(percent);
 
       return (
+        // <div style={{ background: e.light_color, height: '100%', width: '100%', zIndex: 5 }}>
         <button
           key={i}
           className="current-budget-item"
-          style={{ background: e.light_color }}
+          // style={{ background: e.light_color }}
           onClick={() => {
             flagToggle('showEdit');
             selectBudget(e);
           }}
         >
-          {e.type}
-          <span>{e.amount}</span>
+          <div className="dark" style={{ background: e.dark_color }}>
+            <div className="text-left">{e.type}</div>
+            <div className="text-right">{e.amount}</div>
+            <div className="light" style={{ background: e.light_color, width: `${percent}%` }} />
+          </div>
+
+          <div />
         </button>
+        // </div>
       );
     });
 
