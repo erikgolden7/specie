@@ -1,3 +1,4 @@
 SELECT *
 FROM budgets
-WHERE active = true;
+WHERE active = true
+ORDER BY type ASC;

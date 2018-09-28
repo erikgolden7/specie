@@ -11,7 +11,7 @@ const HANDLE_DATE_CHANGE = 'HANDLE_DATE_CHANGE';
 // Initial State
 const initialState = {
   loading: false,
-  showModal: false,
+  transactionModal: false,
   date: moment(),
   budgetType: '',
   location: '',
@@ -61,7 +61,7 @@ export default function transactionsReducer(state = initialState, action) {
     case HANDLE_FLAG_TOGGLE:
       return {
         ...state,
-        showModal: !state.showModal
+        transactionModal: !state.transactionModal
       };
 
     case HANDLE_INPUT_CHANGE:
@@ -106,8 +106,6 @@ export const handleChange = e => {
 };
 
 export const handleDate = date => {
-  console.log(date);
-
   return {
     type: HANDLE_DATE_CHANGE,
     payload: date

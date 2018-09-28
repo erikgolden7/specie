@@ -17,11 +17,12 @@ class Modal extends Component {
     this.props.getCurrentBudgets();
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
     const { budgetType, date, location, amount, setTransactionFormData, flagToggle } = this.props;
 
-    setTransactionFormData(budgetType, date, location, amount);
+    await setTransactionFormData(budgetType, date, location, amount);
+    this.props.getTransactionData();
     flagToggle();
   };
 
@@ -49,13 +50,7 @@ class Modal extends Component {
 
             <div>
               <label>Select Date:</label>
-              <DatePicker
-                className="transaction-datepicker"
-                // name="date"
-                // value={date}
-                selected={date}
-                onChange={date => handleDate(date)}
-              />
+              <DatePicker className="transaction-datepicker" selected={date} onChange={date => handleDate(date)} />
             </div>
 
             <div style={{ marginTop: 20 }}>
