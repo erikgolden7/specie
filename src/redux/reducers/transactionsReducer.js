@@ -7,6 +7,7 @@ const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
 const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
 const GET_TRANSACTION_DATA = 'GET_TRANSACTION_DATA';
 const HANDLE_DATE_CHANGE = 'HANDLE_DATE_CHANGE';
+// const VALIDATE_TRANSACTION_FORM = 'VALIDATE_TRANSACTION_FORM';
 
 // Initial State
 const initialState = {
@@ -18,6 +19,8 @@ const initialState = {
   amount: 0,
   transactions: [],
   error: false
+  // isError: false,
+  // errorMessage: []
 };
 
 // Reducer
@@ -67,7 +70,9 @@ export default function transactionsReducer(state = initialState, action) {
     case HANDLE_INPUT_CHANGE:
       return {
         ...state,
-        [action.payload.name]: action.payload.value
+        [action.payload.name]: action.payload.value,
+        formValid: action.payload.isError,
+        formErrorMessage: action.payload.errorMessage
       };
 
     case HANDLE_DATE_CHANGE:
@@ -75,6 +80,13 @@ export default function transactionsReducer(state = initialState, action) {
         ...state,
         date: action.payload
       };
+
+    // case VALIDATE_TRANSACTION_FORM:
+    //   return {
+    //     ...state,
+    //     isError: action.payload.isError,
+    //     errorMessage: [...action.payload.errorType]
+    //   };
 
     default:
       return state;
@@ -99,9 +111,18 @@ export const flagToggle = () => {
 };
 
 export const handleChange = e => {
+  let errorMessage = '';
+  let isError = false;
+
+  if (!e.target.value) {
+    console.log('hit');
+
+    errorMessage = `${e.target.name} cannot be blank`;
+    isError = true;
+  }
   return {
     type: HANDLE_INPUT_CHANGE,
-    payload: { name: e.target.name, value: e.target.value }
+    payload: { name: e.target.name, value: e.target.value, errorMessage: errorMessage, isError: isError }
   };
 };
 
@@ -116,6 +137,13 @@ export const getTransactionData = () => {
   return {
     type: GET_TRANSACTION_DATA,
     payload: axios.get('/api/getTransactionData')
+  };
+};
+
+export const transactionFormValidation = err => {
+  return {
+    type: VALIDATE_TRANSACTION_FORM,
+    payload: err
   };
 };
 

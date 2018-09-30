@@ -6,7 +6,8 @@ import {
   getTransactionData,
   flagToggle,
   handleChange,
-  handleDate
+  handleDate,
+  transactionFormValidation
 } from '../../redux/reducers/transactionsReducer';
 import { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -17,13 +18,51 @@ class Modal extends Component {
     this.props.getCurrentBudgets();
   };
 
+  formValidation = () => {
+    const { budgetType, location, amount } = this.props;
+
+    let errors = {
+      budgetErr: false,
+      locErr: false,
+      amtErr: false,
+      isErr: false
+    };
+
+    let { budgetErr, locErr, amtErr, isErr, errMsg } = errors;
+
+    if (budgetType !== '') {
+      budgetErr = true;
+    }
+    if (location !== '') {
+      locErr = true;
+    }
+    if (amount > 0) {
+      amtErr = true;
+    }
+    console.log(budgetErr, locErr, amtErr);
+
+    if (budgetErr && locErr && amtErr === true) {
+      isErr = true;
+    }
+
+    transactionFormValidation(errors);
+
+    return isErr;
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
     const { budgetType, date, location, amount, setTransactionFormData, flagToggle } = this.props;
 
-    await setTransactionFormData(budgetType, date, location, amount);
-    this.props.getTransactionData();
-    flagToggle();
+    const isFormError = this.formValidation();
+
+    if (!isFormError.isErr) {
+      console.log(isFormError.errMsg);
+    } else {
+      await setTransactionFormData(budgetType, date, location, amount);
+      this.props.getTransactionData();
+      flagToggle();
+    }
   };
 
   render() {
@@ -98,5 +137,99 @@ const mapStateToProps = ({ transactionsReducer, budgetsReducer }) => ({
 
 export default connect(
   mapStateToProps,
-  { setTransactionFormData, getTransactionData, flagToggle, getCurrentBudgets, handleChange, handleDate }
+  {
+    setTransactionFormData,
+    getTransactionData,
+    flagToggle,
+    getCurrentBudgets,
+    handleChange,
+    handleDate,
+    transactionFormValidation
+  }
 )(Modal);
+
+// function validate(email, password) {
+//   // true means invalid, so our conditions got reversed
+//   return {
+//     email: email.length === 0,
+//     password: password.length === 0,
+//   };
+// }
+
+// class SignUpForm extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       email: '',
+//       password: '',
+
+//       touched: {
+//         email: false,
+//         password: false,
+//       },
+//     };
+//   }
+
+//   handleEmailChange = (evt) => {
+//     this.setState({ email: evt.target.value });
+//   }
+
+//   handlePasswordChange = (evt) => {
+//     this.setState({ password: evt.target.value });
+//   }
+
+//   handleBlur = (field) => (evt) => {
+//     this.setState({
+//       touched: { ...this.state.touched, [field]: true },
+//     });
+//   }
+
+//   handleSubmit = (evt) => {
+//     if (!this.canBeSubmitted()) {
+//       evt.preventDefault();
+//       return;
+//     }
+//     const { email, password } = this.state;
+//     alert(`Signed up with email: ${email} password: ${password}`);
+//   }
+
+//   canBeSubmitted() {
+//     const errors = validate(this.state.email, this.state.password);
+//     const isDisabled = Object.keys(errors).some(x => errors[x]);
+//     return !isDisabled;
+//   }
+
+//   render() {
+//     const errors = validate(this.state.email, this.state.password);
+//     const isDisabled = Object.keys(errors).some(x => errors[x]);
+
+//     const shouldMarkError = (field) => {
+//       const hasError = errors[field];
+//       const shouldShow = this.state.touched[field];
+
+//       return hasError ? shouldShow : false;
+//     };
+
+//     return (
+//       <form onSubmit={this.handleSubmit}>
+//         <input
+//           className={shouldMarkError('email') ? "error" : ""}
+//           type="text"
+//           placeholder="Enter email"
+//           value={this.state.email}
+//           onChange={this.handleEmailChange}
+//           onBlur={this.handleBlur('email')}
+//         />
+//         <input
+//           className={shouldMarkError('password') ? "error" : ""}
+//           type="password"
+//           placeholder="Enter password"
+//           value={this.state.password}
+//           onChange={this.handlePasswordChange}
+//           onBlur={this.handleBlur('password')}
+//         />
+//         <button disabled={isDisabled}>Sign up</button>
+//       </form>
+//     )
+//   }
+// }
