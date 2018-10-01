@@ -17,13 +17,7 @@ const initialState = {
   budgetType: '',
   location: '',
   amount: 0,
-  transactions: [],
-  error: false,
-  formErrors: {
-    budgetErr: false,
-    locErr: false,
-    amtErr: false
-  }
+  transactions: []
 };
 
 // Reducer
@@ -71,8 +65,7 @@ export default function transactionsReducer(state = initialState, action) {
     case HANDLE_INPUT_CHANGE:
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
-        formErrorMessage: action.payload.errorMessage
+        [action.payload.name]: action.payload.value
       };
 
     case HANDLE_DATE_CHANGE:
@@ -110,18 +103,9 @@ export const flagToggle = () => {
 };
 
 export const handleChange = e => {
-  let errorMessage = '';
-  let isError = false;
-
-  if (!e.target.value) {
-    console.log('hit');
-
-    errorMessage = `${e.target.name} cannot be blank`;
-    isError = true;
-  }
   return {
     type: HANDLE_INPUT_CHANGE,
-    payload: { name: e.target.name, value: e.target.value, errorMessage: errorMessage, isError: isError }
+    payload: { name: e.target.name, value: e.target.value }
   };
 };
 
@@ -136,14 +120,5 @@ export const getTransactionData = () => {
   return {
     type: GET_TRANSACTION_DATA,
     payload: axios.get('/api/getTransactionData')
-  };
-};
-
-export const transactionFormValidation = err => {
-  console.log(err);
-
-  return {
-    type: VALIDATE_TRANSACTION_FORM,
-    payload: err
   };
 };

@@ -6,67 +6,80 @@ import {
   getTransactionData,
   flagToggle,
   handleChange,
-  handleDate,
-  transactionFormValidation
+  handleDate
 } from '../../redux/reducers/transactionsReducer';
 import { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
 import 'react-datepicker/dist/react-datepicker.css';
 import './transactions.css';
 
 class Modal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      errors: {
+        budgetErr: false,
+        locationErr: false,
+        amountErr: false
+      },
+      blur: {
+        budgetBlur: false,
+        locationBlur: false,
+        amountBlur: false
+      }
+    };
+  }
+
   componentDidMount = () => {
     this.props.getCurrentBudgets();
   };
 
   formValidation = () => {
-    var errors = {
-      budgetErr: false,
-      locErr: false,
-      amtErr: false
-    };
-    const { budgetType, location, amount, formErrors, transactionFormValidation } = this.props;
+    const { budgetType, location, amount } = this.props;
 
-    if (budgetType !== '') {
-      errors.budgetErr = true;
-    }
-    if (location !== '') {
-      errors.locErr = true;
-    }
-    if (amount > 0) {
-      errors.amtErr = true;
-    }
+    this.setState(prevState => ({
+      errors: { ...prevState.errors, budgetErr: false, locationErr: false, amountErr: false }
+    }));
 
-    transactionFormValidation(errors);
-    return formErrors.budgetErr && formErrors.locErr && formErrors.amtErr;
+    if (budgetType === '') {
+      this.setState(prevState => ({ errors: { ...prevState.errors, budgetErr: true } }));
+    }
+    if (location === '') {
+      this.setState(prevState => ({ errors: { ...prevState.errors, locationErr: true } }));
+    }
+    if (amount <= 0 || amount === '') {
+      this.setState(prevState => ({ errors: { ...prevState.errors, amountErr: true } }));
+    }
+  };
+
+  validateObj = () => {
+    const { errors } = this.state;
+
+    for (let key in errors) {
+      if (errors[key] === true) {
+        return true;
+      }
+    }
   };
 
   handleSubmit = async e => {
     e.preventDefault();
-    const { budgetType, date, location, amount, setTransactionFormData, flagToggle } = this.props;
-    const isFormError = this.formValidation();
-    console.log(isFormError);
+    const { budgetType, date, location, amount, setTransactionFormData, getTransactionData, flagToggle } = this.props;
 
-    if (!isFormError) {
+    await this.formValidation();
+    const isFormError = this.validateObj();
+
+    if (isFormError) {
       console.log('error found');
     } else {
       await setTransactionFormData(budgetType, date, location, amount);
-      this.props.getTransactionData();
+      getTransactionData();
       flagToggle();
     }
   };
 
   render() {
-    const {
-      budgetType,
-      date,
-      location,
-      amount,
-      formErrors,
-      flagToggle,
-      handleChange,
-      currentBudgets,
-      handleDate
-    } = this.props;
+    const { budgetType, date, location, amount, flagToggle, handleChange, currentBudgets, handleDate } = this.props;
 
     const budgets = currentBudgets.map((e, i) => {
       return (
@@ -94,7 +107,7 @@ class Modal extends Component {
 
             <div style={{ marginTop: 20 }}>
               <label>Enter Vendor/Business:</label>
-              {!formErrors.locErr ? (
+              {this.state.errors.locationErr ? (
                 <input
                   className="modal-input transaction-input"
                   style={{ border: 'solid red 1px' }}
@@ -103,6 +116,7 @@ class Modal extends Component {
                   value={location}
                   name="location"
                   onChange={handleChange}
+                  onBlur={() => console.log('clicked')}
                 />
               ) : (
                 <input
@@ -156,7 +170,6 @@ export default connect(
     flagToggle,
     getCurrentBudgets,
     handleChange,
-    handleDate,
-    transactionFormValidation
+    handleDate
   }
 )(Modal);
