@@ -5,8 +5,31 @@ import * as transactionsReducer from '../../redux/reducers/transactionsReducer';
 import './transactions.css';
 
 class TransactionTable extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sortAsc: true
+    };
+  }
+
+  onSort = sortKey => {
+    const { sortAsc } = this.state;
+    let tempData = [...this.props.data];
+    console.log(tempData);
+
+    if (this.state.sortAsc) {
+      tempData.sort((a, b) => a[sortKey].localeCompare(b[sortKey]));
+    } else {
+      tempData.sort((a, b) => b[sortKey].localeCompare(a[sortKey]));
+    }
+    this.setState({ sortAsc: !sortAsc });
+
+    this.props.sortData(tempData);
+  };
+
   render() {
-    const { sortTable } = this.props;
+    console.log(this.props.data);
 
     const dataMap = this.props.data.map((e, i) => {
       return (
@@ -23,12 +46,21 @@ class TransactionTable extends Component {
       <table>
         <tbody>
           <tr>
-            <th name="type" onClick={sortTable}>
+            <th onClick={() => this.onSort('type')} name="type">
               Type
+              <div className="sort" />
             </th>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Amount</th>
+            <th onClick={() => this.onSort('location')}>
+              Location <div className="sort" />
+            </th>
+            <th onClick={() => this.onSort('date')}>
+              {' '}
+              Date <div className="sort" />
+            </th>
+            <th onClick={() => this.onSort('amount')}>
+              {' '}
+              Amount <div className="sort" />
+            </th>
           </tr>
           {dataMap}
         </tbody>

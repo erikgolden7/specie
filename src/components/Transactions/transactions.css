@@ -116,10 +116,14 @@ th {
   background: lightgray;
   font-weight: bold;
   text-align: left;
+  cursor: pointer;
 }
 
 td,
 th {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 25%;
   padding: 6px 10px;
   border: solid gray 1px;
@@ -132,4 +136,11 @@ td {
 
 tr:hover {
   background: rgb(233, 233, 233);
+}
+
+.sort {
+  background: url('../../assets/sort.png') center no-repeat;
+  background-size: contain;
+  width: 10px;
+  height: 10px;
 }

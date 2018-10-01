@@ -8,6 +8,7 @@ const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
 const GET_TRANSACTION_DATA = 'GET_TRANSACTION_DATA';
 const HANDLE_DATE_CHANGE = 'HANDLE_DATE_CHANGE';
 const VALIDATE_TRANSACTION_FORM = 'VALIDATE_TRANSACTION_FORM';
+const SORT_TABLE_DATA = 'SORT_TABLE_DATA';
 
 // Initial State
 const initialState = {
@@ -80,6 +81,12 @@ export default function transactionsReducer(state = initialState, action) {
         formErrors: action.payload
       };
 
+    case SORT_TABLE_DATA:
+      return {
+        ...state,
+        transactions: action.payload
+      };
+
     default:
       return state;
   }
@@ -120,5 +127,12 @@ export const getTransactionData = () => {
   return {
     type: GET_TRANSACTION_DATA,
     payload: axios.get('/api/getTransactionData')
+  };
+};
+
+export const sortData = data => {
+  return {
+    type: SORT_TABLE_DATA,
+    payload: data
   };
 };
