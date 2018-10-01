@@ -21,11 +21,6 @@ class Modal extends Component {
         budgetErr: false,
         locationErr: false,
         amountErr: false
-      },
-      blur: {
-        budgetBlur: false,
-        locationBlur: false,
-        amountBlur: false
       }
     };
   }
@@ -47,7 +42,7 @@ class Modal extends Component {
     if (location === '') {
       this.setState(prevState => ({ errors: { ...prevState.errors, locationErr: true } }));
     }
-    if (amount <= 0 || amount === '') {
+    if (amount === 0) {
       this.setState(prevState => ({ errors: { ...prevState.errors, amountErr: true } }));
     }
   };
@@ -79,14 +74,10 @@ class Modal extends Component {
   };
 
   render() {
-    const { budgetType, date, location, amount, flagToggle, handleChange, currentBudgets, handleDate } = this.props;
+    const { date, flagToggle, handleChange, currentBudgets, handleDate } = this.props;
 
     const budgets = currentBudgets.map((e, i) => {
-      return (
-        <option key={i} value={e.type}>
-          {e.type}
-        </option>
-      );
+      return <option key={i}>{e.type}</option>;
     });
 
     return (
@@ -94,15 +85,29 @@ class Modal extends Component {
         <div className="modal">
           <form className="transaction-form" onSubmit={this.handleSubmit}>
             <div>
-              <label>Select Budget Type:</label>
-              <select className="transaction-select" name="budgetType" value={budgetType} onChange={handleChange}>
+              <label>Select Budget:</label>
+              <select
+                style={{ border: 'solid 1px gray' }}
+                defaultValue="default"
+                className="transaction-select"
+                name="budgetType"
+                onChange={handleChange}
+              >
+                <option value="default" disabled="disabled">
+                  Select a Budget
+                </option>
                 {budgets}
               </select>
             </div>
 
             <div>
               <label>Select Date:</label>
-              <DatePicker className="transaction-datepicker" selected={date} onChange={date => handleDate(date)} />
+              <DatePicker
+                style={{ color: 'black' }}
+                className="transaction-datepicker"
+                selected={date}
+                onChange={date => handleDate(date)}
+              />
             </div>
 
             <div style={{ marginTop: 20 }}>
@@ -112,19 +117,16 @@ class Modal extends Component {
                   className="modal-input transaction-input"
                   style={{ border: 'solid red 1px' }}
                   type="text"
-                  placeholder="Where your money went..."
-                  value={location}
+                  placeholder="Must enter location"
                   name="location"
                   onChange={handleChange}
-                  onBlur={() => console.log('clicked')}
                 />
               ) : (
                 <input
                   className="modal-input transaction-input"
-                  style={{ border: 'solid black 1px' }}
+                  style={{ border: 'solid gray 1px' }}
                   type="text"
-                  placeholder="Must enter location..."
-                  value={location}
+                  placeholder="Where your money went..."
                   name="location"
                   onChange={handleChange}
                 />
@@ -133,14 +135,26 @@ class Modal extends Component {
 
             <div style={{ marginTop: 20 }}>
               <label>Enter Amount:</label>
-              <input
-                className="modal-input transaction-input"
-                type="text"
-                placeholder="How much you spent..."
-                value={amount}
-                name="amount"
-                onChange={handleChange}
-              />
+
+              {this.state.errors.amountErr ? (
+                <input
+                  className="modal-input transaction-input"
+                  type="number"
+                  style={{ border: 'solid red 1px' }}
+                  placeholder="Must enter amount"
+                  name="amount"
+                  onChange={handleChange}
+                />
+              ) : (
+                <input
+                  className="modal-input transaction-input"
+                  type="number"
+                  style={{ border: 'solid gray 1px' }}
+                  placeholder="How much you spent..."
+                  name="amount"
+                  onChange={handleChange}
+                />
+              )}
             </div>
 
             <input className="submit-btn" type="submit" value="Submit" />

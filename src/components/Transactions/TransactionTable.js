@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import * as transactionsReducer from '../../redux/reducers/transactionsReducer';
+import './transactions.css';
 
 class TransactionTable extends Component {
   render() {
@@ -9,7 +10,7 @@ class TransactionTable extends Component {
 
     const dataMap = this.props.data.map((e, i) => {
       return (
-        <tr key={i}>
+        <tr className="row" key={i}>
           <td>{e.type}</td>
           <td>{e.location}</td>
           <td>{moment(e.date).format('MM/DD/YYYY')}</td>

@@ -17,9 +17,11 @@ class Transactions extends Component {
   render() {
     const { transactionModal, flagToggle, transactions } = this.props;
     return (
-      <div style={{ marginTop: 80 }}>
+      <div style={{ marginTop: 60 }}>
         <div className="add-transaction-container">
-          <button onClick={flagToggle}>Add New Transaction</button>
+          <button className="add-transaction-btn" onClick={flagToggle}>
+            Add New Transaction
+          </button>
           {transactionModal && <TransactionModal />}
         </div>
         <div className="display-transactions">
