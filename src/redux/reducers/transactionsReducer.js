@@ -7,7 +7,7 @@ const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
 const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
 const GET_TRANSACTION_DATA = 'GET_TRANSACTION_DATA';
 const HANDLE_DATE_CHANGE = 'HANDLE_DATE_CHANGE';
-// const VALIDATE_TRANSACTION_FORM = 'VALIDATE_TRANSACTION_FORM';
+const VALIDATE_TRANSACTION_FORM = 'VALIDATE_TRANSACTION_FORM';
 
 // Initial State
 const initialState = {
@@ -18,9 +18,12 @@ const initialState = {
   location: '',
   amount: 0,
   transactions: [],
-  error: false
-  // isError: false,
-  // errorMessage: []
+  error: false,
+  formErrors: {
+    budgetErr: false,
+    locErr: false,
+    amtErr: false
+  }
 };
 
 // Reducer
@@ -53,8 +56,6 @@ export default function transactionsReducer(state = initialState, action) {
         transactions: [...action.payload.data]
       };
     case `${GET_TRANSACTION_DATA}_REJECTED`:
-      // console.log(action);
-
       return {
         ...state,
         error: true,
@@ -71,7 +72,6 @@ export default function transactionsReducer(state = initialState, action) {
       return {
         ...state,
         [action.payload.name]: action.payload.value,
-        formValid: action.payload.isError,
         formErrorMessage: action.payload.errorMessage
       };
 
@@ -81,12 +81,11 @@ export default function transactionsReducer(state = initialState, action) {
         date: action.payload
       };
 
-    // case VALIDATE_TRANSACTION_FORM:
-    //   return {
-    //     ...state,
-    //     isError: action.payload.isError,
-    //     errorMessage: [...action.payload.errorType]
-    //   };
+    case VALIDATE_TRANSACTION_FORM:
+      return {
+        ...state,
+        formErrors: action.payload
+      };
 
     default:
       return state;
@@ -141,17 +140,10 @@ export const getTransactionData = () => {
 };
 
 export const transactionFormValidation = err => {
+  console.log(err);
+
   return {
     type: VALIDATE_TRANSACTION_FORM,
     payload: err
   };
 };
-
-// export const sortTable = name => {
-//   return {
-//     type: SORT_TRANSACTION_TABLE,
-//     payload: axios.get('/api/sortTable')
-//   };
-// };
-
-// const formatDate = moment(initialState.date).format('M/D/YY');
