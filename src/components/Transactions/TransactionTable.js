@@ -13,24 +13,29 @@ class TransactionTable extends Component {
     };
   }
 
-  onSort = sortKey => {
+  onSort = key => {
     const { sortAsc } = this.state;
-    let tempData = [...this.props.data];
-    console.log(tempData);
+    const { data, sortData } = this.props;
 
-    if (this.state.sortAsc) {
-      tempData.sort((a, b) => a[sortKey].localeCompare(b[sortKey]));
+    if (key === 'amount') {
+      if (sortAsc) {
+        data.sort((a, b) => a[key] - b[key]);
+      } else {
+        data.sort((a, b) => b[key] - a[key]);
+      }
     } else {
-      tempData.sort((a, b) => b[sortKey].localeCompare(a[sortKey]));
+      if (sortAsc) {
+        data.sort((a, b) => a[key].localeCompare(b[key]));
+      } else {
+        data.sort((a, b) => b[key].localeCompare(a[key]));
+      }
     }
-    this.setState({ sortAsc: !sortAsc });
 
-    this.props.sortData(tempData);
+    this.setState({ sortAsc: !sortAsc });
+    sortData(data);
   };
 
   render() {
-    console.log(this.props.data);
-
     const dataMap = this.props.data.map((e, i) => {
       return (
         <tr className="row" key={i}>

@@ -82,7 +82,7 @@ hr {
   width: 525px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   padding: 2%;
 }
 
@@ -93,7 +93,7 @@ hr {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   font-size: 16px;
   color: #ffffff;
   border: solid gray 1px;

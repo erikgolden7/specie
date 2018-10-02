@@ -29,21 +29,55 @@ export class Budgets extends Component {
       const percent = (total / e.amount) * 100;
 
       return (
-        <button
-          key={i}
-          className="current-budget-item"
-          onClick={() => {
-            flagToggle('showEdit');
-            selectBudget(e);
-          }}
-        >
-          <div className="dark" style={{ background: e.dark_color }}>
-            <div className="text-left">{e.type}</div>
-            <div className="text-right">{e.amount}</div>
-            <div className="light" style={{ background: e.light_color, width: `${percent}%` }} />
+        <div key={i}>
+          <button
+            className="current-budget-item"
+            onClick={() => {
+              flagToggle('showEdit');
+              selectBudget(e);
+            }}
+          >
+            <div className="dark" style={{ background: e.dark_color }}>
+              <div className="text-left">{e.type}</div>
+              <div className="text-right">{e.amount}</div>
+              <div className="light" style={{ background: e.light_color, width: `${percent}%` }} />
+            </div>
+            <div />
+          </button>
+          <div
+            style={{
+              marginBottom: 10,
+              display: 'flex',
+              justifyContent: 'flex-end',
+              margin: '2px 5px 12px 0',
+              fontSize: 14
+            }}
+          >
+            <span
+              style={{
+                fontWeight: 'bold',
+                marginRight: 5
+              }}
+            >
+              ${total}
+            </span>
+            <span
+              style={{
+                fontStyle: 'italic'
+              }}
+            >
+              of
+            </span>
+            <span
+              style={{
+                fontWeight: 'bold',
+                marginLeft: 7
+              }}
+            >
+              ${e.amount}
+            </span>
           </div>
-          <div />
-        </button>
+        </div>
       );
     });
 
