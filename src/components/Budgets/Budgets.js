@@ -39,7 +39,7 @@ export class Budgets extends Component {
           >
             <div className="dark" style={{ background: e.dark_color }}>
               <div className="text-left">{e.type}</div>
-              <div className="text-right">{e.amount}</div>
+
               <div className="light" style={{ background: e.light_color, width: `${percent}%` }} />
             </div>
             <div />
