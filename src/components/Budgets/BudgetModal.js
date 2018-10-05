@@ -31,7 +31,7 @@ class BudgetModal extends Component {
   };
 
   render() {
-    const { showEdit, nameInput, amountInput, flagToggle, handleChange } = this.props;
+    const { showEdit, flagToggle, handleChange } = this.props;
 
     if (!showEdit) {
       return null;

@@ -13,18 +13,14 @@ module.exports = {
 
   setTransactionData: async (req, res) => {
     const db = req.app.get('db');
-    const { type, date, location, amount } = req.body;
+    const { type, date, formatDate, location, amount } = req.body;
 
-    await db.transactions.post_product([type, date, location, amount]).catch(console.log);
+    await db.transactions
+      .post_product([type, date, location, amount, formatDate.month, formatDate.day, formatDate.year])
+      .catch(console.log);
 
     res.status(200).json('Successfully added new transaction');
   },
-
-  // sortTransactionTable: async (req, res) => {
-  //   const db = req.app.get('db')
-
-  //   const results =
-  // }
 
   getColorTotal: async (req, res) => {
     const db = req.app.get('db');

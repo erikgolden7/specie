@@ -7,8 +7,8 @@ export default () => {
     <div className="nav">
       <Link to="/" className="logo" />
       <div className="nav-links">
-        <Link className="nav-link" to="/dashboard">
-          Dashboard
+        <Link className="nav-link" to="/overview">
+          Overview
         </Link>
         <Link className="nav-link" to="/transactions">
           Transactions
@@ -16,7 +16,7 @@ export default () => {
         <Link className="nav-link" to="/goals">
           Goals
         </Link>
-        <Link className="nav-link" to="/budgets">
+        <Link className="nav-link" to="/overview">
           Budgets
         </Link>
         <Link className="nav-link" to="/achievements">

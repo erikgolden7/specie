@@ -93,14 +93,21 @@ export default function transactionsReducer(state = initialState, action) {
 }
 
 // Actions
-export function setTransactionFormData(budgetType, formatDate, location, amount) {
+export function setTransactionFormData(type, date, location, amount) {
+  const formatDate = {
+    month: moment(date).format('MM'),
+    day: moment(date).format('DD'),
+    year: moment(date).format('YYYY')
+  };
+
   return {
     type: SET_TRANSACTION_DATA,
     payload: axios.post('/api/setTransactions', {
-      type: budgetType,
-      date: formatDate,
-      location: location,
-      amount: amount
+      type,
+      date,
+      formatDate,
+      location,
+      amount
     })
   };
 }
