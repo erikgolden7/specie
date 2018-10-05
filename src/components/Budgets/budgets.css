@@ -103,55 +103,6 @@ hr {
   background: rgb(240, 240, 240);
 }
 
-.backdrop {
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 200px;
-}
-
-.modal {
-  background-color: #fff;
-  border-radius: 3px;
-  max-width: 500px;
-  min-height: 300px;
-  margin: 0 auto;
-  padding: 30px;
-}
-
-.modal-input {
-  height: 20px;
-  width: 250px;
-  font-size: 14px;
-  padding: 3px 6px;
-}
-
-.modal-submit-btn {
-  position: absolute;
-  display: block;
-  margin-top: 121px;
-  width: 150px;
-  height: 30px;
-  background: #77b070;
-  font-size: 14px;
-  color: #fff;
-  cursor: pointer;
-}
-
-.close-modal-btn {
-  float: right;
-  width: 150px;
-  height: 30px;
-  margin-top: 121px;
-  background: #e16753;
-  font-size: 14px;
-  color: #fff;
-  cursor: pointer;
-}
-
 .light {
   position: absolute;
   height: 100%;

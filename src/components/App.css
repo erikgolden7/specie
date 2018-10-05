@@ -8,7 +8,35 @@ body {
   width: 100%;
 }
 
+label {
+  font-weight: 500;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 200px;
+  z-index: 2;
+}
+
+.modal {
+  position: relative;
+  background-color: #fff;
+  border-radius: 3px;
+  max-width: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
 .submit-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
   width: 150px;
   height: 30px;
   font-weight: 500;
@@ -20,6 +48,9 @@ body {
 }
 
 .close-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
   width: 150px;
   height: 30px;
   background: #e16753;
@@ -37,4 +68,16 @@ body {
   background-size: contain;
   cursor: pointer;
   border: none;
+}
+
+.text-input {
+  display: block;
+  height: 20px;
+  width: 250px;
+  font-size: 14px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin-top: 10px;
+  outline: none;
+  border: 1px solid gray;
 }

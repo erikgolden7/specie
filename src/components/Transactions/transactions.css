@@ -1,6 +1,10 @@
 .add-transaction-container {
-  width: 100%;
+  width: 90%;
   height: 60px;
+  margin: 0 auto;
+  position: sticky;
+  background: #fff;
+  top: 60px;
 }
 
 .add-transaction-btn,
@@ -11,7 +15,7 @@
   color: #ffffff;
   border: solid gray 1px;
   cursor: pointer;
-  margin: 15px 0 10px 20px;
+  margin-top: 15px;
   border-radius: 2px;
 }
 

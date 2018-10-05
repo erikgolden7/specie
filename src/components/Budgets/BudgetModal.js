@@ -42,36 +42,32 @@ class BudgetModal extends Component {
         <div className="modal">
           <button className="delete-icon" style={{ float: 'right' }} onClick={this.deleteBudget} />
           <form onSubmit={this.submitForm}>
-            <h3 style={{ margin: '5px 0 5px 0' }}>Change Name:</h3>
-            <input
-              className="modal-input"
-              type="text"
-              placeholder="Enter Name..."
-              value={nameInput}
-              name="nameInput"
-              onChange={handleChange}
-            />
-            <h3 style={{ margin: '25px 0 10px 0' }}>Change Amount:</h3>
-            <input
-              className="modal-input"
-              type="text"
-              placeholder="Enter Amount..."
-              value={amountInput}
-              name="amountInput"
-              onChange={handleChange}
-            />
-            <input className="modal-submit-btn" type="submit" value="Submit" />
+            <div style={{ marginTop: 20 }}>
+              <label>Change Name:</label>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="Enter Name..."
+                name="nameInput"
+                onChange={handleChange}
+              />
+            </div>
+            <div style={{ marginTop: 20 }}>
+              <label>Change Amount:</label>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="Enter Amount..."
+                name="amountInput"
+                onChange={handleChange}
+              />
+            </div>
+
+            <input className="submit-btn" type="submit" value="Submit" />
           </form>
 
           <div className="footer">
-            <button
-              className="close-btn"
-              style={{
-                float: 'right',
-                marginTop: 121
-              }}
-              onClick={() => flagToggle('showEdit')}
-            >
+            <button className="close-btn" onClick={() => flagToggle('showEdit')}>
               Close
             </button>
           </div>
