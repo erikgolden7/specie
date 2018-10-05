@@ -14,7 +14,7 @@ import {
   Cell
 } from 'recharts';
 
-class Dashboard extends Component {
+class Overview extends Component {
   render() {
     const data = [
       { name: 'January', income: 5000, spent: -2400, amt: 2400 },
@@ -59,4 +59,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default Overview;

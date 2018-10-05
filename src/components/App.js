@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import Nav from './Nav/Nav';
 import Landing from './Landing/Landing';
-import Dashboard from './Dashboard/Dashboard';
+import Overview from './Overview/Overview';
 import Transactions from './Transactions/Transactions';
 import Goals from './Goals/Goals';
 import Budgets from './Budgets/Budgets.js';
@@ -22,7 +22,7 @@ class App extends Component {
             <Nav />
             <Switch>
               <Route exact path="/" component={Landing} />
-              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/overview" component={Overview} />
               <Route path="/transactions" component={Transactions} />
               <Route path="/goals" component={Goals} />
               <Route path="/budgets" component={Budgets} />

@@ -64,11 +64,9 @@ class TransactionTable extends Component {
               Location <div className="sort" />
             </th>
             <th onClick={() => this.onSort('date')}>
-              {' '}
               Date <div className="sort" />
             </th>
             <th onClick={() => this.onSort('amount')}>
-              {' '}
               Amount <div className="sort" />
             </th>
           </tr>
