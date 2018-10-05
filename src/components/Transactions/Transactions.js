@@ -20,7 +20,7 @@ class Transactions extends Component {
       <div style={{ marginTop: 60 }}>
         <div className="add-transaction-container">
           <button className="add-transaction-btn" onClick={flagToggle}>
-            Add New Transaction
+            Add Transaction
           </button>
           {transactionModal && <TransactionModal />}
         </div>

@@ -1,17 +1,30 @@
 .add-transaction-container {
-  width: 100%;
+  width: 90%;
   height: 60px;
+  margin: 0 auto;
+  position: sticky;
+  background: #fff;
+  top: 60px;
 }
 
-.add-transaction-btn {
-  height: 40px;
-  padding: 10px;
-  background: #66b268;
-  font-size: 16px;
+.add-transaction-btn,
+.add-expense-btn {
+  height: 30px;
+  font-weight: 600;
+  font-size: 13px;
   color: #ffffff;
   border: solid gray 1px;
   cursor: pointer;
-  margin: 10px;
+  margin-top: 15px;
+  border-radius: 2px;
+}
+
+.add-transaction-btn {
+  background: #66b268;
+}
+
+.add-expense-btn {
+  background: #c26b6b;
 }
 
 .display-transactions {
@@ -74,27 +87,7 @@
   cursor: pointer;
   border: solid gray 1px;
   border-radius: 4px;
-}
-
-.submit-btn {
-  display: block;
-  margin-top: 30px;
-  width: 150px;
-  height: 30px;
-  padding: 5px;
-  background: #77b070;
-  font-size: 14px;
-  color: #fff;
-}
-
-.close-btn {
-  margin-top: -30px;
-  float: right;
-  width: 150px;
-  height: 30px;
-  background: rgb(225, 103, 83);
-  font-size: 14px;
-  color: rgb(255, 255, 255);
+  margin-top: 10px;
 }
 
 /* Table */

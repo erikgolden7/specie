@@ -50,7 +50,12 @@ class TransactionTable extends Component {
     return (
       <table>
         <tbody>
-          <tr>
+          <tr
+            style={{
+              position: 'sticky',
+              top: 120
+            }}
+          >
             <th onClick={() => this.onSort('type')} name="type">
               Type
               <div className="sort" />

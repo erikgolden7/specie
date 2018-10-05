@@ -4,12 +4,7 @@ import * as budgetReducer from '../../redux/reducers/budgetsReducer';
 
 class BudgetModal extends Component {
   deleteBudget = async () => {
-    const {
-      removeBudgetType,
-      flagToggle,
-      selectedBudget,
-      getCurrentBudgets
-    } = this.props;
+    const { removeBudgetType, flagToggle, selectedBudget, getCurrentBudgets } = this.props;
 
     await removeBudgetType(selectedBudget);
     flagToggle('showEdit');
@@ -36,13 +31,7 @@ class BudgetModal extends Component {
   };
 
   render() {
-    const {
-      showEdit,
-      nameInput,
-      amountInput,
-      flagToggle,
-      handleChange
-    } = this.props;
+    const { showEdit, nameInput, amountInput, flagToggle, handleChange } = this.props;
 
     if (!showEdit) {
       return null;
@@ -51,44 +40,34 @@ class BudgetModal extends Component {
     return (
       <div className="backdrop">
         <div className="modal">
-          <button
-            style={{
-              width: 'auto',
-              marginTop: 0,
-              backgroundColor: 'rgb(167, 36, 14)'
-            }}
-            className="close-modal-btn"
-            onClick={this.deleteBudget}
-          >
-            DELETE
-          </button>
+          <button className="delete-icon" style={{ float: 'right' }} onClick={this.deleteBudget} />
           <form onSubmit={this.submitForm}>
-            <h3 style={{ margin: '5px 0 5px 0' }}>Change Name:</h3>
-            <input
-              className="modal-input"
-              type="text"
-              placeholder="Enter Name..."
-              value={nameInput}
-              name="nameInput"
-              onChange={handleChange}
-            />
-            <h3 style={{ margin: '25px 0 10px 0' }}>Change Amount:</h3>
-            <input
-              className="modal-input"
-              type="text"
-              placeholder="Enter Amount..."
-              value={amountInput}
-              name="amountInput"
-              onChange={handleChange}
-            />
-            <input className="modal-submit-btn" type="submit" value="Submit" />
+            <div style={{ marginTop: 20 }}>
+              <label>Change Name:</label>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="Enter Name..."
+                name="nameInput"
+                onChange={handleChange}
+              />
+            </div>
+            <div style={{ marginTop: 20 }}>
+              <label>Change Amount:</label>
+              <input
+                className="text-input"
+                type="text"
+                placeholder="Enter Amount..."
+                name="amountInput"
+                onChange={handleChange}
+              />
+            </div>
+
+            <input className="submit-btn" type="submit" value="Submit" />
           </form>
 
           <div className="footer">
-            <button
-              className="close-modal-btn"
-              onClick={() => flagToggle('showEdit')}
-            >
+            <button className="close-btn" onClick={() => flagToggle('showEdit')}>
               Close
             </button>
           </div>

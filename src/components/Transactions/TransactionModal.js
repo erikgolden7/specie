@@ -114,7 +114,7 @@ class Modal extends Component {
               <label>Enter Vendor/Business:</label>
               {this.state.errors.locationErr ? (
                 <input
-                  className="modal-input transaction-input"
+                  className="text-input"
                   style={{ border: 'solid red 1px' }}
                   type="text"
                   placeholder="Must enter location"
@@ -123,7 +123,7 @@ class Modal extends Component {
                 />
               ) : (
                 <input
-                  className="modal-input transaction-input"
+                  className="text-input"
                   style={{ border: 'solid gray 1px' }}
                   type="text"
                   placeholder="Where your money went..."
@@ -138,7 +138,7 @@ class Modal extends Component {
 
               {this.state.errors.amountErr ? (
                 <input
-                  className="modal-input transaction-input"
+                  className="text-input"
                   type="number"
                   style={{ border: 'solid red 1px' }}
                   placeholder="Must enter amount"
@@ -147,7 +147,7 @@ class Modal extends Component {
                 />
               ) : (
                 <input
-                  className="modal-input transaction-input"
+                  className="text-input"
                   type="number"
                   style={{ border: 'solid gray 1px' }}
                   placeholder="How much you spent..."
@@ -156,12 +156,22 @@ class Modal extends Component {
                 />
               )}
             </div>
-
-            <input className="submit-btn" type="submit" value="Submit" />
+            <div style={{ height: 70 }}>
+              <button className="submit-btn" style={{ marginTop: 30 }} type="submit">
+                Submit
+              </button>
+            </div>
           </form>
 
           <div className="footer">
-            <button className="close-btn" onClick={flagToggle}>
+            <button
+              className="close-btn"
+              style={{
+                marginTop: -30,
+                float: 'right'
+              }}
+              onClick={flagToggle}
+            >
               Close
             </button>
           </div>
