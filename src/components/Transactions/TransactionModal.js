@@ -157,11 +157,20 @@ class Modal extends Component {
               )}
             </div>
 
-            <input className="submit-btn" type="submit" value="Submit" />
+            <button className="submit-btn" style={{ marginTop: 30 }} type="submit">
+              Submit
+            </button>
           </form>
 
           <div className="footer">
-            <button className="close-btn" onClick={flagToggle}>
+            <button
+              className="close-btn"
+              style={{
+                marginTop: -30,
+                float: 'right'
+              }}
+              onClick={flagToggle}
+            >
               Close
             </button>
           </div>

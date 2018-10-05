@@ -7,3 +7,34 @@ body {
   font-size: 16px;
   width: 100%;
 }
+
+.submit-btn {
+  width: 150px;
+  height: 30px;
+  font-weight: 500;
+  background: #77b070;
+  font-size: 14px;
+  color: #fff;
+  border: solid gray 1px;
+  cursor: pointer;
+}
+
+.close-btn {
+  width: 150px;
+  height: 30px;
+  background: #e16753;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  border: solid gray 1px;
+  cursor: pointer;
+}
+
+.delete-icon {
+  width: 25px;
+  height: 25px;
+  background: url('../assets/trash.png') center no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  border: none;
+}

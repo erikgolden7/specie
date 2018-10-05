@@ -4,12 +4,7 @@ import * as budgetReducer from '../../redux/reducers/budgetsReducer';
 
 class BudgetModal extends Component {
   deleteBudget = async () => {
-    const {
-      removeBudgetType,
-      flagToggle,
-      selectedBudget,
-      getCurrentBudgets
-    } = this.props;
+    const { removeBudgetType, flagToggle, selectedBudget, getCurrentBudgets } = this.props;
 
     await removeBudgetType(selectedBudget);
     flagToggle('showEdit');
@@ -36,13 +31,7 @@ class BudgetModal extends Component {
   };
 
   render() {
-    const {
-      showEdit,
-      nameInput,
-      amountInput,
-      flagToggle,
-      handleChange
-    } = this.props;
+    const { showEdit, nameInput, amountInput, flagToggle, handleChange } = this.props;
 
     if (!showEdit) {
       return null;
@@ -51,17 +40,7 @@ class BudgetModal extends Component {
     return (
       <div className="backdrop">
         <div className="modal">
-          <button
-            style={{
-              width: 'auto',
-              marginTop: 0,
-              backgroundColor: 'rgb(167, 36, 14)'
-            }}
-            className="close-modal-btn"
-            onClick={this.deleteBudget}
-          >
-            DELETE
-          </button>
+          <button className="delete-icon" style={{ float: 'right' }} onClick={this.deleteBudget} />
           <form onSubmit={this.submitForm}>
             <h3 style={{ margin: '5px 0 5px 0' }}>Change Name:</h3>
             <input
@@ -86,7 +65,11 @@ class BudgetModal extends Component {
 
           <div className="footer">
             <button
-              className="close-modal-btn"
+              className="close-btn"
+              style={{
+                float: 'right',
+                marginTop: 121
+              }}
               onClick={() => flagToggle('showEdit')}
             >
               Close
