@@ -33,32 +33,29 @@ label {
   padding: 30px;
 }
 
-.submit-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  width: 150px;
+.submit-btn,
+.close-btn {
+  width: 120px;
   height: 30px;
   font-weight: 500;
-  background: #77b070;
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
-  border: solid gray 1px;
+  border: solid rgb(104, 104, 104) 1px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
+.submit-btn {
+  background: #6ebe5f;
+}
+
+.submit-btn:hover {
+  background: #82df71f6;
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .close-btn {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  width: 150px;
-  height: 30px;
   background: #e16753;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  border: solid gray 1px;
-  cursor: pointer;
 }
 
 .delete-icon {
@@ -80,4 +77,36 @@ label {
   margin-top: 10px;
   outline: none;
   border: 1px solid gray;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 30px;
+}
+
+.footer {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 30px;
+}
+
+.modal-close {
+  width: 25px;
+  height: 25px;
+  background: url('../assets/black-x.png') center no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: url('../assets/gray-x.png') center no-repeat;
+  background-size: contain;
 }

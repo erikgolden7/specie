@@ -5,6 +5,7 @@ import budgetsReducer, { getCurrentBudgets } from '../../redux/reducers/budgetsR
 
 import TransactionTable from './TransactionTable';
 import TransactionModal from './TransactionModal';
+import Modal from '../Modal';
 
 import './transactions.css';
 
@@ -27,6 +28,7 @@ class Transactions extends Component {
         <div className="display-transactions">
           <TransactionTable data={transactions} />
         </div>
+        <Modal title="Title" />
       </div>
     );
   }
