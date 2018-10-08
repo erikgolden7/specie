@@ -2,21 +2,67 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import BudgetType from './BudgetType';
-import BudgetModal from './BudgetModal';
-import { flagToggle, selectBudget, getBudgetTypes, getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
+import Modal from '../Modal';
+import {
+  selectBudget,
+  editCurrentBudget,
+  getBudgetTypes,
+  getCurrentBudgets,
+  removeBudgetType
+} from '../../redux/reducers/budgetsReducer';
 import { getTransactionData } from '../../redux/reducers/transactionsReducer';
 
 import './budgets.css';
 
 export class Budgets extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editFlag: false,
+      budget: '',
+      amount: ''
+    };
+  }
+
   componentDidMount = () => {
-    this.props.getBudgetTypes();
-    this.props.getCurrentBudgets();
-    this.props.getTransactionData();
+    const { getBudgetTypes, getCurrentBudgets, getTransactionData } = this.props;
+
+    getBudgetTypes();
+    getCurrentBudgets();
+    getTransactionData();
+  };
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  flagToggle = () => {
+    this.setState({ editFlag: !this.state.editFlag });
+  };
+
+  deleteBudget = async () => {
+    const { removeBudgetType, selectedBudget, getCurrentBudgets } = this.props;
+
+    await removeBudgetType(selectedBudget);
+    this.flagToggle();
+    getCurrentBudgets();
+  };
+
+  handleSubmit = async e => {
+    const { selectedBudget, editCurrentBudget, getCurrentBudgets, getBudgetTypes } = this.props;
+    const { budget, amount } = this.state;
+
+    await editCurrentBudget(selectedBudget, budget, amount);
+    getCurrentBudgets();
+    getBudgetTypes();
+
+    this.setState({ budget: '', amount: '', editFlag: false });
   };
 
   render() {
-    const { currentBudgets, flagToggle, selectBudget, transactions } = this.props;
+    const { currentBudgets, selectBudget, transactions } = this.props;
+    const { editFlag } = this.state;
 
     const budgets = currentBudgets.map((e, i) => {
       let total = 0;
@@ -33,7 +79,7 @@ export class Budgets extends Component {
           <button
             className="current-budget-item"
             onClick={() => {
-              flagToggle('showEdit');
+              this.flagToggle();
               selectBudget(e);
             }}
           >
@@ -88,7 +134,36 @@ export class Budgets extends Component {
           <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
           <hr />
           <div className="current-budget-list">{budgets}</div>
-          <BudgetModal />
+          {editFlag && (
+            <Modal
+              trash
+              title="Edit Budget"
+              toggleModal={this.flagToggle}
+              handleSubmit={this.handleSubmit}
+              handleDelete={this.deleteBudget}
+            >
+              <div style={{ marginTop: 20 }}>
+                <label>Change Name:</label>
+                <input
+                  className="text-input"
+                  type="text"
+                  placeholder="Enter Name..."
+                  name="budget"
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div style={{ marginTop: 20 }}>
+                <label>Change Amount:</label>
+                <input
+                  className="text-input"
+                  type="text"
+                  placeholder="Enter Amount..."
+                  name="amount"
+                  onChange={this.handleChange}
+                />
+              </div>
+            </Modal>
+          )}
         </div>
       </div>
     );
@@ -104,5 +179,12 @@ const mapStateToProps = ({ budgetsReducer, transactionsReducer }) => {
 
 export default connect(
   mapStateToProps,
-  { flagToggle, selectBudget, getTransactionData, getBudgetTypes, getCurrentBudgets }
+  {
+    selectBudget,
+    getTransactionData,
+    editCurrentBudget,
+    getBudgetTypes,
+    getCurrentBudgets,
+    removeBudgetType
+  }
 )(Budgets);

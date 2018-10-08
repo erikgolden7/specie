@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Modal extends Component {
   render() {
-    const { title, children, toggleModal, trash, handleSubmit } = this.props;
+    const { title, children, toggleModal, trash, handleSubmit, handleDelete } = this.props;
 
     return (
       <div className="backdrop">
@@ -15,7 +15,7 @@ export default class Modal extends Component {
           {children}
 
           <footer className="footer">
-            {trash && <div className="delete-icon" />}
+            {trash && <div className="delete-icon" onClick={handleDelete} />}
             <button className="submit-btn" type="submit" onClick={handleSubmit}>
               Submit
             </button>
@@ -32,3 +32,4 @@ export default class Modal extends Component {
 // children = comes from parent component
 // trash = true/false for displaying delete icon
 // handleSubmit = function for handling data submission
+// handleDelete = When trash icon is clicked
