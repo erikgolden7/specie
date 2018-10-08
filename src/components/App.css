@@ -28,40 +28,34 @@ label {
   background-color: #fff;
   border-radius: 3px;
   max-width: 500px;
-  min-height: 300px;
   margin: 0 auto;
   padding: 30px;
 }
 
 .submit-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  width: 150px;
+  width: 120px;
   height: 30px;
   font-weight: 500;
-  background: #77b070;
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
-  border: solid gray 1px;
+  border: solid rgb(104, 104, 104) 1px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
-.close-btn {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  width: 150px;
-  height: 30px;
-  background: #e16753;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-  border: solid gray 1px;
-  cursor: pointer;
+.submit-btn {
+  background: #6ebe5f;
+}
+
+.submit-btn:hover {
+  background: #82d375f6;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .delete-icon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 25px;
   height: 25px;
   background: url('../assets/trash.png') center no-repeat;
@@ -80,4 +74,35 @@ label {
   margin-top: 10px;
   outline: none;
   border: 1px solid gray;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.modal-title {
+  font-size: 30px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.modal-close {
+  width: 25px;
+  height: 25px;
+  background: url('../assets/black-x.png') center no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: url('../assets/gray-x.png') center no-repeat;
+  background-size: contain;
 }
