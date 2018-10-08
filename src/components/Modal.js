@@ -1,26 +1,37 @@
 import React, { Component } from 'react';
 
 export default class Modal extends Component {
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   this.props.handleSubmit();
+  // };
+
   render() {
-    const { title, children, toggleModal } = this.props;
+    const { title, children, toggleModal, trash, handleSubmit } = this.props;
 
     return (
       <div className="backdrop">
         <div className="modal">
-          <form className="transaction-form" onSubmit={this.handleSubmit}>
-            <header className="header">
-              <div className="modal-title">{title}</div>
-              <div className="modal-close" onClick={toggleModal} />
-            </header>
+          <header className="header">
+            <div className="modal-title">{title}</div>
+            <div className="modal-close" onClick={toggleModal} />
+          </header>
 
-            <body>{children}</body>
+          {children}
 
-            <footer className="footer">
-              <button className="submit-btn" type="submit" onClick={toggleModal}>
-                Submit
-              </button>
-            </footer>
-          </form>
+          <footer className="footer">
+            {trash && <div className="delete-icon" />}
+            <button
+              className="submit-btn"
+              type="submit"
+              onClick={() => {
+                handleSubmit();
+                toggleModal();
+              }}
+            >
+              Submit
+            </button>
+          </footer>
         </div>
       </div>
     );
@@ -30,3 +41,5 @@ export default class Modal extends Component {
 // title = modal title
 // toggleModal = toggles modal open/close
 // children = comes from parent component
+// trash = true/false for displaying delete icon
+// handleSubmit =

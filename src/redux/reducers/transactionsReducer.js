@@ -3,21 +3,12 @@ const moment = require('moment');
 
 // Constants
 const SET_TRANSACTION_DATA = 'SET_TRANSACTION_DATA';
-const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
-const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
 const GET_TRANSACTION_DATA = 'GET_TRANSACTION_DATA';
-const HANDLE_DATE_CHANGE = 'HANDLE_DATE_CHANGE';
-const VALIDATE_TRANSACTION_FORM = 'VALIDATE_TRANSACTION_FORM';
 const SORT_TABLE_DATA = 'SORT_TABLE_DATA';
 
 // Initial State
 const initialState = {
   loading: false,
-  transactionModal: false,
-  date: moment(),
-  budgetType: '',
-  location: '',
-  amount: 0,
   transactions: []
 };
 
@@ -32,11 +23,7 @@ export default function transactionsReducer(state = initialState, action) {
     case `${SET_TRANSACTION_DATA}_FULFILLED`:
       return {
         ...state,
-        loading: false,
-        date: moment(),
-        budgetType: '',
-        location: '',
-        amount: 0
+        loading: false
       };
 
     case `${GET_TRANSACTION_DATA}_PENDING`:
@@ -55,30 +42,6 @@ export default function transactionsReducer(state = initialState, action) {
         ...state,
         error: true,
         errorMessage: action.payload
-      };
-
-    case HANDLE_FLAG_TOGGLE:
-      return {
-        ...state,
-        transactionModal: !state.transactionModal
-      };
-
-    case HANDLE_INPUT_CHANGE:
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value
-      };
-
-    case HANDLE_DATE_CHANGE:
-      return {
-        ...state,
-        date: action.payload
-      };
-
-    case VALIDATE_TRANSACTION_FORM:
-      return {
-        ...state,
-        formErrors: action.payload
       };
 
     case SORT_TABLE_DATA:
@@ -111,24 +74,6 @@ export function setTransactionFormData(type, date, location, amount) {
     })
   };
 }
-
-export const flagToggle = () => {
-  return { type: HANDLE_FLAG_TOGGLE };
-};
-
-export const handleChange = e => {
-  return {
-    type: HANDLE_INPUT_CHANGE,
-    payload: { name: e.target.name, value: e.target.value }
-  };
-};
-
-export const handleDate = date => {
-  return {
-    type: HANDLE_DATE_CHANGE,
-    payload: date
-  };
-};
 
 export const getTransactionData = () => {
   return {

@@ -28,13 +28,11 @@ label {
   background-color: #fff;
   border-radius: 3px;
   max-width: 500px;
-  min-height: 300px;
   margin: 0 auto;
   padding: 30px;
 }
 
-.submit-btn,
-.close-btn {
+.submit-btn {
   width: 120px;
   height: 30px;
   font-weight: 500;
@@ -50,15 +48,14 @@ label {
 }
 
 .submit-btn:hover {
-  background: #82df71f6;
+  background: #82d375f6;
   color: rgba(0, 0, 0, 0.5);
 }
 
-.close-btn {
-  background: #e16753;
-}
-
 .delete-icon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 25px;
   height: 25px;
   background: url('../assets/trash.png') center no-repeat;
@@ -84,6 +81,7 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .modal-title {
@@ -91,11 +89,9 @@ label {
 }
 
 .footer {
-  width: 90%;
   display: flex;
   justify-content: flex-end;
-  position: absolute;
-  bottom: 30px;
+  margin-top: 30px;
 }
 
 .modal-close {
