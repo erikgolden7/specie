@@ -82,19 +82,19 @@ class Transactions extends Component {
     } else {
       await setTransactionFormData(selectedBudget, date, location, amount);
       getTransactionData();
+      this.flagToggle();
       this.setState({
         date: moment(),
         selectedBudget: '',
         location: '',
         amount: 0
       });
-      this.flagToggle();
     }
   };
 
   render() {
     const { transactions } = this.props;
-    const { modalFlag, budgets, date } = this.state;
+    const { modalFlag, budgets, date, errors } = this.state;
 
     const budgetList = budgets.map((e, i) => {
       return <option key={i}>{e.type}</option>;
@@ -111,7 +111,7 @@ class Transactions extends Component {
               <div>
                 <label>Select Budget:</label>
                 <select
-                  style={{ border: 'solid 1px gray' }}
+                  style={errors.budgetErr ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
                   defaultValue="default"
                   className="transaction-select"
                   name="selectedBudget"
@@ -136,49 +136,29 @@ class Transactions extends Component {
 
               <div style={{ marginTop: 20 }}>
                 <label>Enter Vendor/Business:</label>
-                {this.state.errors.locationErr ? (
-                  <input
-                    className="text-input"
-                    style={{ border: 'solid red 1px' }}
-                    type="text"
-                    placeholder="Must enter location"
-                    name="location"
-                    onChange={this.handleChange}
-                  />
-                ) : (
-                  <input
-                    className="text-input"
-                    style={{ border: 'solid gray 1px' }}
-                    type="text"
-                    placeholder="Where your money went..."
-                    name="location"
-                    onChange={this.handleChange}
-                  />
-                )}
+
+                <input
+                  className="text-input"
+                  style={{ border: 'solid red 1px' }}
+                  style={errors.locationErr ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
+                  type="text"
+                  placeholder="Must enter location"
+                  name="location"
+                  onChange={this.handleChange}
+                />
               </div>
 
               <div style={{ marginTop: 20 }}>
                 <label>Enter Amount:</label>
 
-                {this.state.errors.amountErr ? (
-                  <input
-                    className="text-input"
-                    type="number"
-                    style={{ border: 'solid red 1px' }}
-                    placeholder="Must enter amount"
-                    name="amount"
-                    onChange={this.handleChange}
-                  />
-                ) : (
-                  <input
-                    className="text-input"
-                    type="number"
-                    style={{ border: 'solid gray 1px' }}
-                    placeholder="How much you spent..."
-                    name="amount"
-                    onChange={this.handleChange}
-                  />
-                )}
+                <input
+                  className="text-input"
+                  type="number"
+                  style={errors.amountErr ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
+                  placeholder="Must enter amount"
+                  name="amount"
+                  onChange={this.handleChange}
+                />
               </div>
             </Modal>
           )}

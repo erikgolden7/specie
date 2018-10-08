@@ -7,22 +7,16 @@ const GET_CURRENT_BUDGETS = 'GET_CURRENT_BUDGETS';
 const SET_CURRENT_BUDGET = 'SET_CURRENT_BUDGET';
 const EDIT_CURRENT_BUDGET = 'EDIT_CURRENT_BUDGET';
 const SELECT_BUDGET = 'SELECT_BUDGET';
-const HANDLE_FLAG_TOGGLE = 'HANDLE_FLAG_TOGGLE';
-const HANDLE_INPUT_CHANGE = 'HANDLE_INPUT_CHANGE';
 
 // Initial State
 const initialState = {
   loading: false,
   showTypes: false,
   showEdit: false,
-  inputError: false,
   typeInput: '',
-  nameInput: '',
-  amountInput: '',
   budgetTypes: [],
   currentBudgets: [],
-  selectedBudget: {},
-  errorMessage: ''
+  selectedBudget: {}
 };
 
 // Reducer
@@ -34,10 +28,6 @@ export default function budgetsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        typeInput: '',
-        showEdit: false,
-        showTypes: true,
-        inputError: false,
         budgetTypes: [...action.payload]
       };
 
@@ -74,8 +64,6 @@ export default function budgetsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        nameInput: '',
-        amountInput: '',
         selectedBudget: {}
       };
     case `${EDIT_CURRENT_BUDGET}_REJECTED`:
@@ -85,18 +73,6 @@ export default function budgetsReducer(state = initialState, action) {
       return {
         ...state,
         selectedBudget: action.payload
-      };
-
-    case HANDLE_FLAG_TOGGLE:
-      return {
-        ...state,
-        [action.payload]: !state[action.payload]
-      };
-
-    case HANDLE_INPUT_CHANGE:
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value
       };
 
     default:
@@ -140,6 +116,8 @@ export const addCurrentBudget = budget => {
 export const editCurrentBudget = (budget, newName, newAmount) => {
   const { type, light_color, amount } = budget;
 
+  console.log(type, light_color, amount, newAmount, newName);
+
   return {
     type: EDIT_CURRENT_BUDGET,
     payload: axios
@@ -165,16 +143,5 @@ export const selectBudget = budget => {
   return {
     type: SELECT_BUDGET,
     payload: budget
-  };
-};
-
-export const flagToggle = menu => {
-  return { type: HANDLE_FLAG_TOGGLE, payload: menu };
-};
-
-export const handleChange = e => {
-  return {
-    type: HANDLE_INPUT_CHANGE,
-    payload: { name: e.target.name, value: e.target.value }
   };
 };

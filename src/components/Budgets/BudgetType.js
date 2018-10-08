@@ -9,23 +9,36 @@ import BudgetBar from './BudgetBar';
 import './budgets.css';
 
 class BudgetType extends Component {
-  saveBudgetType = async () => {
-    const { typeInput, flagToggle, addBudgetType } = this.props;
+  constructor(props) {
+    super(props);
 
-    if (!typeInput) {
-      flagToggle('inputError');
+    this.state = {
+      addFlag: false,
+      budgetType: '',
+      inputError: false
+    };
+  }
+
+  saveBudgetType = async () => {
+    const { addBudgetType, getBudgetTypes } = this.props;
+    const { budgetType } = this.state;
+
+    if (!budgetType) {
+      this.setState({ inputError: true });
       return;
     }
 
     const hue = funcService.getRandomColor();
 
     const typeData = {
-      type: typeInput,
+      type: budgetType,
       color: { light: hue.light, dark: hue.dark },
       amount: 0
     };
 
-    addBudgetType(typeData);
+    await addBudgetType(typeData);
+    getBudgetTypes();
+    this.setState({ inputError: false, budgetType: '' });
   };
 
   inputEnterPress = e => {
@@ -47,56 +60,40 @@ class BudgetType extends Component {
     getBudgetTypes();
   };
 
+  flagToggle = () => this.setState({ addFlag: !this.state.addFlag });
+
+  handleInput = e => this.setState({ budgetType: e.target.value });
+
   render() {
-    const {
-      inputError,
-      typeInput,
-      showTypes,
-      budgetTypes,
-      flagToggle,
-      handleChange
-    } = this.props;
+    const { budgetTypes } = this.props;
+    const { addFlag, inputError, budgetType } = this.state;
 
     const types = budgetTypes.map((e, i) => (
-      <BudgetBar
-        key={i}
-        addSelectedBudget={this.addSelectedBudget}
-        budget={e}
-        index={i}
-      />
+      <BudgetBar key={i} addSelectedBudget={this.addSelectedBudget} budget={e} index={i} />
     ));
 
     return (
       <div className="budgets-container">
         <div className="add-budget-container">
           <div>
-            <button
-              className="view-type-btn"
-              onClick={() => flagToggle('showTypes')}
-            >
-              {!showTypes ? 'View Budget Types' : 'Hide Budget Types'}
+            <button className="view-type-btn" onClick={this.flagToggle}>
+              {!inputError ? 'View Budget Types' : 'Hide Budget Types'}
             </button>
-            {showTypes ? (
+            {addFlag ? (
               <input
                 type="text"
-                placeholder={
-                  inputError ? 'Must Enter Budget Name' : 'Create New Budget...'
-                }
-                onChange={handleChange}
-                value={typeInput}
-                name="typeInput"
+                placeholder={inputError ? 'Must Enter Name...' : 'Create New Budget...'}
+                onChange={this.handleInput}
+                name="budgetType"
+                value={budgetType}
                 className="type-input"
-                style={
-                  inputError
-                    ? { border: 'solid 1px red' }
-                    : { border: 'solid 1px gray' }
-                }
+                style={inputError ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
                 onKeyDown={this.inputEnterPress}
               />
             ) : (
               false
             )}
-            {showTypes ? (
+            {addFlag ? (
               <button className="add-type-btn" onClick={this.saveBudgetType}>
                 +
               </button>
@@ -108,8 +105,8 @@ class BudgetType extends Component {
           <Motion
             defaultStyle={{ x: 0, opacity: 0 }}
             style={{
-              x: spring(showTypes ? 0 : -200),
-              opacity: spring(showTypes ? 1 : 0)
+              x: spring(addFlag ? 0 : -200),
+              opacity: spring(addFlag ? 1 : 0)
             }}
           >
             {style => (
@@ -119,14 +116,11 @@ class BudgetType extends Component {
                   opacity: style.opacity
                 }}
               >
-                {showTypes && budgetTypes.length ? (
+                {addFlag && budgetTypes.length ? (
                   <div className="menu">{types}</div>
-                ) : showTypes ? (
+                ) : addFlag ? (
                   <div className="menu">
-                    <button
-                      style={{ background: 'white', color: 'gray' }}
-                      className="menu-item"
-                    >
+                    <button style={{ background: 'white', color: 'gray' }} className="menu-item">
                       Please Add Budgets...
                     </button>
                   </div>
@@ -143,8 +137,8 @@ class BudgetType extends Component {
 const mapStateToProps = ({ budgetsReducer }) => {
   return {
     budgetTypes: budgetsReducer.budgetTypes,
-    showTypes: budgetsReducer.showTypes,
-    typeInput: budgetsReducer.typeInput,
+    addFlag: budgetsReducer.addFlag,
+    budgetType: budgetsReducer.budgetType,
     inputError: budgetsReducer.inputError,
     currentBudgets: budgetsReducer.currentBudgets
   };
