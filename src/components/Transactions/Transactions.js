@@ -70,8 +70,7 @@ class Transactions extends Component {
     }
   };
 
-  handleSubmit = async e => {
-    // e.preventDefault();
+  handleSubmit = async () => {
     const { setTransactionFormData, getTransactionData } = this.props;
     const { date, location, amount, selectedBudget } = this.state;
 
@@ -79,7 +78,6 @@ class Transactions extends Component {
     const isFormError = this.validateObj();
 
     if (isFormError) {
-      console.log('error found');
       return;
     } else {
       await setTransactionFormData(selectedBudget, date, location, amount);
@@ -90,14 +88,13 @@ class Transactions extends Component {
         location: '',
         amount: 0
       });
+      this.flagToggle();
     }
   };
 
   render() {
     const { transactions } = this.props;
     const { modalFlag, budgets, date } = this.state;
-
-    console.log(modalFlag, budgets, date, this.state.selectedBudget, this.state.location, this.state.amount);
 
     const budgetList = budgets.map((e, i) => {
       return <option key={i}>{e.type}</option>;
