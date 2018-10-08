@@ -77,7 +77,7 @@ class BudgetType extends Component {
         <div className="add-budget-container">
           <div>
             <button className="view-type-btn" onClick={this.flagToggle}>
-              {!inputError ? 'View Budget Types' : 'Hide Budget Types'}
+              {!addFlag ? 'View Budget Types' : 'Hide Budget Types'}
             </button>
             {addFlag ? (
               <input

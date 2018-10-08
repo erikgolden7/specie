@@ -7,7 +7,8 @@ import {
   selectBudget,
   editCurrentBudget,
   getBudgetTypes,
-  getCurrentBudgets
+  getCurrentBudgets,
+  removeBudgetType
 } from '../../redux/reducers/budgetsReducer';
 import { getTransactionData } from '../../redux/reducers/transactionsReducer';
 
@@ -38,6 +39,14 @@ export class Budgets extends Component {
 
   flagToggle = () => {
     this.setState({ editFlag: !this.state.editFlag });
+  };
+
+  deleteBudget = async () => {
+    const { removeBudgetType, selectedBudget, getCurrentBudgets } = this.props;
+
+    await removeBudgetType(selectedBudget);
+    this.flagToggle();
+    getCurrentBudgets();
   };
 
   handleSubmit = async e => {
@@ -126,7 +135,13 @@ export class Budgets extends Component {
           <hr />
           <div className="current-budget-list">{budgets}</div>
           {editFlag && (
-            <Modal trash title="Edit Budget" toggleModal={this.flagToggle} handleSubmit={this.handleSubmit}>
+            <Modal
+              trash
+              title="Edit Budget"
+              toggleModal={this.flagToggle}
+              handleSubmit={this.handleSubmit}
+              handleDelete={this.deleteBudget}
+            >
               <div style={{ marginTop: 20 }}>
                 <label>Change Name:</label>
                 <input
@@ -164,5 +179,12 @@ const mapStateToProps = ({ budgetsReducer, transactionsReducer }) => {
 
 export default connect(
   mapStateToProps,
-  { selectBudget, getTransactionData, editCurrentBudget, getBudgetTypes, getCurrentBudgets }
+  {
+    selectBudget,
+    getTransactionData,
+    editCurrentBudget,
+    getBudgetTypes,
+    getCurrentBudgets,
+    removeBudgetType
+  }
 )(Budgets);
