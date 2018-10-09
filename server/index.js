@@ -53,7 +53,8 @@ app.put('/api/editCurrentBudget', budgetCtrl.editCurrentBudget);
 app.delete('/api/removeCurrentBudget', budgetCtrl.deleteCurrentBudget);
 
 app.get('/api/getTransactionData', transactionsCtrl.getAllTransactions);
-// app.get('/api/sortTable', transactionsCtrl.sortTransactionTable);
+app.put('/api/editTransactionData', transactionsCtrl.editTransactionData);
+
 app.get('/api/getColorTotal', transactionsCtrl.getColorTotal);
 
 // app.get('/test', (req, res) => res.status(418).send({ message: 'this is an error' }));

@@ -22,10 +22,20 @@ module.exports = {
     res.status(200).json('Successfully added new transaction');
   },
 
+  editTransactionData: async (req, res) => {
+    const db = req.app.get('db');
+    const { id, type, location, amount, date, formatDate } = req.body;
+
+    await db.transactions
+      .edit_transaction([id, type, location, amount, date, formatDate.month, formatDate.day, formatDate.year])
+      .catch(console.log);
+
+    res.status(200).json('success');
+  },
+
   getColorTotal: async (req, res) => {
     const db = req.app.get('db');
 
     const response = await db.transactions.get_type_total(req.body.type);
-    console.log(response);
   }
 };
