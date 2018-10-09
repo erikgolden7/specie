@@ -11,9 +11,6 @@ const SELECT_BUDGET = 'SELECT_BUDGET';
 // Initial State
 const initialState = {
   loading: false,
-  showTypes: false,
-  showEdit: false,
-  typeInput: '',
   budgetTypes: [],
   currentBudgets: [],
   selectedBudget: {}
@@ -115,8 +112,6 @@ export const addCurrentBudget = budget => {
 
 export const editCurrentBudget = (budget, newName, newAmount) => {
   const { type, light_color, amount } = budget;
-
-  console.log(type, light_color, amount, newAmount, newName);
 
   return {
     type: EDIT_CURRENT_BUDGET,
