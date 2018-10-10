@@ -10,12 +10,31 @@ class TableRow extends Component {
 
     this.state = {
       rowSelected: false,
+      type: '',
+      location: '',
+      date: '',
+      amount: 0
+      // items: [],
+      // itemsToAdd: []
+    };
+  }
+
+  // addToList(item) {
+  //   const items = [...this.state.items]
+  //   const itemsToAdd = [...this.state.itemsToAdd];
+  //   items.push(item);
+  //   itemsToAdd.push(item);
+  //   this.setState({ items, itemsToAdd})
+
+  // }
+  componentDidMount = () => {
+    this.setState({
       type: this.props.e.type,
       location: this.props.e.location,
       date: this.props.e.date,
       amount: this.props.e.amount
-    };
-  }
+    });
+  };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -28,33 +47,47 @@ class TableRow extends Component {
     const { id } = this.props.e;
     const currentTarget = e.currentTarget;
 
-    setTimeout(async () => {
+    setTimeout(() => {
       if (!currentTarget.contains(document.activeElement)) {
-        await this.props.editTransactionData(id, type, location, amount, date);
+        this.props.editTransactionData(id, type, location, amount, date);
         this.props.getTransactionData();
         this.closeRowEdit();
       }
     }, 0);
   };
+  // componentWillUnmount = () => {
+  //   axios.post('/api/add_items', {items: this.state.itemsToAdd});
+
+  //   req.body.items.forEach(val => {
+  //     req.app.get('db').addItem(val.type, val.location, val.date);
+  //   })
+  // }
 
   render() {
-    const { e, i } = this.props;
+    const { i, budgets } = this.props;
     const { type, location, date, amount, rowSelected } = this.state;
+
+    const budgetList = budgets.map((e, i) => {
+      return <option key={i}>{e.type}</option>;
+    });
 
     if (rowSelected) {
       return (
         <tr tabIndex={i} onBlur={this.onBlur} style={{ background: '#676767' }} className="edit-row">
-          <td onClick={this.closeRowEdit} style={{ width: 20 }} className="row-close">
+          <td onClick={this.closeRowEdit} style={{ width: 10, padding: '0 10px' }} className="row-close">
             <div className="row-close-img" />
           </td>
           <td>
-            <input
+            <select
               type="text"
               name="type"
               onChange={this.handleChange}
               value={type}
               className="row-input row-input-edit"
-            />
+              style={{ height: 22 }}
+            >
+              {budgetList}
+            </select>
           </td>
 
           <td>
@@ -91,10 +124,10 @@ class TableRow extends Component {
     } else {
       return (
         <tr tabIndex={i} className="row" onClick={this.selectRow}>
-          <td>{e.type}</td>
-          <td>{e.location}</td>
-          <td>{moment(e.date).format('MM/DD/YYYY')}</td>
-          <td>{`$ ${e.amount}`}</td>
+          <td>{type}</td>
+          <td>{location}</td>
+          <td>{moment(date).format('MM/DD/YYYY')}</td>
+          <td>{`$ ${amount}`}</td>
         </tr>
       );
     }

@@ -9,25 +9,28 @@ class TransactionTable extends Component {
     super(props);
 
     this.state = {
-      sortAsc: true
+      sortAsc: true,
+      data: this.props.data
     };
   }
 
   onSort = key => {
     const { sortAsc } = this.state;
-    const { data, sortData } = this.props;
+    const { transactions, sortData } = this.props;
+
+    const data = [...transactions];
 
     if (key === 'amount') {
       if (sortAsc) {
-        data.sort((a, b) => a[key] - b[key]);
+        data.sort((a, b) => a[key] - b[key] || a['type'] - b['type']);
       } else {
-        data.sort((a, b) => b[key] - a[key]);
+        data.sort((a, b) => b[key] - a[key] || a['type'] - b['type']);
       }
     } else {
       if (sortAsc) {
-        data.sort((a, b) => a[key].localeCompare(b[key]));
+        data.sort((a, b) => a[key].localeCompare(b[key]) || a['type'].localeCompare(b['type']));
       } else {
-        data.sort((a, b) => b[key].localeCompare(a[key]));
+        data.sort((a, b) => b[key].localeCompare(a[key]) || a['type'].localeCompare(b['type']));
       }
     }
 
@@ -36,8 +39,10 @@ class TransactionTable extends Component {
   };
 
   render() {
-    const dataMap = this.props.data.map((e, i) => {
-      return <TableRow key={i} e={e} i={i} id={e.id} />;
+    const { budgets, transactions } = this.props;
+
+    const dataMap = transactions.map((e, i) => {
+      return <TableRow key={e.id} e={e} i={i} id={e.id} budgets={budgets} />;
     });
 
     return (

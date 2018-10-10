@@ -54,7 +54,7 @@ export default function transactionsReducer(state = initialState, action) {
     case SORT_TABLE_DATA:
       return {
         ...state,
-        transactions: action.payload
+        transactions: [...action.payload]
       };
 
     default:
@@ -90,16 +90,11 @@ export const getTransactionData = () => {
 };
 
 export const editTransactionData = (id, type, location, amount, date) => {
-  // type, date, location, amount, formatDate.month, formatDate.day, formatDate.year
-  console.log(id, type, date, location, amount);
-
   const formatDate = {
     month: Number(moment(date).format('MM')),
     day: Number(moment(date).format('DD')),
     year: Number(moment(date).format('YYYY'))
   };
-
-  console.log(formatDate);
 
   return {
     type: EDIT_TRANSACTION_DATA,

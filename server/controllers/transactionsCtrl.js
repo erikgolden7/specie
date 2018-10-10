@@ -36,6 +36,6 @@ module.exports = {
   getColorTotal: async (req, res) => {
     const db = req.app.get('db');
 
-    const response = await db.transactions.get_type_total(req.body.type);
+    await db.transactions.get_type_total(req.body.type);
   }
 };
