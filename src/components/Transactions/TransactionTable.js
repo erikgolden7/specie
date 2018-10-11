@@ -16,9 +16,7 @@ class TransactionTable extends Component {
 
   onSort = key => {
     const { sortAsc } = this.state;
-    const { transactions, sortData } = this.props;
-
-    const data = [...transactions];
+    const { transactions: data, sortData } = this.props;
 
     if (key === 'amount') {
       if (sortAsc) {
@@ -28,7 +26,21 @@ class TransactionTable extends Component {
       }
     } else {
       if (sortAsc) {
-        data.sort((a, b) => (a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1));
+        data.sort((a, b) => {
+          let alc = a[key].toLowerCase(),
+            blc = b[key].toLowerCase(),
+            aLocLc = a['type'].toLowerCase(),
+            bLocLc = b['type'].toLowerCase();
+
+          if (key === 'type') {
+            (aLocLc = a['location'].toLowerCase()), (bLocLc = b['location'].toLowerCase());
+          }
+          if (alc < blc) return -1;
+          if (alc > blc) return 1;
+          if (aLocLc < bLocLc) return -1;
+          if (aLocLc > bLocLc) return 1;
+          return 0;
+        });
       } else {
         data.sort((a, b) => (a[key].toLowerCase() < b[key].toLowerCase() ? 1 : -1));
       }

@@ -50,7 +50,7 @@ class TableRow extends Component {
     setTimeout(() => {
       if (!currentTarget.contains(document.activeElement)) {
         this.props.editTransactionData(id, type, location, amount, date);
-        this.props.getTransactionData();
+        // this.props.getTransactionData();
         this.closeRowEdit();
       }
     }, 0);
