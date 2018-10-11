@@ -28,9 +28,9 @@ class TransactionTable extends Component {
       }
     } else {
       if (sortAsc) {
-        data.sort((a, b) => a[key].localeCompare(b[key]) || a['type'].localeCompare(b['type']));
+        data.sort((a, b) => (a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1));
       } else {
-        data.sort((a, b) => b[key].localeCompare(a[key]) || a['type'].localeCompare(b['type']));
+        data.sort((a, b) => (a[key].toLowerCase() < b[key].toLowerCase() ? 1 : -1));
       }
     }
 
