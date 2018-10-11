@@ -148,7 +148,7 @@ tr:hover {
 }
 
 .edit-row > td:nth-child(2) {
-  width: 21%;
+  width: 22%;
 }
 
 .row-input {
@@ -172,7 +172,7 @@ tr:hover {
 }
 
 .row-close-img {
-  background: url('../../assets/save.png') center no-repeat;
+  background: url('../../assets/cancel.png') center no-repeat;
   background-size: contain;
   height: 25px;
   width: 25px;

@@ -93,7 +93,6 @@ class Transactions extends Component {
   };
 
   render() {
-    const { transactions } = this.props;
     const { modalFlag, budgets, date, errors } = this.state;
 
     const budgetList = budgets.map((e, i) => {
@@ -164,7 +163,7 @@ class Transactions extends Component {
           )}
         </div>
         <div className="display-transactions">
-          <TransactionTable data={transactions} />
+          <TransactionTable budgets={budgets} />
         </div>
       </div>
     );
