@@ -102,7 +102,6 @@ class Transactions extends Component {
 
   render() {
     const { modalFlag, budgets, date, errors, incomeCheck } = this.state;
-    console.log(incomeCheck);
 
     const budgetList = budgets.map((e, i) => {
       return <option key={i}>{e.type}</option>;

@@ -25,12 +25,11 @@ class Overview extends Component {
   }
 
   componentDidMount = async () => {
-    const transactions = await this.props.getTransactionData();
-    this.setState({ transactions: transactions.value.data });
+    await this.props.getTransactionData();
   };
 
   calculateChartData = date => {
-    const { transactions } = this.state;
+    const { transactions } = this.props;
     let month = date.getMonth();
     let chartData = [];
     let monthKey = {
@@ -57,17 +56,20 @@ class Overview extends Component {
 
     transactions.forEach((e, i) => {
       let transMonth = monthKey[parseInt(e.month, 10)];
-      chartData.forEach(el => (el.name === transMonth ? (el.spent -= e.amount) : false));
+
+      if (e.income === true) {
+        chartData.forEach(el => (el.name === transMonth ? (el.income += e.amount) : false));
+      } else {
+        chartData.forEach(el => (el.name === transMonth ? (el.spent -= e.amount) : false));
+      }
     });
 
-    console.log(chartData);
     return chartData;
   };
 
   render() {
     const date = new Date();
     const year = date.getFullYear();
-    console.log(this.state.transactions);
     let data = this.calculateChartData(date);
 
     const data1 = [
@@ -105,9 +107,9 @@ class Overview extends Component {
   }
 }
 
-const mapDispatchToProps = ({ TransactionReducer }) => {
+const mapDispatchToProps = ({ transactionsReducer }) => {
   return {
-    ...TransactionReducer
+    ...transactionsReducer
   };
 };
 
