@@ -19,6 +19,7 @@ class Transactions extends Component {
       modalFlag: false,
       budgets: [],
       errors: {
+        checkErr: false,
         budgetErr: false,
         locationErr: false,
         amountErr: false
@@ -26,7 +27,8 @@ class Transactions extends Component {
       date: moment(),
       selectedBudget: '',
       location: '',
-      amount: 0
+      amount: 0,
+      incomeCheck: null
     };
   }
 
@@ -40,15 +42,20 @@ class Transactions extends Component {
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
+  handleCheck = e => this.setState({ incomeCheck: e });
+
   handleDate = date => this.setState({ date });
 
   formValidation = () => {
-    const { budgetType, location, amount } = this.state;
+    const { budgetType, location, amount, incomeCheck } = this.state;
 
     this.setState(prevState => ({
-      errors: { ...prevState.errors, budgetErr: false, locationErr: false, amountErr: false }
+      errors: { ...prevState.errors, checkErr: false, budgetErr: false, locationErr: false, amountErr: false }
     }));
 
+    if (incomeCheck === null) {
+      this.setState(prevState => ({ errors: { ...prevState.errors, checkErr: true } }));
+    }
     if (budgetType === '') {
       this.setState(prevState => ({ errors: { ...prevState.errors, budgetErr: true } }));
     }
@@ -72,7 +79,7 @@ class Transactions extends Component {
 
   handleSubmit = async () => {
     const { setTransactionFormData, getTransactionData } = this.props;
-    const { date, location, amount, selectedBudget } = this.state;
+    const { date, location, amount, selectedBudget, incomeCheck } = this.state;
 
     await this.formValidation();
     const isFormError = this.validateObj();
@@ -80,20 +87,22 @@ class Transactions extends Component {
     if (isFormError) {
       return;
     } else {
-      await setTransactionFormData(selectedBudget, date, location, amount);
+      await setTransactionFormData(selectedBudget, date, location, amount, incomeCheck);
       getTransactionData();
       this.flagToggle();
       this.setState({
         date: moment(),
         selectedBudget: '',
         location: '',
-        amount: 0
+        amount: 0,
+        incomeCheck: null
       });
     }
   };
 
   render() {
-    const { modalFlag, budgets, date, errors } = this.state;
+    const { modalFlag, budgets, date, errors, incomeCheck } = this.state;
+    console.log(incomeCheck);
 
     const budgetList = budgets.map((e, i) => {
       return <option key={i}>{e.type}</option>;
@@ -108,19 +117,42 @@ class Transactions extends Component {
           {modalFlag && (
             <Modal title="Add Transaction" toggleModal={this.flagToggle} handleSubmit={this.handleSubmit}>
               <div>
-                <label>Select Budget:</label>
-                <select
-                  style={errors.budgetErr ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
-                  defaultValue="default"
-                  className="transaction-select"
-                  name="selectedBudget"
-                  onChange={this.handleChange}
-                >
-                  <option value="default" disabled="disabled">
-                    Select a Budget
-                  </option>
-                  {budgetList}
-                </select>
+                <label>Type of Transaction:</label>
+                <div style={{ margin: '5px 0 20px 0' }}>
+                  <input
+                    type="radio"
+                    value={true}
+                    onChange={() => this.handleCheck(Boolean(true))}
+                    name="incomeCheck"
+                  />
+                  Income
+                  <input
+                    style={{ marginLeft: 15 }}
+                    type="radio"
+                    value={false}
+                    onChange={() => this.handleCheck(Boolean(false))}
+                    name="incomeCheck"
+                  />
+                  Expense
+                </div>
+
+                {!incomeCheck && (
+                  <div>
+                    <label>Select Budget:</label>
+                    <select
+                      style={errors.budgetErr ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
+                      defaultValue="default"
+                      className="transaction-select"
+                      name="selectedBudget"
+                      onChange={this.handleChange}
+                    >
+                      <option value="default" disabled="disabled">
+                        Select a Budget
+                      </option>
+                      {budgetList}
+                    </select>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -134,7 +166,7 @@ class Transactions extends Component {
               </div>
 
               <div style={{ marginTop: 20 }}>
-                <label>Enter Vendor/Business:</label>
+                {incomeCheck ? <label>Source of Income:</label> : <label>Enter Vendor/Business:</label>}
 
                 <input
                   className="text-input"

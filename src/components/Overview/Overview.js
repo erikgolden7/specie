@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTransactionData } from '../../redux/reducers/transactionsReducer';
-
-// import { BarChart } from 'recharts';
 import {
   BarChart,
   Bar,
@@ -28,41 +26,38 @@ class Overview extends Component {
 
   componentDidMount = async () => {
     const transactions = await this.props.getTransactionData();
-    console.log(transactions.value.data);
     this.setState({ transactions: transactions.value.data });
   };
 
   calculateChartData = date => {
     const { transactions } = this.state;
     let month = date.getMonth();
-    let chartData = {};
+    let chartData = [];
     let monthKey = {
-      1: 'January',
-      2: 'February',
-      3: 'March',
-      4: 'April',
+      1: 'Jan',
+      2: 'Feb',
+      3: 'Mar',
+      4: 'Apr',
       5: 'May',
       6: 'June',
       7: 'July',
-      8: 'August',
-      9: 'September',
-      10: 'October',
-      11: 'November',
-      12: 'December'
+      8: 'Aug',
+      9: 'Sept',
+      10: 'Oct',
+      11: 'Nov',
+      12: 'Dec'
     };
 
     while (month > 0) {
-      if (!chartData[month]) {
-        chartData[monthKey[month]] = 0;
+      if (!chartData.includes(monthKey[month])) {
+        chartData.push({ name: monthKey[month], income: 0, spent: 0 });
       }
       month--;
     }
 
-    transactions.map((e, i) => {
+    transactions.forEach((e, i) => {
       let transMonth = monthKey[parseInt(e.month, 10)];
-      if (chartData.hasOwnProperty(transMonth)) {
-        chartData[transMonth] += e.amount;
-      }
+      chartData.forEach(el => (el.name === transMonth ? (el.spent -= e.amount) : false));
     });
 
     console.log(chartData);
@@ -73,17 +68,7 @@ class Overview extends Component {
     const date = new Date();
     const year = date.getFullYear();
     console.log(this.state.transactions);
-    let myData = this.calculateChartData(date);
-
-    const data = [
-      { name: 'January', income: 5000, spent: -2400, amt: 2400 },
-      { name: 'February', income: 3000, spent: -1398, amt: 2210 },
-      { name: 'March', income: 2000, spent: -8800, amt: 2290 },
-      { name: 'April', income: 2780, spent: -3908, amt: 2000 },
-      { name: 'May', income: 6890, spent: -4800, amt: 2181 },
-      { name: 'June', income: 2390, spent: -3800, amt: 2500 },
-      { name: 'July', income: 3490, spent: -4300, amt: 2100 }
-    ];
+    let data = this.calculateChartData(date);
 
     const data1 = [
       { name: 'Group A', value: 400 },

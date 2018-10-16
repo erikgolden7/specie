@@ -13,10 +13,10 @@ module.exports = {
 
   setTransactionData: async (req, res) => {
     const db = req.app.get('db');
-    const { type, date, formatDate, location, amount } = req.body;
+    const { type, date, formatDate, location, amount, incomeCheck } = req.body;
 
     await db.transactions
-      .post_product([type, date, location, amount, formatDate.month, formatDate.day, formatDate.year])
+      .post_product([type, date, location, amount, incomeCheck, formatDate.month, formatDate.day, formatDate.year])
       .catch(console.log);
 
     res.status(200).json('Successfully added new transaction');

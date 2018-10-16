@@ -63,7 +63,7 @@ export default function transactionsReducer(state = initialState, action) {
 }
 
 // Actions
-export function setTransactionFormData(type, date, location, amount) {
+export function setTransactionFormData(type, date, location, amount, incomeCheck) {
   const formatDate = {
     month: moment(date).format('MM'),
     day: moment(date).format('DD'),
@@ -77,7 +77,8 @@ export function setTransactionFormData(type, date, location, amount) {
       date,
       formatDate,
       location,
-      amount
+      amount,
+      incomeCheck
     })
   };
 }
