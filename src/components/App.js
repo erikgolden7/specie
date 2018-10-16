@@ -5,7 +5,6 @@ import Nav from './Nav/Nav';
 import Landing from './Landing/Landing';
 import Overview from './Overview/Overview';
 import Transactions from './Transactions/Transactions';
-import Goals from './Goals/Goals';
 import Budgets from './Budgets/Budgets.js';
 import Achievements from './Achievements/Achievements';
 import RouteError from './RouteError/RouteError';
@@ -24,7 +23,6 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route path="/overview" component={Overview} />
               <Route path="/transactions" component={Transactions} />
-              <Route path="/goals" component={Goals} />
               <Route path="/budgets" component={Budgets} />
               <Route path="/achievements" component={Achievements} />
               <Route path="/404" component={RouteError} />

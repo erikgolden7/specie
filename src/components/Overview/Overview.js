@@ -81,7 +81,7 @@ class Overview extends Component {
     const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     return (
-      <div style={{ marginTop: 80, display: 'flex', marginTop: 120 }}>
+      <div style={{ display: 'flex', marginTop: 120 }}>
         <h2>{year}</h2>
 
         <BarChart width={600} height={400} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -91,8 +91,8 @@ class Overview extends Component {
           <Tooltip />
           <Legend />
           <ReferenceLine y={0} stroke="#000" />
-          <Bar dataKey="spent" fill="#EB615F" />
           <Bar dataKey="income" fill="#4EC375" />
+          <Bar dataKey="spent" fill="#EB615F" />
         </BarChart>
 
         <PieChart width={400} height={400}>

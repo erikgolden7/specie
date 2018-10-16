@@ -33,7 +33,8 @@ class TransactionTable extends Component {
             bLocLc = b['type'].toLowerCase();
 
           if (key === 'type') {
-            (aLocLc = a['location'].toLowerCase()), (bLocLc = b['location'].toLowerCase());
+            aLocLc = a['location'].toLowerCase();
+            bLocLc = b['location'].toLowerCase();
           }
           if (alc < blc) return -1;
           if (alc > blc) return 1;
