@@ -169,7 +169,6 @@ class Transactions extends Component {
 
                 <input
                   className="text-input"
-                  style={{ border: 'solid red 1px' }}
                   style={errors.locationErr ? { border: 'solid 1px red' } : { border: 'solid 1px gray' }}
                   type="text"
                   placeholder="Must enter location"

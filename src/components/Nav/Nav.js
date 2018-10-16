@@ -13,9 +13,6 @@ export default () => {
         <Link className="nav-link" to="/transactions">
           Transactions
         </Link>
-        <Link className="nav-link" to="/goals">
-          Goals
-        </Link>
         <Link className="nav-link" to="/budgets">
           Budgets
         </Link>

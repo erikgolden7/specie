@@ -81,10 +81,10 @@ class Overview extends Component {
     const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
     return (
-      <div style={{ marginTop: 80 }}>
+      <div style={{ marginTop: 80, display: 'flex', marginTop: 120 }}>
         <h2>{year}</h2>
 
-        <BarChart width={600} height={300} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <BarChart width={600} height={400} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
@@ -95,12 +95,13 @@ class Overview extends Component {
           <Bar dataKey="income" fill="#4EC375" />
         </BarChart>
 
-        <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
-          <Pie data={data1} cx={300} cy={200} label outerRadius={80} fill="#8884d8">
+        <PieChart width={400} height={400}>
+          <Pie isAnimationActive={false} data={data1} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
             {data1.map((e, i) => (
               <Cell key={i} fill={colors[i % colors.length]} />
             ))}
           </Pie>
+          <Tooltip />
         </PieChart>
       </div>
     );
