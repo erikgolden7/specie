@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getTransactionData } from '../../redux/reducers/transactionsReducer';
+
 // import { BarChart } from 'recharts';
 import {
   BarChart,
@@ -15,7 +18,63 @@ import {
 } from 'recharts';
 
 class Overview extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      transactions: []
+    };
+  }
+
+  componentDidMount = async () => {
+    const transactions = await this.props.getTransactionData();
+    console.log(transactions.value.data);
+    this.setState({ transactions: transactions.value.data });
+  };
+
+  calculateChartData = date => {
+    const { transactions } = this.state;
+    let month = date.getMonth();
+    let chartData = {};
+    let monthKey = {
+      1: 'January',
+      2: 'February',
+      3: 'March',
+      4: 'April',
+      5: 'May',
+      6: 'June',
+      7: 'July',
+      8: 'August',
+      9: 'September',
+      10: 'October',
+      11: 'November',
+      12: 'December'
+    };
+
+    while (month > 0) {
+      if (!chartData[month]) {
+        chartData[monthKey[month]] = 0;
+      }
+      month--;
+    }
+
+    transactions.map((e, i) => {
+      let transMonth = monthKey[parseInt(e.month, 10)];
+      if (chartData.hasOwnProperty(transMonth)) {
+        chartData[transMonth] += e.amount;
+      }
+    });
+
+    console.log(chartData);
+    return chartData;
+  };
+
   render() {
+    const date = new Date();
+    const year = date.getFullYear();
+    console.log(this.state.transactions);
+    let myData = this.calculateChartData(date);
+
     const data = [
       { name: 'January', income: 5000, spent: -2400, amt: 2400 },
       { name: 'February', income: 3000, spent: -1398, amt: 2210 },
@@ -36,6 +95,8 @@ class Overview extends Component {
 
     return (
       <div style={{ marginTop: 80 }}>
+        <h2>{year}</h2>
+
         <BarChart width={600} height={300} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
@@ -50,7 +111,7 @@ class Overview extends Component {
         <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
           <Pie data={data1} cx={300} cy={200} label outerRadius={80} fill="#8884d8">
             {data1.map((e, i) => (
-              <Cell fill={colors[i % colors.length]} />
+              <Cell key={i} fill={colors[i % colors.length]} />
             ))}
           </Pie>
         </PieChart>
@@ -59,4 +120,13 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+const mapDispatchToProps = ({ TransactionReducer }) => {
+  return {
+    ...TransactionReducer
+  };
+};
+
+export default connect(
+  mapDispatchToProps,
+  { getTransactionData }
+)(Overview);
