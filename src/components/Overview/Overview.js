@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTransactionData } from '../../redux/reducers/transactionsReducer';
-import budgetsReducer, { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
+import { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
 import {
   BarChart,
   Bar,
@@ -18,11 +18,11 @@ import {
 
 class Overview extends Component {
   componentDidMount = async () => {
-    await this.props.getTransactionData();
-    await this.props.getCurrentBudgets();
+    this.props.getTransactionData();
+    this.props.getCurrentBudgets();
   };
 
-  calculateBarChartData = month => {
+  calculateBarChartData = (month, year) => {
     const { transactions } = this.props;
     let chartData = [];
     let monthKey = {
@@ -47,30 +47,32 @@ class Overview extends Component {
       month--;
     }
 
-    transactions.forEach((e, i) => {
+    transactions.forEach(e => {
       let transMonth = monthKey[parseInt(e.month, 10)];
 
-      if (e.income === true) {
-        chartData.forEach(el => (el.name === transMonth ? (el.income += e.amount) : false));
-      } else {
-        chartData.forEach(el => (el.name === transMonth ? (el.spent -= e.amount) : false));
+      if (year === e.year) {
+        if (e.income === true) {
+          chartData.forEach(el => (el.name === transMonth ? (el.income += e.amount) : false));
+        } else {
+          chartData.forEach(el => (el.name === transMonth ? (el.spent -= e.amount) : false));
+        }
       }
     });
 
     return chartData;
   };
 
-  calculatePieChartData = month => {
+  calculatePieChartData = (month, year) => {
     const { currentBudgets, transactions } = this.props;
     let pieChartData = [];
 
-    currentBudgets.forEach((e, i) => {
-      pieChartData.push({ name: e.type, value: 0 });
+    currentBudgets.forEach(e => {
+      pieChartData.push({ name: e.type, value: 0, color: e.light_color });
     });
 
     transactions.map(e => {
-      if (parseInt(e.month, 10) === month) {
-        pieChartData.forEach((el, i) => {
+      if (parseInt(e.month, 10) === month && year === e.year) {
+        pieChartData.forEach(el => {
           if (e.type === el.name) {
             el.value += e.amount;
           }
@@ -78,47 +80,44 @@ class Overview extends Component {
       }
     });
 
-    return pieChartData;
+    return pieChartData.filter(e => e.value > 0);
   };
 
   render() {
     const date = new Date();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    let data = this.calculateBarChartData(month);
-    let pieData = this.calculatePieChartData(month);
-
-    const data1 = [
-      { name: 'Group A', value: 400 },
-      { name: 'Group B', value: 300 },
-      { name: 'Group C', value: 300 },
-      { name: 'Group D', value: 200 }
-    ];
-    const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    let barData = this.calculateBarChartData(month, year);
+    let pieData = this.calculatePieChartData(month, year);
 
     return (
-      <div style={{ display: 'flex', marginTop: 120 }}>
-        <h2>{year}</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 120 }}>
+        <div>
+          <h2 style={{ marginLeft: 35 }}>{year} Transaction History</h2>
 
-        <BarChart width={600} height={400} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <ReferenceLine y={0} stroke="#000" />
-          <Bar dataKey="income" fill="#4EC375" />
-          <Bar dataKey="spent" fill="#EB615F" />
-        </BarChart>
+          <BarChart width={600} height={400} data={barData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <ReferenceLine y={0} stroke="#000" />
+            <Bar dataKey="income" fill="#4EC375" />
+            <Bar dataKey="spent" fill="#EB615F" />
+          </BarChart>
+        </div>
 
-        <PieChart width={400} height={400}>
-          <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
-            {pieData.map((e, i) => (
-              <Cell key={i} fill={colors[i % colors.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
+        <div>
+          <h2 style={{ textAlign: 'center' }}>Current Month Budgets</h2>
+          <PieChart width={400} height={400}>
+            <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
+              {pieData.map((e, i) => (
+                <Cell key={i} fill={e.color} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </div>
       </div>
     );
   }
