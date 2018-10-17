@@ -140,12 +140,12 @@ li {
 }
 
 .left-arrow {
-  background: url('../../assets/leftArrow.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/leftArrow.png') center no-repeat;
   background-size: contain;
 }
 
 .right-arrow {
-  background: url('../../assets/rightArrow.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/rightArrow.png') center no-repeat;
   background-size: contain;
 }
 

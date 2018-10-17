@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../Landing/landing.css';
-import carousel2 from '../../assets/carousel2.png';
-import carousel3 from '../../assets/carousel3.png';
 
 export default class SlideOne extends Component {
   render() {
@@ -11,9 +9,8 @@ export default class SlideOne extends Component {
           <div className="slide-left">
             <h2>Effortlessly stay on top of bills</h2>
             <p>
-              At last, your bills and money are together in one place and easier
-              than ever to track. Just add your bills to see how helpful we can
-              be.
+              At last, your bills and money are together in one place and easier than ever to track. Just add your bills
+              to see how helpful we can be.
             </p>
             <ul>
               <li>See bills and money in one place.</li>
@@ -23,9 +20,7 @@ export default class SlideOne extends Component {
           </div>
           <div className="slide-right">
             <img
-              src={
-                'https://www.mint.com/sites/default/files/billsmodule%402x_1.png?timestamp=1535430201'
-              }
+              src="https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/carousel1.png"
               style={{ height: 370 }}
               alt=""
             />
@@ -43,7 +38,7 @@ export class SlideTwo extends Component {
         <div className="about-outer" style={{ width: '70%' }}>
           <div className="slide-left">
             <img
-              src={carousel2}
+              src="https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/carousel2.png"
               style={{
                 width: 500,
                 height: '100%'
@@ -55,17 +50,14 @@ export class SlideTwo extends Component {
             <h2>Get started simply & securely</h2>
             <ul>
               <li>
-                It’s easy to set up your free account in seconds, and help’s
-                available if you should ever need it.
+                It’s easy to set up your free account in seconds, and help’s available if you should ever need it.
               </li>
               <li>
-                We work to keep your information secure. All your data is
-                encrypted with a 256-bit encryption level and the data exchanged
-                with Mint is encrypted with 128-bit SSL.
+                We work to keep your information secure. All your data is encrypted with a 256-bit encryption level and
+                the data exchanged with Mint is encrypted with 128-bit SSL.
               </li>
               <li>
-                Mint comes from the makers of TurboTax®, trusted by millions
-                every year with their most sensitive data.
+                Mint comes from the makers of TurboTax®, trusted by millions every year with their most sensitive data.
               </li>
             </ul>
           </div>
@@ -82,22 +74,21 @@ export class SlideThree extends Component {
         <div className="about-outer">
           <div className="slide-left">
             <h2>Get started simply & securely</h2>
+            <p>It’s easy to set up your free account in seconds, and help’s available if you should ever need it.</p>
             <p>
-              It’s easy to set up your free account in seconds, and help’s
-              available if you should ever need it.
+              We work to keep your information secure. All your data is encrypted with a 256-bit encryption level and
+              the data exchanged with Mint is encrypted with 128-bit SSL.
             </p>
             <p>
-              We work to keep your information secure. All your data is
-              encrypted with a 256-bit encryption level and the data exchanged
-              with Mint is encrypted with 128-bit SSL.
-            </p>
-            <p>
-              Mint comes from the makers of TurboTax®, trusted by millions every
-              year with their most sensitive data.
+              Mint comes from the makers of TurboTax®, trusted by millions every year with their most sensitive data.
             </p>
           </div>
           <div className="slide-right">
-            <img src={carousel3} style={{ height: 370 }} alt="" />
+            <img
+              src="https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/carousel3.png"
+              style={{ height: 370 }}
+              alt=""
+            />
           </div>
         </div>
       </div>

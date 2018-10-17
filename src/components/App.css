@@ -58,7 +58,7 @@ label {
   left: 30px;
   width: 25px;
   height: 25px;
-  background: url('../assets/trash.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/trash.png') center no-repeat;
   background-size: contain;
   cursor: pointer;
   border: none;
@@ -97,12 +97,12 @@ label {
 .modal-close {
   width: 25px;
   height: 25px;
-  background: url('../assets/black-x.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/black-x.png') center no-repeat;
   background-size: contain;
   cursor: pointer;
 }
 
 .modal-close:hover {
-  background: url('../assets/gray-x.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/gray-x.png') center no-repeat;
   background-size: contain;
 }

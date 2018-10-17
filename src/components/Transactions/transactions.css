@@ -136,7 +136,7 @@ tr:hover {
 }
 
 .sort {
-  background: url('../../assets/sort.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/sort.png') center no-repeat;
   background-size: contain;
   width: 10px;
   height: 10px;
@@ -176,7 +176,7 @@ tr:hover {
 }
 
 .row-close-img {
-  background: url('../../assets/cancel.png') center no-repeat;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/cancel.png') center no-repeat;
   background-size: contain;
   height: 25px;
   width: 25px;
