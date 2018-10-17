@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTransactionData } from '../../redux/reducers/transactionsReducer';
+import budgetsReducer, { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
 import {
   BarChart,
   Bar,
@@ -16,21 +17,13 @@ import {
 } from 'recharts';
 
 class Overview extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      transactions: []
-    };
-  }
-
   componentDidMount = async () => {
     await this.props.getTransactionData();
+    await this.props.getCurrentBudgets();
   };
 
-  calculateChartData = date => {
+  calculateBarChartData = month => {
     const { transactions } = this.props;
-    let month = date.getMonth();
     let chartData = [];
     let monthKey = {
       1: 'Jan',
@@ -49,7 +42,7 @@ class Overview extends Component {
 
     while (month > 0) {
       if (!chartData.includes(monthKey[month])) {
-        chartData.push({ name: monthKey[month], income: 0, spent: 0 });
+        chartData.unshift({ name: monthKey[month], income: 0, spent: 0 });
       }
       month--;
     }
@@ -67,10 +60,33 @@ class Overview extends Component {
     return chartData;
   };
 
+  calculatePieChartData = month => {
+    const { currentBudgets, transactions } = this.props;
+    let pieChartData = [];
+
+    currentBudgets.forEach((e, i) => {
+      pieChartData.push({ name: e.type, value: 0 });
+    });
+
+    transactions.map(e => {
+      if (parseInt(e.month, 10) === month) {
+        pieChartData.forEach((el, i) => {
+          if (e.type === el.name) {
+            el.value += e.amount;
+          }
+        });
+      }
+    });
+
+    return pieChartData;
+  };
+
   render() {
     const date = new Date();
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
-    let data = this.calculateChartData(date);
+    let data = this.calculateBarChartData(month);
+    let pieData = this.calculatePieChartData(month);
 
     const data1 = [
       { name: 'Group A', value: 400 },
@@ -96,8 +112,8 @@ class Overview extends Component {
         </BarChart>
 
         <PieChart width={400} height={400}>
-          <Pie isAnimationActive={false} data={data1} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
-            {data1.map((e, i) => (
+          <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
+            {pieData.map((e, i) => (
               <Cell key={i} fill={colors[i % colors.length]} />
             ))}
           </Pie>
@@ -108,13 +124,14 @@ class Overview extends Component {
   }
 }
 
-const mapDispatchToProps = ({ transactionsReducer }) => {
+const mapDispatchToProps = ({ transactionsReducer, budgetsReducer }) => {
   return {
-    ...transactionsReducer
+    ...transactionsReducer,
+    ...budgetsReducer
   };
 };
 
 export default connect(
   mapDispatchToProps,
-  { getTransactionData }
+  { getTransactionData, getCurrentBudgets }
 )(Overview);
