@@ -95,6 +95,7 @@
 table {
   width: 90%;
   margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 tr {
@@ -102,14 +103,7 @@ tr {
 }
 
 tr:nth-child(odd) {
-  background: rgb(235, 235, 235);
-}
-
-th {
-  background: lightgray;
-  font-weight: bold;
-  text-align: left;
-  cursor: pointer;
+  background: #dadae2;
 }
 
 td,
@@ -123,12 +117,22 @@ th {
   border-collapse: collapse;
 }
 
+th {
+  background: rgb(119, 120, 121);
+  border: solid black 1px;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+}
+
 td {
   font-size: 15px;
 }
 
 tr:hover {
-  background: rgb(233, 233, 233);
+  background: #c6c8ca;
+  cursor: pointer;
 }
 
 .sort {

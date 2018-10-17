@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getTransactionData } from '../../redux/reducers/transactionsReducer';
 import { getCurrentBudgets } from '../../redux/reducers/budgetsReducer';
+import { monthNames } from '../../services/constService';
 import {
   BarChart,
   Bar,
@@ -15,6 +16,8 @@ import {
   Pie,
   Cell
 } from 'recharts';
+
+import './overview.css';
 
 class Overview extends Component {
   componentDidMount = async () => {
@@ -66,11 +69,9 @@ class Overview extends Component {
     const { currentBudgets, transactions } = this.props;
     let pieChartData = [];
 
-    currentBudgets.forEach(e => {
-      pieChartData.push({ name: e.type, value: 0, color: e.light_color });
-    });
+    currentBudgets.forEach(e => pieChartData.push({ name: e.type, value: 0, color: e.light_color }));
 
-    transactions.map(e => {
+    transactions.forEach(e => {
       if (parseInt(e.month, 10) === month && year === e.year) {
         pieChartData.forEach(el => {
           if (e.type === el.name) {
@@ -91,9 +92,9 @@ class Overview extends Component {
     let pieData = this.calculatePieChartData(month, year);
 
     return (
-      <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 120 }}>
+      <div className="chart-container">
         <div>
-          <h2 style={{ marginLeft: 35 }}>{year} Transaction History</h2>
+          <h2 style={{ marginLeft: 50, textAlign: 'center' }}>{year} Transaction Overview</h2>
 
           <BarChart width={600} height={400} data={barData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -108,7 +109,7 @@ class Overview extends Component {
         </div>
 
         <div>
-          <h2 style={{ textAlign: 'center' }}>Current Month Budgets</h2>
+          <h2 style={{ textAlign: 'center' }}>{monthNames[date.getMonth()]} Budget Overview</h2>
           <PieChart width={400} height={400}>
             <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
               {pieData.map((e, i) => (
