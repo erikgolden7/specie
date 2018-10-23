@@ -39,6 +39,7 @@
     "prod": "NODE_ENV=production nodemon server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:coverage": "react-scripts test --coverage",
     "lint": "eslint \"**/*.{js,jsx}\"",
     "eject": "react-scripts eject"
   },

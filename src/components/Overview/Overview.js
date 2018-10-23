@@ -61,7 +61,6 @@ class Overview extends Component {
         }
       }
     });
-
     return chartData;
   };
 
