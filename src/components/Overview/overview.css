@@ -6,3 +6,43 @@
   margin-bottom: 36px;
   border-bottom: solid 1px;
 }
+
+.pie-container {
+  min-width: 400px;
+}
+
+.pie-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-arrow,
+.left-arrow {
+  color: #111;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 1, 1);
+  width: 20px;
+  height: 20px;
+}
+
+.left-arrow:hover,
+.right-arrow:hover {
+  opacity: 0.5;
+}
+
+.left-arrow {
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/leftArrow.png') center no-repeat;
+  background-size: contain;
+}
+
+.right-arrow {
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/rightArrow.png') center no-repeat;
+  background-size: contain;
+}
+
+.no-data-message {
+  text-align: center;
+  margin-top: 40%;
+}

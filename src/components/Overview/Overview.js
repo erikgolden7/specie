@@ -20,7 +20,20 @@ import {
 import './overview.css';
 
 class Overview extends Component {
-  componentDidMount = async () => {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pieMonth: 0
+    };
+  }
+
+  componentDidMount = () => {
+    var date = new Date();
+    var month = date.getMonth() + 1;
+
+    this.setState({ pieMonth: month });
+
     this.props.getTransactionData();
     this.props.getCurrentBudgets();
   };
@@ -51,7 +64,7 @@ class Overview extends Component {
     }
 
     transactions.forEach(e => {
-      let transMonth = monthKey[parseInt(e.month, 10)];
+      let transMonth = monthKey[parseInt(e.month, month)];
 
       if (year === e.year) {
         if (e.income === true) {
@@ -83,12 +96,25 @@ class Overview extends Component {
     return pieChartData.filter(e => e.value > 0);
   };
 
+  changeMonth = type => {
+    if (type === 'inc') {
+      if (this.state.pieMonth < 12) {
+        this.setState({ pieMonth: this.state.pieMonth + 1 });
+      }
+    } else {
+      if (this.state.pieMonth > 1) {
+        this.setState({ pieMonth: this.state.pieMonth - 1 });
+      }
+    }
+  };
+
   render() {
     const date = new Date();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     let barData = this.calculateBarChartData(month, year);
-    let pieData = this.calculatePieChartData(month, year);
+    let pieData = this.calculatePieChartData(this.state.pieMonth, year);
+    console.log(pieData);
 
     return (
       <div className="chart-container">
@@ -107,16 +133,25 @@ class Overview extends Component {
           </BarChart>
         </div>
 
-        <div>
-          <h2 style={{ textAlign: 'center' }}>{monthNames[date.getMonth()]} Budget Overview</h2>
-          <PieChart width={400} height={400}>
-            <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
-              {pieData.map((e, i) => (
-                <Cell key={i} fill={e.color} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
+        <div className="pie-container">
+          <div className="pie-header">
+            <div className="left-arrow" onClick={this.changeMonth} />
+            <h2 style={{ textAlign: 'center' }}>{monthNames[this.state.pieMonth - 1]} Budget Overview</h2>
+            <div className="right-arrow" onClick={() => this.changeMonth('inc')} />
+          </div>
+
+          {pieData.length > 0 ? (
+            <PieChart width={400} height={400}>
+              <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
+                {pieData.map((e, i) => (
+                  <Cell key={i} fill={e.color} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          ) : (
+            <div className="no-data-message"> No chart data available... </div>
+          )}
         </div>
       </div>
     );
