@@ -28,7 +28,7 @@ class Overview extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     var date = new Date();
     var month = date.getMonth() + 1;
 
@@ -36,7 +36,7 @@ class Overview extends Component {
 
     this.props.getTransactionData();
     this.props.getCurrentBudgets();
-  };
+  }
 
   calculateBarChartData = (month, year) => {
     const { transactions } = this.props;
@@ -74,6 +74,8 @@ class Overview extends Component {
         }
       }
     });
+    console.log(chartData);
+
     return chartData;
   };
 
@@ -114,26 +116,27 @@ class Overview extends Component {
     const year = date.getFullYear();
     let barData = this.calculateBarChartData(month, year);
     let pieData = this.calculatePieChartData(this.state.pieMonth, year);
-    console.log(pieData);
 
     return (
-      <div className="chart-container">
-        <div>
-          <h2 style={{ marginLeft: 50, textAlign: 'center' }}>{year} Transaction Overview</h2>
+      <div style={{ marginTop: 60 }}>
+        <div className="summary-section">
+          <div>
+            <h2 style={{ marginLeft: 50, textAlign: 'center' }}>{year} Transaction Overview</h2>
 
-          <BarChart width={600} height={400} data={barData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <ReferenceLine y={0} stroke="#000" />
-            <Bar dataKey="income" fill="#4EC375" />
-            <Bar dataKey="spent" fill="#EB615F" />
-          </BarChart>
+            <BarChart width={600} height={400} data={barData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <ReferenceLine y={0} stroke="#000" />
+              <Bar dataKey="income" fill="#4EC375" />
+              <Bar dataKey="spent" fill="#EB615F" />
+            </BarChart>
+          </div>
         </div>
 
-        <div className="pie-container">
+        <div className="summary-section">
           <div className="pie-header">
             <div className="left-arrow" onClick={this.changeMonth} />
             <h2 style={{ textAlign: 'center' }}>{monthNames[this.state.pieMonth - 1]} Budget Overview</h2>
@@ -142,7 +145,7 @@ class Overview extends Component {
 
           {pieData.length > 0 ? (
             <PieChart width={400} height={400}>
-              <Pie isAnimationActive={false} data={pieData} cx={200} cy={200} outerRadius={80} fill="#8884d8" label>
+              <Pie isAnimationActive={true} data={pieData} cx={200} cy={200} outerRadius={120} fill="#8884d8" label>
                 {pieData.map((e, i) => (
                   <Cell key={i} fill={e.color} />
                 ))}
@@ -153,6 +156,8 @@ class Overview extends Component {
             <div className="no-data-message"> No chart data available... </div>
           )}
         </div>
+
+        <div className="summary-section" />
       </div>
     );
   }
