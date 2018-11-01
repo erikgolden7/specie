@@ -45,3 +45,29 @@
   text-align: center;
   margin-top: 40%;
 }
+
+.budget-summary {
+  width: 30%;
+  padding: 20px;
+  border: solid 1px black;
+}
+
+.budget-summary-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+p {
+  margin: 7px 0;
+  font-size: 14px;
+}
+
+h3 {
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+h6 {
+  margin: 8px 0;
+  color: gray;
+}

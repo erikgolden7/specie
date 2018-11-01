@@ -95,6 +95,8 @@ class Overview extends Component {
       }
     });
 
+    console.log(pieChartData.filter(e => e.value > 0));
+
     return pieChartData.filter(e => e.value > 0);
   };
 
@@ -116,6 +118,19 @@ class Overview extends Component {
     const year = date.getFullYear();
     let barData = this.calculateBarChartData(month, year);
     let pieData = this.calculatePieChartData(this.state.pieMonth, year);
+
+    let total = pieData.reduce((sum, val) => (sum += val.value), 0);
+
+    let summary = pieData.map(e => {
+      return (
+        <div style={{ borderBottom: 'dotted black 1px' }}>
+          <div className="budget-summary-row">
+            <p>{e.name}</p>
+            <p>{`$${e.value.toFixed(2)}`}</p>
+          </div>
+        </div>
+      );
+    });
 
     return (
       <div style={{ marginTop: 60 }}>
@@ -157,7 +172,20 @@ class Overview extends Component {
           )}
         </div>
 
-        <div className="summary-section" />
+        <div className="summary-section">
+          <div className="budget-summary">
+            <h3 style={{ textAlign: 'left' }}>Your Spending</h3>
+            <div className="budget-summary-row">
+              <h6>Category</h6>
+              <h6>Spending</h6>
+            </div>
+            {summary}
+            <div className="budget-summary-row">
+              <h4>Total</h4>
+              <h4>{`$${total.toFixed(2)}`}</h4>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
