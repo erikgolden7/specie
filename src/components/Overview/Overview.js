@@ -111,8 +111,30 @@ class Overview extends Component {
     }
   };
 
+  downloadCSV = (args, pieData) => {
+    pieData.map(e => console.log(e));
+
+    let data, filename, link;
+    let csv = this.convertArrayOfObjectsToCSV({
+      data: pieData
+    });
+    if (csv == null) return;
+
+    filename = args.filename || 'export.csv';
+
+    if (!csv.match(/^data:text\/csv/i)) {
+      csv = 'data:text/csv;charset=utf-8,' + csv;
+    }
+    data = encodeURI(csv);
+
+    link = document.createElement('a');
+    link.setAttribute('href', data);
+    link.setAttribute('download', filename);
+    link.click();
+  };
+
   convertArrayOfObjectsToCSV = args => {
-    var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+    let result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
     data = args.data || null;
     if (data == null || !data.length) {
@@ -142,26 +164,6 @@ class Overview extends Component {
     return result;
   };
 
-  downloadCSV = (args, pieData) => {
-    var data, filename, link;
-    var csv = this.convertArrayOfObjectsToCSV({
-      data: pieData
-    });
-    if (csv == null) return;
-
-    filename = args.filename || 'export.csv';
-
-    if (!csv.match(/^data:text\/csv/i)) {
-      csv = 'data:text/csv;charset=utf-8,' + csv;
-    }
-    data = encodeURI(csv);
-
-    link = document.createElement('a');
-    link.setAttribute('href', data);
-    link.setAttribute('download', filename);
-    link.click();
-  };
-
   render() {
     const date = new Date();
     const month = date.getMonth() + 1;
@@ -171,9 +173,9 @@ class Overview extends Component {
 
     let total = pieData.reduce((sum, val) => (sum += val.value), 0);
 
-    let summary = pieData.map(e => {
+    let summary = pieData.map((e, i) => {
       return (
-        <div style={{ borderBottom: 'dotted black 1px' }}>
+        <div key={i} style={{ borderBottom: 'dotted black 1px' }}>
           <div className="budget-summary-row">
             <p>{e.name}</p>
             <p>{`$${e.value.toFixed(2)}`}</p>
@@ -235,7 +237,9 @@ class Overview extends Component {
               <h4>{`$${total.toFixed(2)}`}</h4>
             </div>
           </div>
-          <p onClick={() => this.downloadCSV({ filename: 'budget-data.csv' }, pieData)}>Download CSV</p>
+          <p className="csv" onClick={() => this.downloadCSV({ filename: 'budget-data.csv' }, pieData)}>
+            Download CSV
+          </p>
         </div>
       </div>
     );
