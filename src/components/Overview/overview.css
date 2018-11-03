@@ -1,8 +1,28 @@
 .summary-section {
-  padding: 50px;
+  width: 1200px;
+  padding: 25px;
+  margin: 0 auto;
+  margin-top: 90px;
   display: flex;
   justify-content: space-evenly;
-  border-bottom: solid 1px;
+  flex-direction: row;
+  border: solid 1px black;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 3px gray;
+}
+
+.chart-year,
+.chart-month {
+  padding: 25px;
+  margin: 0 auto;
+}
+
+.chart-year {
+  min-width: 600px;
+}
+
+.chart-month {
+  min-width: 450px;
 }
 
 .month-section {
@@ -23,7 +43,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 450px;
+  width: 450px;
 }
 
 .right-arrow,

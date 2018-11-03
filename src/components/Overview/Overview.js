@@ -229,7 +229,7 @@ class Overview extends Component {
     return (
       <div style={{ marginTop: 60 }}>
         <div className="summary-section">
-          <div>
+          <div className="chart-year">
             <h2 style={{ marginLeft: 50, textAlign: 'center' }}>{year} Transaction Overview</h2>
 
             <BarChart width={600} height={400} data={barData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -243,27 +243,27 @@ class Overview extends Component {
               <Bar dataKey="spent" fill="#EB615F" />
             </BarChart>
           </div>
-        </div>
 
-        <div className="summary-section">
-          <div className="pie-header">
-            <div className="left-arrow" onClick={this.changeMonth} />
-            <h2 style={{ textAlign: 'center' }}>{monthNames[this.state.pieMonth - 1]} Budget Overview</h2>
-            <div className="right-arrow" onClick={() => this.changeMonth('inc')} />
+          <div className="chart-month">
+            <div className="pie-header">
+              <div className="left-arrow" onClick={this.changeMonth} />
+              <h2 style={{ textAlign: 'center' }}>{monthNames[this.state.pieMonth - 1]} Spending by Category</h2>
+              <div className="right-arrow" onClick={() => this.changeMonth('inc')} />
+            </div>
+
+            {pieData.length > 0 ? (
+              <PieChart width={450} height={400}>
+                <Pie isAnimationActive={true} data={pieData} cx={220} cy={200} outerRadius={120} fill="#8884d8" label>
+                  {pieData.map((e, i) => (
+                    <Cell key={i} fill={e.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            ) : (
+              <div className="no-data-message"> No chart data available... </div>
+            )}
           </div>
-
-          {pieData.length > 0 ? (
-            <PieChart width={400} height={400}>
-              <Pie isAnimationActive={true} data={pieData} cx={200} cy={200} outerRadius={120} fill="#8884d8" label>
-                {pieData.map((e, i) => (
-                  <Cell key={i} fill={e.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          ) : (
-            <div className="no-data-message"> No chart data available... </div>
-          )}
         </div>
 
         <div className="month-section">
