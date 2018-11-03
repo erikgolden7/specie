@@ -266,16 +266,7 @@ class Overview extends Component {
           )}
         </div>
 
-        <div className="summary-section">
-          <div>
-            <h3>Most Spent</h3>
-            {maxInfo.max.name}
-            {maxInfo.max.value}
-          </div>
-          <div>
-            <h3>Most Transactions</h3>
-            {maxInfo.top}:{maxInfo.topAmount}
-          </div>
+        <div className="month-section">
           <div className="budget-summary">
             <h3 style={{ textAlign: 'left' }}>Your Spending</h3>
             <div className="budget-summary-row">
@@ -287,10 +278,22 @@ class Overview extends Component {
               <h4>Total</h4>
               <h4>{`$${total.toFixed(2)}`}</h4>
             </div>
+            <p className="csv" onClick={() => this.downloadCSV({ filename: 'budget-data.csv' }, pieData)}>
+              Download CSV
+            </p>
           </div>
-          <p className="csv" onClick={() => this.downloadCSV({ filename: 'budget-data.csv' }, pieData)}>
-            Download CSV
-          </p>
+          <div>
+            <div className="budget-summary" style={{ marginBottom: 15 }}>
+              <h3>Most Spent</h3>
+              <div style={{ fontSize: 17, fontWeight: 'bold', marginTop: 6 }}>${maxInfo.max.value}</div>
+              <div style={{ marginBottom: 10, marginTop: 1, color: 'gray' }}>on {maxInfo.max.name}</div>
+            </div>
+            <div className="budget-summary">
+              <h3>Most Purchases</h3>
+              <div style={{ fontSize: 17, fontWeight: 'bold', marginTop: 6 }}>{maxInfo.topAmount}</div>
+              <div style={{ marginBottom: 10, marginTop: 1, color: 'gray' }}>on {maxInfo.top}</div>
+            </div>
+          </div>
         </div>
       </div>
     );

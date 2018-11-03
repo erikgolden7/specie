@@ -5,6 +5,15 @@
   border-bottom: solid 1px;
 }
 
+.month-section {
+  padding: 50px;
+  width: 830px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  border-bottom: solid 1px;
+}
+
 .pie-container {
   min-width: 400px;
   width: 400px;
@@ -50,9 +59,10 @@
 }
 
 .budget-summary {
-  width: 30%;
+  width: 350px;
   padding: 20px;
   border: solid 1px black;
+  box-shadow: 2px 2px 3px gray;
 }
 
 .budget-summary-row {
@@ -71,7 +81,7 @@ p {
 
 h3 {
   margin: 8px 0;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 h6 {
