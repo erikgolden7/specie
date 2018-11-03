@@ -18,6 +18,7 @@ import {
 } from 'recharts';
 
 import './overview.css';
+// import Transactions from '../Transactions/Transactions';
 
 class Overview extends Component {
   constructor(props) {
@@ -94,8 +95,6 @@ class Overview extends Component {
       }
     });
 
-    console.log(pieChartData.filter(e => e.value > 0));
-
     return pieChartData.filter(e => e.value > 0);
   };
 
@@ -109,6 +108,47 @@ class Overview extends Component {
         this.setState({ pieMonth: this.state.pieMonth - 1 });
       }
     }
+  };
+
+  getCurrentMonth = year => {
+    let { transactions } = this.props;
+    let data = [];
+
+    transactions.forEach(e => {
+      if (parseInt(e.month, 10) === this.state.pieMonth && year === e.year && e.type !== '') {
+        data.push(e);
+      }
+    });
+
+    return data;
+  };
+
+  findMaxBudget = (data, year) => {
+    let max = { name: '', value: 0 };
+    let monthTransactions = this.getCurrentMonth(year);
+
+    if (monthTransactions.length === 0) return { max: 'none', top: 'none', topAmount: 0 };
+
+    let modeMap = {};
+    let maxEl = monthTransactions[0].type;
+    let maxCount = 1;
+
+    for (let i = 0; i < monthTransactions.length; i++) {
+      let el = monthTransactions[i].type;
+
+      if (!modeMap[el] && el !== '') modeMap[el] = 1;
+      else modeMap[el]++;
+      if (modeMap[el] > maxCount) {
+        maxEl = el;
+        maxCount = modeMap[el];
+      }
+    }
+
+    data.forEach(e => {
+      e.value >= max.value ? ((max.value = e.value), (max.name = e.name)) : false;
+    });
+
+    return { max: max, top: maxEl, topAmount: modeMap[maxEl] };
   };
 
   downloadCSV = (args, pieData) => {
@@ -170,6 +210,8 @@ class Overview extends Component {
     const year = date.getFullYear();
     let barData = this.calculateBarChartData(month, year);
     let pieData = this.calculatePieChartData(this.state.pieMonth, year);
+    let maxInfo = this.findMaxBudget(pieData, year);
+    console.log(maxInfo);
 
     let total = pieData.reduce((sum, val) => (sum += val.value), 0);
 
@@ -225,6 +267,15 @@ class Overview extends Component {
         </div>
 
         <div className="summary-section">
+          <div>
+            <h3>Most Spent</h3>
+            {maxInfo.max.name}
+            {maxInfo.max.value}
+          </div>
+          <div>
+            <h3>Most Transactions</h3>
+            {maxInfo.top}:{maxInfo.topAmount}
+          </div>
           <div className="budget-summary">
             <h3 style={{ textAlign: 'left' }}>Your Spending</h3>
             <div className="budget-summary-row">

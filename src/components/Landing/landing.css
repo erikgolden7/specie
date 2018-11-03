@@ -7,6 +7,7 @@
   width: 100%;
   height: auto;
   margin: 0 auto;
+  margin-top: 60px;
   background-repeat: no-repeat;
   background-position: center top;
   background-size: contain;
@@ -14,7 +15,7 @@
 
 .home-img-text {
   position: absolute;
-  top: 6%;
+  top: 30%;
   margin-left: 10vw;
   color: #fff;
   font-size: 4.5vw;
@@ -81,8 +82,7 @@
 
 .savings-container {
   height: 100%;
-  background: url('https://cms.geteminleads.com/files/8/save-money.png') center
-    center no-repeat;
+  background: url('https://cms.geteminleads.com/files/8/save-money.png') center center no-repeat;
   background-size: contain;
 }
 
@@ -93,8 +93,7 @@
 }
 
 .debt-image {
-  background: url('https://cdn.onlinewebfonts.com/svg/img_553877.png') center
-    center no-repeat;
+  background: url('https://cdn.onlinewebfonts.com/svg/img_553877.png') center center no-repeat;
   background-size: contain;
   height: 60%;
   width: 18%;
@@ -223,8 +222,7 @@
     height: 90%;
     width: 80%;
     margin: 0 auto;
-    background: url('https://cms.geteminleads.com/files/8/save-money.png')
-      center no-repeat;
+    background: url('https://cms.geteminleads.com/files/8/save-money.png') center no-repeat;
     background-size: contain;
     padding: 30px 0;
   }
@@ -295,8 +293,7 @@
     height: 90%;
     width: 80%;
     margin: 0 auto;
-    background: url('https://cms.geteminleads.com/files/8/save-money.png')
-      center no-repeat;
+    background: url('https://cms.geteminleads.com/files/8/save-money.png') center no-repeat;
     background-size: contain;
     padding: 30px 0;
   }
