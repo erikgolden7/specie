@@ -23,11 +23,11 @@ app.use(cors());
 //   }
 // })
 
-// massive(process.env.CONNECTION_STRING)
-//   .then(dbInstance => {
-//     app.set('db', dbInstance);
-//   })
-//   .catch(err => console.log(err));
+massive(process.env.CONNECTION_STRING)
+  .then(dbInstance => {
+    app.set('db', dbInstance);
+  })
+  .catch(err => console.log(err));
 
 // if (process.env.NODE_ENV === 'production') {
 //   console.log('----PRODUCTION MODE----');
