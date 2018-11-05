@@ -23,19 +23,19 @@ app.use(cors());
 //   }
 // })
 
-massive(process.env.CONNECTION_STRING)
-  .then(dbInstance => {
-    app.set('db', dbInstance);
-  })
-  .catch(err => console.log(err));
+// massive(process.env.CONNECTION_STRING)
+//   .then(dbInstance => {
+//     app.set('db', dbInstance);
+//   })
+//   .catch(err => console.log(err));
 
-if (process.env.NODE_ENV === 'production') {
-  console.log('----PRODUCTION MODE----');
-  app.use(express.static(path.join(__dirname, '../build')));
-} else {
-  console.log('----DEVELOPMENT MODE----');
-  app.use(express.static(path.join(__dirname, '../public')));
-}
+// if (process.env.NODE_ENV === 'production') {
+//   console.log('----PRODUCTION MODE----');
+app.use(express.static(path.join(__dirname, '../build')));
+// } else {
+//   console.log('----DEVELOPMENT MODE----');
+//   app.use(express.static(path.join(__dirname, '../public')));
+// }
 
 // --------------------
 // ENDPOINTS
@@ -59,14 +59,14 @@ app.get('/api/getColorTotal', transactionsCtrl.getColorTotal);
 
 // app.get('/test', (req, res) => res.status(418).send({ message: 'this is an error' }));
 
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../build/index.js'));
-  });
-} else {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
-  });
-}
+// if (process.env.NODE_ENV === 'production') {
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../build/index.js'));
+});
+// } else {
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public/index.html'));
+//   });
+// }
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

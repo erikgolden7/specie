@@ -18,7 +18,6 @@ import {
 } from 'recharts';
 
 import './overview.css';
-// import Transactions from '../Transactions/Transactions';
 
 class Overview extends Component {
   constructor(props) {
@@ -110,7 +109,7 @@ class Overview extends Component {
     }
   };
 
-  getCurrentMonth = year => {
+  getCurrentMonthTransactions = year => {
     let { transactions } = this.props;
     let data = [];
 
@@ -125,7 +124,7 @@ class Overview extends Component {
 
   findMaxBudget = (data, year) => {
     let max = { name: '', value: 0 };
-    let monthTransactions = this.getCurrentMonth(year);
+    let monthTransactions = this.getCurrentMonthTransactions(year);
 
     if (monthTransactions.length === 0) return { max: 'none', top: 'none', topAmount: 0 };
 
@@ -144,16 +143,12 @@ class Overview extends Component {
       }
     }
 
-    data.forEach(e => {
-      e.value >= max.value ? ((max.value = e.value), (max.name = e.name)) : false;
-    });
+    data.forEach(e => (e.value >= max.value ? ((max.value = e.value), (max.name = e.name)) : false));
 
     return { max: max, top: maxEl, topAmount: modeMap[maxEl] };
   };
 
   downloadCSV = (args, pieData) => {
-    pieData.map(e => console.log(e));
-
     let data, filename, link;
     let csv = this.convertArrayOfObjectsToCSV({
       data: pieData
@@ -211,7 +206,6 @@ class Overview extends Component {
     let barData = this.calculateBarChartData(month, year);
     let pieData = this.calculatePieChartData(this.state.pieMonth, year);
     let maxInfo = this.findMaxBudget(pieData, year);
-    console.log(maxInfo);
 
     let total = pieData.reduce((sum, val) => (sum += val.value), 0);
 
