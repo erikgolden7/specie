@@ -1,34 +1,25 @@
-/* RESET STYLES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-.chart-skills {
+.chart-credit {
   margin: 0 auto;
   margin-top: 140px;
   padding: 0;
   list-style-type: none;
-}
-
-.chart-skills *,
-.chart-skills::before {
-  box-sizing: border-box;
-}
-
-/* CHART-SKILLS STYLES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-.chart-skills {
   position: relative;
   width: 350px;
   height: 175px;
   overflow: hidden;
 }
 
-.chart-skills::before,
-.chart-skills::after {
+.chart-credit *,
+.chart-credit::before {
+  box-sizing: border-box;
+}
+
+.chart-credit::before,
+.chart-credit::after {
   position: absolute;
 }
 
-.chart-skills::before {
+.chart-credit::before {
   content: '';
   width: inherit;
   height: inherit;
@@ -38,7 +29,7 @@
   border-top-right-radius: 175px;
 }
 
-.chart-skills::after {
+.chart-credit::after {
   content: 'Credit Score';
   left: 50%;
   bottom: 10px;
@@ -48,7 +39,7 @@
   color: cadetblue;
 }
 
-.chart-skills li {
+.chart-credit li {
   position: absolute;
   top: 100%;
   left: 0;
@@ -62,86 +53,86 @@
   transform-style: preserve-3d;
   backface-visibility: hidden;
   animation-fill-mode: forwards;
-  animation-duration: 1.6s;
+  animation-duration: 1.2s;
   animation-timing-function: linear;
   list-style-type: none;
   margin: 0px;
 }
 
-.chart-skills li:nth-child(1) {
+.chart-credit li:nth-child(1) {
   z-index: 6;
   border-color: rgb(245, 70, 98);
   animation-name: rotate-one;
 }
 
-.chart-skills li:nth-child(2) {
+.chart-credit li:nth-child(2) {
   animation-name: rotate-two;
 }
 
-.chart-skills li:nth-child(3) {
+.chart-credit li:nth-child(3) {
   z-index: 4;
   border-color: rgb(253, 184, 70);
   animation-name: rotate-two;
 }
 
-.chart-skills li:nth-child(4) {
+.chart-credit li:nth-child(4) {
   z-index: 3;
   border-color: rgb(110, 224, 108);
   animation-name: rotate-three;
 }
 
-.chart-skills li:nth-child(5) {
+.chart-credit li:nth-child(5) {
   z-index: 2;
   border-color: rgb(10, 199, 117);
   animation-name: rotate-four;
 }
 
-.chart-skills li:nth-child(6) {
+.chart-credit li:nth-child(6) {
   z-index: 1;
   border-color: rgb(2, 159, 125);
   animation-name: rotate-five;
 }
 
-.chart-skills span {
+.chart-credit span {
   position: absolute;
   font-size: 0.85rem;
   backface-visibility: hidden;
-  animation: fade-in 1.8s linear forwards;
+  animation: fade-in 1.4s linear forwards;
 }
 
-.chart-skills li:nth-child(1) span {
+.chart-credit li:nth-child(1) span {
   top: 100px;
   left: 84px;
   transform: rotate(-165.6deg);
 }
 
-.chart-skills li:nth-child(2) span {
+.chart-credit li:nth-child(2) span {
   top: 74px;
   left: 38px;
   transform: rotate(-138.2deg);
 }
 
-.chart-skills li:nth-child(3) span {
+.chart-credit li:nth-child(3) span {
   top: 26px;
   left: 6px;
   transform: rotate(-108.2deg);
 }
 
-.chart-skills li:nth-child(4) span {
+.chart-credit li:nth-child(4) span {
   top: 25px;
-  left: 6px;
+  left: 5px;
   transform: rotate(-107.4deg);
 }
 
-.chart-skills li:nth-child(5) span {
+.chart-credit li:nth-child(5) span {
   top: 14px;
-  left: 4px;
+  left: 2px;
   transform: rotate(-105deg);
 }
 
-.chart-skills li:nth-child(6) span {
+.chart-credit li:nth-child(6) span {
   top: 34px;
-  left: 10px;
+  left: 9px;
   transform: rotate(-114deg);
 }
 
