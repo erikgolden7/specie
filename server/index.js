@@ -25,10 +25,10 @@ app.use(cors());
 
 // if (process.env.NODE_ENV === 'production') {
 //   console.log('----PRODUCTION MODE----');
-app.use(express.static(path.join(__dirname, '../build')));
+// app.use(express.static(path.join(__dirname, '../build')));
 // } else {
 //   console.log('----DEVELOPMENT MODE----');
-//   app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../public')));
 // }
 
 massive(process.env.CONNECTION_STRING)

@@ -115,10 +115,19 @@ export class Budgets extends Component {
               of
             </span>
             <span
-              style={{
-                fontWeight: 'bold',
-                marginLeft: 7
-              }}
+              style={
+                percent > 100
+                  ? {
+                      color: 'red',
+                      fontWeight: 'bold',
+                      marginLeft: 7
+                    }
+                  : {
+                      color: 'green',
+                      fontWeight: 'bold',
+                      marginLeft: 7
+                    }
+              }
             >
               ${e.amount}
             </span>

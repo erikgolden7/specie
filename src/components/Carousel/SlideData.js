@@ -56,9 +56,7 @@ export class SlideTwo extends Component {
                 We work to keep your information secure. All your data is encrypted with a 256-bit encryption level and
                 the data exchanged with Mint is encrypted with 128-bit SSL.
               </li>
-              <li>
-                Mint comes from the makers of TurboTax®, trusted by millions every year with their most sensitive data.
-              </li>
+              <li>Trusted by millions every year with their most sensitive data.</li>
             </ul>
           </div>
         </div>
@@ -79,9 +77,7 @@ export class SlideThree extends Component {
               We work to keep your information secure. All your data is encrypted with a 256-bit encryption level and
               the data exchanged with Mint is encrypted with 128-bit SSL.
             </p>
-            <p>
-              Mint comes from the makers of TurboTax®, trusted by millions every year with their most sensitive data.
-            </p>
+            <p>Trusted by millions every year with their most sensitive data.</p>
           </div>
           <div className="slide-right">
             <img

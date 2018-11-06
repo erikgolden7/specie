@@ -114,7 +114,7 @@
 }
 
 /* Summary */
-.summary-section {
+.landing-summary-section {
   display: flex;
   flex-direction: column;
   justify-content: center;

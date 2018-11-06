@@ -30,8 +30,8 @@ export default class Landing extends Component {
             />
           </div>
           <div className="feature-box">
-            <h3>Bills? Done</h3>
-            <p>Track your bills like never before. Get alerts when it's time to pay so you never miss one.</p>
+            <h3>Transaction Tracker? Done</h3>
+            <p>Track your spending like never before.</p>
             <img
               className=""
               src="https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/bills_calendar.png"
@@ -42,7 +42,7 @@ export default class Landing extends Component {
           </div>
           <div className="feature-box">
             <h3>Credit score? Checked</h3>
-            <p>Find out yours for free and get tips to help improve it, no credit card required.</p>
+            <p>Record your score and get tips to help improve it.</p>
             <img
               className=""
               src="https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/credit_checked.png"
@@ -82,7 +82,7 @@ export default class Landing extends Component {
 
           <Carousel />
 
-          <div className="summary-section">
+          <div className="landing-summary-section">
             <div style={{ fontSize: 42 }}>Get to Know Your Money</div>
             <p>
               From budgets and bills to free credit score and more, you’ll discover the effortless way to stay on top of
