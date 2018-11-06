@@ -6,23 +6,24 @@ class Credit extends Component {
     return (
       <div>
         Credit
-        <div className="credit-arch">700</div>
-        <div className="cover" />
         <ul className="chart-skills">
           <li>
             <span>300</span>
           </li>
           <li>
-            <span>550</span>
+            <span>500</span>
+          </li>
+          <li>
+            <span>600</span>
           </li>
           <li>
             <span>650</span>
           </li>
           <li>
-            <span>750</span>
+            <span>700</span>
           </li>
           <li>
-            <span>850</span>
+            <span>750</span>
           </li>
         </ul>
       </div>

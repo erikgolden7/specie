@@ -1,27 +1,9 @@
-.credit-arch {
-  margin: 0 auto;
-  margin-top: 140px;
-  text-align: center;
-  font-size: 50px;
-  width: 300px;
-  height: 300px;
-  border: solid 40px #000;
-  border-radius: 50%;
-}
-
-.cover {
-  margin: 0 auto;
-  margin-top: -200px;
-  width: 380px;
-  height: 200px;
-  background: white;
-}
-
 /* RESET STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .chart-skills {
   margin: 0 auto;
+  margin-top: 140px;
   padding: 0;
   list-style-type: none;
 }
@@ -38,7 +20,7 @@
   position: relative;
   width: 350px;
   height: 175px;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .chart-skills::before,
@@ -80,85 +62,87 @@
   transform-style: preserve-3d;
   backface-visibility: hidden;
   animation-fill-mode: forwards;
-  animation-duration: 0.4s;
+  animation-duration: 1.6s;
   animation-timing-function: linear;
   list-style-type: none;
   margin: 0px;
 }
 
 .chart-skills li:nth-child(1) {
-  z-index: 4;
+  z-index: 6;
   border-color: rgb(245, 70, 98);
   animation-name: rotate-one;
 }
 
 .chart-skills li:nth-child(2) {
-  z-index: 3;
-  border-color: rgb(253, 184, 70);
   animation-name: rotate-two;
-  animation-delay: 0.4s;
 }
 
 .chart-skills li:nth-child(3) {
-  z-index: 2;
-  border-color: rgb(110, 224, 108);
-  animation-name: rotate-three;
-  animation-delay: 0.8s;
+  z-index: 4;
+  border-color: rgb(253, 184, 70);
+  animation-name: rotate-two;
 }
 
 .chart-skills li:nth-child(4) {
-  z-index: 1;
-  border-color: rgb(10, 199, 117);
-  animation-name: rotate-four;
-  animation-delay: 1.2s;
+  z-index: 3;
+  border-color: rgb(110, 224, 108);
+  animation-name: rotate-three;
 }
 
 .chart-skills li:nth-child(5) {
+  z-index: 2;
+  border-color: rgb(10, 199, 117);
+  animation-name: rotate-four;
+}
+
+.chart-skills li:nth-child(6) {
   z-index: 1;
   border-color: rgb(2, 159, 125);
   animation-name: rotate-five;
-  animation-delay: 1.2s;
 }
 
 .chart-skills span {
   position: absolute;
   font-size: 0.85rem;
   backface-visibility: hidden;
-  animation: fade-in 0.4s linear forwards;
+  animation: fade-in 1.8s linear forwards;
 }
 
 .chart-skills li:nth-child(1) span {
-  top: 5px;
-  left: 10px;
-  transform: rotate(-21.6deg);
+  top: 100px;
+  left: 84px;
+  transform: rotate(-165.6deg);
 }
 
 .chart-skills li:nth-child(2) span {
-  top: 20px;
-  left: 10px;
-  transform: rotate(-79.2deg);
-  animation-delay: 0.4s;
+  top: 74px;
+  left: 38px;
+  transform: rotate(-138.2deg);
 }
 
 .chart-skills li:nth-child(3) span {
-  top: 18px;
-  left: 10px;
-  transform: rotate(-140.4deg);
-  animation-delay: 0.8s;
+  top: 26px;
+  left: 6px;
+  transform: rotate(-108.2deg);
 }
 
 .chart-skills li:nth-child(4) span {
-  top: 10px;
-  left: 10px;
-  transform: rotate(-180deg);
-  animation-delay: 1.2s;
+  top: 25px;
+  left: 6px;
+  transform: rotate(-107.4deg);
 }
 
 .chart-skills li:nth-child(5) span {
-  top: 10px;
+  top: 14px;
+  left: 4px;
+  transform: rotate(-105deg);
+}
+
+.chart-skills li:nth-child(6) span {
+  top: 34px;
   left: 10px;
-  transform: rotate(-180deg);
-  animation-delay: 1.2s;
+  transform: rotate(-114deg);
 }
 
 /* ANIMATIONS
@@ -166,62 +150,43 @@
 
 @keyframes rotate-one {
   100% {
-    transform: rotate(75.6deg);
-    /**
-     * 12% => 21.6deg
-     */
+    transform: rotate(80deg);
   }
 }
 
 @keyframes rotate-two {
   0% {
-    transform: rotate(80deg);
+    transform: rotate(10deg);
   }
   100% {
-    transform: rotate(100deg);
-    /**
-     * 32% => 57.6deg 
-     * 57.6 + 21.6 => 79.2deg
-     */
+    transform: rotate(105deg);
   }
 }
 
 @keyframes rotate-three {
   0% {
-    transform: rotate(100deg);
+    transform: rotate(15deg);
   }
   100% {
-    transform: rotate(120deg);
-    /**
-     * 34% => 61.2deg 
-     * 61.2 + 79.2 => 140.4deg
-     */
+    transform: rotate(130deg);
   }
 }
 
 @keyframes rotate-four {
   0% {
-    transform: rotate(120deg);
+    transform: rotate(17deg);
   }
   100% {
-    transform: rotate(160deg);
-    /**
-     * 34% => 61.2deg 
-     * 61.2 + 79.2 => 140.4deg
-     */
+    transform: rotate(150deg);
   }
 }
 
 @keyframes rotate-five {
   0% {
-    transform: rotate(160deg);
+    transform: rotate(15deg);
   }
   100% {
     transform: rotate(180deg);
-    /**
-     * 22% => 39.6deg  
-     * 140.4 + 39.6 => 180deg
-     */
   }
 }
 
