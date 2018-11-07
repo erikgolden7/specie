@@ -127,7 +127,7 @@ class TableRow extends Component {
           <td>{type}</td>
           <td>{location}</td>
           <td>{moment(date).format('MM/DD/YYYY')}</td>
-          <td>{`$ ${amount}`}</td>
+          <td>{`$ ${amount.toFixed(2)}`}</td>
         </tr>
       );
     }

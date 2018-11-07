@@ -3,13 +3,26 @@ hr {
 }
 
 .budgets-view {
+  /* position: fixed; */
   display: flex;
-  margin-top: 60px;
+  margin-top: 70px;
   width: 100%;
   height: auto;
 }
 
+.budgets-header {
+  position: fixed;
+  z-index: 2;
+  margin-top: -31px;
+  border-bottom: solid gray 1px;
+  width: 38%;
+  padding: 45px 30px 15px 20px;
+  height: 20px;
+  background: white;
+}
+
 .add-budget-container {
+  position: fixed;
   width: 395px;
   padding: 10px;
 }
@@ -80,6 +93,7 @@ hr {
 
 .current-budget-list {
   width: 525px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   padding: 2%;
@@ -94,6 +108,7 @@ hr {
   text-overflow: ellipsis;
   font-size: 16px;
   color: #ffffff;
+  border-radius: 3px;
   border: solid gray 1px;
   outline: none;
   cursor: pointer;

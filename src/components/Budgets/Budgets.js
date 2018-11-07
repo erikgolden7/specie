@@ -105,7 +105,7 @@ export class Budgets extends Component {
                 marginRight: 5
               }}
             >
-              ${total}
+              ${total.toFixed(2)}
             </span>
             <span
               style={{
@@ -129,7 +129,7 @@ export class Budgets extends Component {
                     }
               }
             >
-              ${e.amount}
+              ${e.amount.toFixed(2)}
             </span>
           </div>
         </div>
@@ -140,7 +140,7 @@ export class Budgets extends Component {
       <div className="budgets-view">
         <BudgetType />
         <div className="current-budgets">
-          <h3 style={{ marginLeft: '2%' }}>Current Budgets</h3>
+          <h3 className="budgets-header">Current Budgets</h3>
           <hr />
           <div className="current-budget-list">{budgets}</div>
           {editFlag && (
