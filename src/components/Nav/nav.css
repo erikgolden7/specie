@@ -90,38 +90,62 @@ button.login {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.hamburger-menu {
+.hamburger-icon {
   position: relative;
-  width: 50px;
-  height: 50px;
-  background-color: red;
+  width: 40px;
+  height: 40px;
+  background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/menu-icon.png') center no-repeat;
   background-size: cover;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.hamburger-menu {
+  content: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  height: 0px;
+  background-color: #313131;
+  transform: translateY(0);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+}
+
+.hamburger-menu.open {
+  transform: translateY(1px);
+  height: 400px;
 }
 
 .hamburger-menu-item {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+.hamburger-menu-item:hover {
+  background: #414141;
+}
+
+@media (min-width: 900px) {
+  .hamburger-menu {
+    display: none;
+  }
 }
 
 @media (max-width: 1800px) {
-  .hamburger-menu {
-    display: none;
-  }
 }
 
 @media (max-width: 1200px) {
-  .hamburger-menu {
-    display: none;
-  }
 }
 
 @media (max-width: 900px) {
   .nav-links {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    background: url('https://s3-us-west-1.amazonaws.com/erikgoldenbucket/specie/menu-icon.png') center no-repeat;
-    background-size: cover;
-    margin-right: 10px;
+    display: none;
   }
+
   .nav-link {
     display: none;
   }
@@ -132,4 +156,15 @@ button.login {
 }
 
 @media (max-width: 600px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  button.login {
+    display: none;
+  }
 }

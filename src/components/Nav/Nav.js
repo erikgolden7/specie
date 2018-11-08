@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DropMenu from './DropMenu';
 import './nav.css';
 
 export default () => {
   return (
     <div className="nav">
       <Link to="/" className="logo" />
+      <DropMenu />
       <div className="nav-links">
-        <Link className="nav-link" to="/overview">
+        <Link className="hamburger-menu-item" to="/overview">
           Overview
         </Link>
-        <Link className="nav-link" to="/transactions">
+        <Link className="hamburger-menu-item" to="/transactions">
           Transactions
         </Link>
-        <Link className="nav-link" to="/budgets">
+        <Link className="hamburger-menu-item" to="/budgets">
           Budgets
         </Link>
-        <Link className="nav-link" to="/credit">
+        <Link className="hamburger-menu-item" to="/credit">
           Credit
         </Link>
       </div>
